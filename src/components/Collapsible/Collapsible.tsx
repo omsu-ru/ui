@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/utils";
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
 import React, { ReactNode, useState } from "react";
 
@@ -9,30 +10,45 @@ const CollapsibleTrigger = CollapsiblePrimitive.CollapsibleTrigger;
 
 const CollapsibleContent = CollapsiblePrimitive.CollapsibleContent;
 
-interface TooltipProps
+type ContentType =
+  | string
+  | React.ReactNode
+  | ((state: {
+      open: boolean;
+      setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    }) => ReactNode);
+
+interface CollapsibleProps
   extends Omit<
     React.ComponentPropsWithoutRef<
       typeof CollapsiblePrimitive.CollapsibleContent
     >,
     "content"
   > {
-  trigger: string | React.ReactNode | ((open: { open: boolean }) => ReactNode);
-  content: string | React.ReactNode;
+  trigger: ContentType;
+  content: ContentType;
 }
 
 const Collapsible = React.forwardRef<
   React.ElementRef<typeof CollapsiblePrimitive.CollapsibleContent>,
-  TooltipProps
+  CollapsibleProps
 >(({ className, ...props }, ref) => {
   const [open, setOpen] = useState(false);
+  const closeCollapsible = () => setOpen(false);
   return (
     <CollapsibleRoot open={open} onOpenChange={setOpen}>
-      <CollapsibleTrigger>
+      <CollapsibleTrigger className={cn(className)}>
         {typeof props.trigger === "function"
-          ? props.trigger({ open })
+          ? props.trigger({ open, setOpen })
           : props.trigger}
       </CollapsibleTrigger>
-      <CollapsibleContent>{props.content}</CollapsibleContent>
+      <CollapsibleContent>
+        <>
+          {typeof props.content === "function"
+            ? props.content({ open, setOpen })
+            : props.content}
+        </>
+      </CollapsibleContent>
     </CollapsibleRoot>
   );
 });

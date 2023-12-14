@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { SVGProps } from "react";
-const SvgChevronsUpDown = (props: SVGProps<SVGSVGElement>) => (
+const SvgChevronsDownUp = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
@@ -13,7 +13,7 @@ const SvgChevronsUpDown = (props: SVGProps<SVGSVGElement>) => (
     viewBox="0 0 24 24"
     {...props}
   >
-    <path d="m7 15 5 5 5-5M7 9l5-5 5 5" stroke="currentColor" />
+    <path d="m7 20 5-5 5 5M7 4l5 5 5-5" stroke="currentColor" />
   </svg>
 );
-export default SvgChevronsUpDown;
+export default SvgChevronsDownUp;

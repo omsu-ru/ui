@@ -12,6 +12,7 @@ export { default as ChevronDown } from "./ChevronDown";
 export { default as ChevronLeft } from "./ChevronLeft";
 export { default as ChevronRight } from "./ChevronRight";
 export { default as ChevronUp } from "./ChevronUp";
+export { default as ChevronsDownUp } from "./ChevronsDownUp";
 export { default as ChevronsUpDown } from "./ChevronsUpDown";
 export { default as ClipboardList } from "./ClipboardList";
 export { default as CornerRightDown } from "./CornerRightDown";

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Checkbox,
@@ -33,13 +33,102 @@ import { Collapsible } from "../Collapsible";
 import { cn } from "@/utils";
 import { Option } from "@/types";
 
+const ProfilesList = React.memo(() => {
+  const { toast } = useToast();
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    toast({
+      title: "You submitted the following values:",
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+        </pre>
+      ),
+    });
+  }
+  const formInstance = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      profiles: [],
+    },
+    mode: "onChange",
+  });
+
+  const { watch } = formInstance;
+
+  const form_values = watch("profiles");
+
+  const isDispatchAvailable = form_values.length === 0;
+  const available_profiles = isDispatchAvailable
+    ? profiles
+    : getAvailableProfiles(form_values, rules, profiles);
+
+  const selected_profiles = profiles.filter((profile) => {
+    if ("radio_options" in profile) {
+      return profile.radio_options.options.some((option) =>
+        form_values.includes(option.id)
+      );
+    } else {
+      return form_values.includes(profile.id);
+    }
+  });
+
+  return (
+    <Form {...formInstance}>
+      <form
+        onSubmit={formInstance.handleSubmit(onSubmit)}
+        className="space-y-8"
+      >
+        <Group
+          title="Кто вы?"
+          description="Выберите один или несколько профилей"
+          footer={
+            <Tooltip
+              content={
+                isDispatchAvailable && "Необходимо выбрать хотя бы один профиль"
+              }
+              className=" flex-1 flex"
+              trigger={
+                <div className="flex items-center w-full gap-8">
+                  {!isDispatchAvailable && renderUserIcons(selected_profiles)}
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="flex w-full "
+                    disabled={isDispatchAvailable}
+                  >
+                    Продолжить
+                  </Button>
+                </div>
+              }
+            />
+          }
+        >
+          <FormField
+            control={formInstance.control}
+            name="profiles"
+            render={() =>
+              renderFormField(
+                selected_profiles,
+                available_profiles,
+                formInstance
+              )
+            }
+          />
+        </Group>
+      </form>
+    </Form>
+  );
+});
+
+export { ProfilesList };
+
 const FormSchema = z.object({
   profiles: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: "You have to select at least one item.",
   }),
 });
 
-type ProfileOption = {
+type Profile = {
   id: string;
   label: string;
   icon: React.ComponentType<{ className?: string }>;
@@ -51,7 +140,7 @@ type ProfileOption = {
     }[];
   };
 };
-const profiles: ProfileOption[] = [
+const profiles: Profile[] = [
   {
     id: "employee",
     label: "Сотрудник ОмГУ",
@@ -79,7 +168,7 @@ const profiles: ProfileOption[] = [
 
 interface CollapsibleListProps {
   collapsible_options: Option[];
-  profile: ProfileOption;
+  profile: Profile;
   form: UseFormReturn<
     {
       profiles?: string[];
@@ -87,6 +176,39 @@ interface CollapsibleListProps {
     any,
     undefined
   >;
+}
+
+function getAvailableProfiles(
+  form_values: Array<string>,
+  restrictions: Rules,
+  profiles: Array<Profile>
+): Array<Profile> {
+  let availableProfiles: Array<string> = [];
+  form_values.map((value) => {
+    let restrictedProfiles: Array<string> = restrictions[value];
+
+    if (availableProfiles.length === 0) {
+      availableProfiles = restrictedProfiles;
+    } else {
+      availableProfiles = availableProfiles.filter((profile) =>
+        restrictedProfiles.includes(profile)
+      );
+    }
+  });
+
+  // Filter the profiles array based on the availableProfiles array
+  return profiles
+    .filter((profile) => {
+      // Если ли среди дополнительных опций профиля разрешенные айди?
+      if ("options" in profile) {
+        return profile.radio_options.options.some(({ id }) =>
+          availableProfiles.includes(id)
+        );
+      } else {
+        return availableProfiles.includes(profile.id);
+      }
+    })
+    .filter((profile) => !form_values.includes(profile.id));
 }
 
 const CollapsibleList = ({
@@ -177,262 +299,143 @@ const CollapsibleList = ({
   );
 };
 
-const ProfilesList = React.memo(() => {
-  const { toast } = useToast();
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  }
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      profiles: [],
-    },
-    mode: "onChange",
-  });
-
-  const {
-    formState: { errors },
-    getValues,
-    setValue,
-    watch,
-  } = form;
-
-  const form_values = watch("profiles");
-
-  const isDispatchAvailable = form_values.length === 0;
-
-  const icons = form_values.map(
-    (value) =>
-      profiles.find(
-        (profile) =>
-          profile.id ===
-          (value === "professor" || value === "dean" || value === "supervisor"
-            ? "employee"
-            : value)
-      ).icon
-  );
-
-  type Rules = {
-    [key: string]: Array<string>;
-  };
-  const rules = {
-    employee: [
-      "employee",
-      "student",
-      "graduate",
-      "event_participant",
-      "professor",
-    ],
-    student: [
-      "employee",
-      "student",
-      "graduate",
-      "event_participant",
-      "professor",
-    ],
-    graduate: [
-      "employee",
-      "student",
-      "graduate",
-      "event_participant",
-      "professor",
-    ],
-    event_participant: [
-      "employee",
-      "student",
-      "graduate",
-      "event_participant",
-      "pupil",
-      "applicant",
-      "professor",
-    ],
-    partner: ["partner", "event_participant"],
-    pupil: ["pupil", "event_participant"],
-    applicant: ["applicant", "graduate", "event_participant"],
-    professor: ["student", "graduate", "event_participant"],
-  };
-
-  function getAvailableProfiles(
-    form_values: Array<string>,
-    restrictions: Rules,
-    profiles: Array<ProfileOption>
-  ): Array<ProfileOption> {
-    let availableProfiles: Array<string> = [];
-    form_values.map((value) => {
-      let restrictedProfiles: Array<string> = restrictions[value];
-
-      if (availableProfiles.length === 0) {
-        availableProfiles = restrictedProfiles;
-      } else {
-        availableProfiles = availableProfiles.filter((profile) =>
-          restrictedProfiles.includes(profile)
-        );
-      }
-    });
-
-    // Filter the profiles array based on the availableProfiles array
-    return profiles
-      .filter((profile) => {
-        // Если ли среди дополнительных опций профиля разрешенные айди?
-        if ("options" in profile) {
-          return profile.radio_options.options.some(({ id }) =>
-            availableProfiles.includes(id)
-          );
-        } else {
-          return availableProfiles.includes(profile.id);
-        }
-      })
-      .filter((profile) => !form_values.includes(profile.id));
-  }
-
-  const available_profiles = isDispatchAvailable
-    ? profiles
-    : getAvailableProfiles(form_values, rules, profiles);
-
-  const chosenProfiles = profiles.filter((profile) => {
-    if ("radio_options" in profile) {
-      return profile.radio_options.options.some((option) =>
-        form_values.includes(option.id)
-      );
-    } else {
-      return form_values.includes(profile.id);
-    }
-  });
-
+// Function to render user icons
+function renderUserIcons(selected_profiles: Profile[]) {
+  const icons = selected_profiles.map((profile) => profile.icon);
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <Group
-          title="Кто вы?"
-          description="Выберите один или несколько профилей"
-          footer={
-            <Tooltip
-              content={
-                isDispatchAvailable && "Необходимо выбрать хотя бы один профиль"
-              }
-              className=" flex-1 flex"
-              trigger={
-                <div className="flex items-center w-full gap-8">
-                  {!isDispatchAvailable && (
-                    <div className="flex items-center gap-6">
-                      <p>Вы: </p>
-                      <div className="flex ">
-                        {icons.map((icon, key) => (
-                          <Icon
-                            icon={icon}
-                            key={key}
-                            className="-ml-4 rounded-full  border-white border-2"
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="flex w-full "
-                    disabled={isDispatchAvailable}
-                  >
-                    Продолжить
-                  </Button>
-                </div>
-              }
-            />
-          }
-        >
-          <FormField
-            control={form.control}
-            name="profiles"
-            render={() => (
-              <>
-                {chosenProfiles.map((profile) => (
-                  <>
-                    {profile.radio_options && (
-                      <CollapsibleList
-                        form={form}
-                        collapsible_options={profile.radio_options.options}
-                        profile={profile}
-                      />
-                    )}
-                    {!profile.radio_options && (
-                      <label>
-                        <ListItem
-                          leftIcon={
-                            <Icon
-                              icon={profile.icon}
-                              className="rounded-full"
-                            />
-                          }
-                          title={profile.label}
-                          righticon={
-                            <>
-                              <CheckboxController
-                                control={form.control}
-                                name="profiles"
-                                component={<Checkbox />}
-                                option={profile}
-                              />
-                            </>
-                          }
-                        />
-                      </label>
-                    )}
-                  </>
-                ))}
-                {form_values.length > 0 && available_profiles.length > 0 && (
-                  <p className="text-center text-sm text-text-secondary">
-                    Вы также можете быть
-                  </p>
-                )}
-                {available_profiles.map((profile) => (
-                  <>
-                    {profile.radio_options && (
-                      <CollapsibleList
-                        form={form}
-                        collapsible_options={profile.radio_options.options}
-                        profile={profile}
-                      />
-                    )}
-                    {!profile.radio_options && (
-                      <label>
-                        <ListItem
-                          leftIcon={
-                            <Icon
-                              icon={profile.icon}
-                              className="rounded-full"
-                            />
-                          }
-                          title={profile.label}
-                          righticon={
-                            <>
-                              <CheckboxController
-                                control={form.control}
-                                name="profiles"
-                                component={<Checkbox />}
-                                option={profile}
-                              />
-                            </>
-                          }
-                        />
-                      </label>
-                    )}
-                  </>
-                ))}
-                <FormMessage />
-              </>
-            )}
+    <div className="flex items-center gap-6">
+      <p>Вы: </p>
+      <div className="flex ">
+        {icons.map((icon, key) => (
+          <Icon
+            icon={icon}
+            key={key}
+            className="-ml-4 rounded-full border-white border-2"
           />
-        </Group>
-      </form>
-    </Form>
+        ))}
+      </div>
+    </div>
   );
-});
+}
 
-export { ProfilesList };
+// Function to render form field
+function renderFormField(
+  selected_profiles: Profile[],
+  available_profiles: Profile[],
+  form: UseFormReturn<
+    {
+      profiles?: string[];
+    },
+    any,
+    undefined
+  >
+) {
+  return (
+    <>
+      {renderProfiles(selected_profiles, form)}
+      {selected_profiles.length > 0 && available_profiles.length > 0 && (
+        <p className="text-center text-sm text-text-secondary">
+          Вы также можете быть
+        </p>
+      )}
+      {renderProfiles(available_profiles, form)}
+      <FormMessage />
+    </>
+  );
+}
+
+// Function to render profiles
+function renderProfiles(
+  profiles: Profile[],
+  form: UseFormReturn<
+    {
+      profiles?: string[];
+    },
+    any,
+    undefined
+  >
+) {
+  return profiles.map((profile) => (
+    <>
+      {profile.radio_options && (
+        <CollapsibleList
+          form={form}
+          collapsible_options={profile.radio_options.options}
+          profile={profile}
+        />
+      )}
+      {!profile.radio_options && renderProfileListItem(profile, form)}
+    </>
+  ));
+}
+
+// Function to render profile list item
+function renderProfileListItem(
+  profile: Profile,
+  form: UseFormReturn<
+    {
+      profiles?: string[];
+    },
+    any,
+    undefined
+  >
+) {
+  return (
+    <label>
+      <ListItem
+        leftIcon={<Icon icon={profile.icon} className="rounded-full" />}
+        title={profile.label}
+        righticon={
+          <>
+            <CheckboxController
+              control={form.control}
+              name="profiles"
+              component={<Checkbox />}
+              option={profile}
+            />
+          </>
+        }
+      />
+    </label>
+  );
+}
+
+type Rules = {
+  [key: string]: Array<string>;
+};
+const rules = {
+  employee: [
+    "employee",
+    "student",
+    "graduate",
+    "event_participant",
+    "professor",
+  ],
+  student: [
+    "employee",
+    "student",
+    "graduate",
+    "event_participant",
+    "professor",
+  ],
+  graduate: [
+    "employee",
+    "student",
+    "graduate",
+    "event_participant",
+    "professor",
+  ],
+  event_participant: [
+    "employee",
+    "student",
+    "graduate",
+    "event_participant",
+    "pupil",
+    "applicant",
+    "professor",
+  ],
+  partner: ["partner", "event_participant"],
+  pupil: ["pupil", "event_participant"],
+  applicant: ["applicant", "graduate", "event_participant"],
+  professor: ["student", "graduate", "event_participant"],
+};

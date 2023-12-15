@@ -2,8 +2,15 @@ import React, { useRef } from "react";
 import {
   Button,
   Checkbox,
-  Controller,
+  CheckboxController,
   Form,
+  Group,
+  GroupContent,
+  GroupDescription,
+  GroupFooter,
+  GroupHeader,
+  GroupRoot,
+  GroupTitle,
   Icon,
   Input,
   ListItem,
@@ -41,35 +48,46 @@ const ControlledCheckboxList = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <Controller
-          control={form.control}
-          name="profiles"
-          component={<Checkbox />}
-          type="checkbox"
-          label="Сотрудник"
-          option={{ id: "employee" }}
-        />
+      <GroupRoot>
+        <GroupHeader>
+          <GroupTitle>Profiles</GroupTitle>
+          <GroupDescription>
+            Пример использования нескольких contolled чекбоксов
+          </GroupDescription>
+        </GroupHeader>
 
-        <Controller
-          control={form.control}
-          name="profiles"
-          component={<Checkbox />}
-          type="checkbox"
-          label="Студент"
-          option={{ id: "student" }}
-        />
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">
+          <GroupContent className="px-6 flex justify-between">
+            <CheckboxController
+              control={form.control}
+              name="profiles"
+              component={<Checkbox />}
+              type="checkbox"
+              option={{ id: "employee", label: "Сотрудник" }}
+            />
 
-        <Controller
-          control={form.control}
-          name="profiles"
-          component={<Checkbox />}
-          type="checkbox"
-          label="Преподаватель"
-          option={{ id: "professor" }}
-        />
-        <Button type="submit">Отправить</Button>
-      </form>
+            <CheckboxController
+              control={form.control}
+              name="profiles"
+              component={<Checkbox />}
+              type="checkbox"
+              option={{ id: "student", label: "Студент" }}
+            />
+
+            <CheckboxController
+              control={form.control}
+              name="profiles"
+              component={<Checkbox />}
+              type="checkbox"
+              option={{ id: "professor", label: "Преподаватель" }}
+            />
+          </GroupContent>
+
+          <GroupFooter>
+            <Button type="submit">Отправить</Button>
+          </GroupFooter>
+        </form>
+      </GroupRoot>
     </Form>
   );
 };

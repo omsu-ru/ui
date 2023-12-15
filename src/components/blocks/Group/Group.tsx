@@ -38,7 +38,7 @@ const GroupContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn(className, "px-2")} {...props} />
+  <div ref={ref} className={cn("px-2", className)} {...props} />
 ));
 GroupContent.displayName = "GroupContent";
 
@@ -81,14 +81,16 @@ interface GroupProps extends React.HTMLAttributes<HTMLDivElement> {
 const Group = React.forwardRef<HTMLDivElement, GroupProps>(
   ({ className, ...props }, ref) => (
     <GroupRoot ref={ref} className={cn(className)}>
-      <GroupHeader>
-        <GroupTitle>{props.title}</GroupTitle>
-        <GroupDescription>{props.description}</GroupDescription>
-      </GroupHeader>
+      {(props.title || props.description) && (
+        <GroupHeader>
+          <GroupTitle>{props.title}</GroupTitle>
+          <GroupDescription>{props.description}</GroupDescription>
+        </GroupHeader>
+      )}
       <GroupContent className="max-h-[400px] overflow-y-auto scrollbar scrollbar-medium scrollbar-thumb-gray-300 scrollbar-track-gray-100 ">
         {props.children}
       </GroupContent>
-      <GroupFooter>{props.footer}</GroupFooter>
+      {props.footer && <GroupFooter>{props.footer}</GroupFooter>}
     </GroupRoot>
   )
 );

@@ -1,5 +1,11 @@
 import React from "react";
-import { Button, Checkbox, Controller, Form, Input } from "@/components";
+import {
+  Button,
+  Checkbox,
+  CheckboxController,
+  Form,
+  Input,
+} from "@/components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -31,7 +37,8 @@ const ControlledCheckbox = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <Controller
+        <CheckboxController
+          option={{ id: "option", label: "option" }}
           control={form.control}
           name="option"
           component={<Checkbox />}

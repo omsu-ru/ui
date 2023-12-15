@@ -170,7 +170,7 @@ FormMessage.displayName = "FormMessage";
 
 type Option = {
   id: string;
-  label: string;
+  label?: string;
 };
 
 interface ControllerProps<
@@ -252,19 +252,26 @@ const CheckboxController = <
       render={({ field }) => {
         const options = field.value;
 
-        const isChecked = options.includes(props.option.id);
+        const isChecked =
+          typeof options === "object"
+            ? options.includes(props.option.id)
+            : field.value;
 
         const handleCheckedChange = (checked: boolean) => {
-          return checked
-            ? field.onChange([...options, props.option.id])
-            : field.onChange(
-                options.filter((value: any) => value !== props.option.id)
-              );
+          if (typeof options === "object") {
+            return checked
+              ? field.onChange([...options, props.option.id])
+              : field.onChange(
+                  options.filter((value: any) => value !== props.option.id)
+                );
+          } else {
+            return field.onChange(checked);
+          }
         };
 
         return (
           <FormItem>
-            <FormLabel>{props.label}</FormLabel>
+            <FormLabel>{props.option.label}</FormLabel>
             <FormControl>
               {React.cloneElement(props.component, {
                 checked: isChecked,

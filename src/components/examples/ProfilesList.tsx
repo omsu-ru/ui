@@ -391,7 +391,7 @@ function renderProfileListItem(
               control={form.control}
               name="profiles"
               component={<Checkbox />}
-              option={profile}
+              option={{ id: profile.id }}
             />
           </>
         }

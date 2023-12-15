@@ -13,10 +13,7 @@ const CollapsibleContent = CollapsiblePrimitive.CollapsibleContent;
 type ContentType =
   | string
   | React.ReactNode
-  | ((state: {
-      open: boolean;
-      setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    }) => ReactNode);
+  | ((state: { open: boolean }) => ReactNode);
 
 interface CollapsibleProps
   extends Omit<
@@ -34,18 +31,17 @@ const Collapsible = React.forwardRef<
   CollapsibleProps
 >(({ className, ...props }, ref) => {
   const [open, setOpen] = useState(false);
-  const closeCollapsible = () => setOpen(false);
   return (
     <CollapsibleRoot open={open} onOpenChange={setOpen}>
       <CollapsibleTrigger className={cn(className)}>
         {typeof props.trigger === "function"
-          ? props.trigger({ open, setOpen })
+          ? props.trigger({ open })
           : props.trigger}
       </CollapsibleTrigger>
       <CollapsibleContent>
         <>
           {typeof props.content === "function"
-            ? props.content({ open, setOpen })
+            ? props.content({ open })
             : props.content}
         </>
       </CollapsibleContent>

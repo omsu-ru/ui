@@ -2,7 +2,8 @@
 
 import { cn } from "@/utils";
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
-import React, { ReactNode, useState } from "react";
+import React, { ComponentPropsWithoutRef, ReactNode, useState } from "react";
+import { ListItem } from "..";
 
 const CollapsibleRoot = CollapsiblePrimitive.Root;
 
@@ -15,36 +16,39 @@ type ContentType =
   | React.ReactNode
   | ((state: { open: boolean }) => ReactNode);
 
-interface CollapsibleProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<
-      typeof CollapsiblePrimitive.CollapsibleContent
-    >,
-    "content"
-  > {
-  trigger: ContentType;
-  content: ContentType;
-}
+// interface CollapsibleProps
+//   extends Omit<
+//       React.ComponentPropsWithoutRef<
+//         typeof CollapsiblePrimitive.CollapsibleContent
+//       >,
+//       "content"
+//     >,
+//     ComponentPropsWithoutRef<typeof ListItem> {
+//   trigger: ContentType;
+//   content: ContentType;
+// }
+
+type CollapsibleProps = Omit<
+  React.ComponentPropsWithoutRef<
+    typeof CollapsiblePrimitive.CollapsibleContent
+  >,
+  "content"
+> &
+  Omit<ComponentPropsWithoutRef<typeof ListItem>, "content"> & {
+    children: ContentType;
+  };
 
 const Collapsible = React.forwardRef<
   React.ElementRef<typeof CollapsiblePrimitive.CollapsibleContent>,
   CollapsibleProps
->(({ className, ...props }, ref) => {
+>(({ className, children, ...props }, ref) => {
   const [open, setOpen] = useState(false);
   return (
     <CollapsibleRoot open={open} onOpenChange={setOpen}>
-      <CollapsibleTrigger className={cn(className)}>
-        {typeof props.trigger === "function"
-          ? props.trigger({ open })
-          : props.trigger}
+      <CollapsibleTrigger className={cn(className, "group")} asChild>
+        <ListItem {...props} />
       </CollapsibleTrigger>
-      <CollapsibleContent>
-        <>
-          {typeof props.content === "function"
-            ? props.content({ open })
-            : props.content}
-        </>
-      </CollapsibleContent>
+      <CollapsibleContent ref={ref}>{children}</CollapsibleContent>
     </CollapsibleRoot>
   );
 });

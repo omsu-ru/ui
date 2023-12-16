@@ -221,79 +221,78 @@ const CollapsibleList = ({
       collapsible_options.find((option) => option.id === form_value)
     )
     .filter(Boolean)[0];
+
+  const collapsibleLeftContent = (
+    <Icon
+      icon={profile.icon}
+      className={cn(
+        "group-data-[state=open]:bg-background-content rounded-full"
+      )}
+    />
+  );
+
+  const collapsibleRightContent = (
+    <>
+      <ChevronsDownUp className="w-6 h-6 stroke-1 text-muted-foreground hidden group-data-[state=open]:block " />
+      <ChevronsUpDown className="w-6 h-6 stroke-1 text-text-secondary hidden group-data-[state=closed]:block" />
+    </>
+  );
+
+  const collapsibleDescription = (
+    <>
+      {active?.label && (
+        <>
+          Вы выбрали: <span className="font-bold">{active.label}</span>
+        </>
+      )}
+    </>
+  );
+
+  const collapsibleTitle = profile.label;
   return (
     <Collapsible
       className="flex-1 w-full"
-      trigger={({ open }) => (
-        <ListItem
-          className={cn()}
-          active={open}
-          leftIcon={
-            <Icon
-              icon={profile.icon}
-              className={cn(open && "bg-background-content", "rounded-full")}
-            />
-          }
-          description={
-            <>
-              {active?.label && (
-                <>
-                  Вы выбрали: <span className="font-bold">{active.label}</span>
-                </>
-              )}
-            </>
-          }
-          title={profile.label}
-          righticon={
-            <>
-              {open ? (
-                <ChevronsDownUp className="w-6 h-6 stroke-1 text-muted-foreground  " />
-              ) : (
-                <ChevronsUpDown className="w-6 h-6 stroke-1 text-text-secondary " />
-              )}
-            </>
-          }
-        />
-      )}
-      content={
-        <>
-          <RadioGroupController
-            name="profiles"
-            options={collapsible_options}
-            component={({ option }) => (
-              <label>
-                <ListItem
-                  righticon={<></>}
-                  leftIcon={<RadioGroupItem value={option.id} />}
-                  title={option.label}
-                />
-              </label>
-            )}
-            control={form.control}
-          />
-          {active && (
-            <Button
-              variant="link"
-              className="text-secondary flex   m-auto"
-              onClick={() => {
-                const new_form_values = form
-                  .getValues("profiles")
-                  .filter(
-                    (form_value: any) =>
-                      !collapsible_options.some(
-                        (option) => option.id === form_value
-                      )
-                  );
-
-                form.setValue("profiles", [...new_form_values]);
-              }}
-            >
-              отменить выбор
-            </Button>
+      leftContent={collapsibleLeftContent}
+      rightContent={collapsibleRightContent}
+      description={collapsibleDescription}
+      title={collapsibleTitle}
+    >
+      <>
+        <RadioGroupController
+          name="profiles"
+          options={collapsible_options}
+          component={({ option }) => (
+            <label>
+              <ListItem
+                leftContent={<RadioGroupItem value={option.id} />}
+                title={option.label}
+              />
+            </label>
           )}
-        </>
-      }
-    />
+          control={form.control}
+        />
+        {active && (
+          <Button
+            variant="link"
+            className="text-secondary flex   m-auto"
+            onClick={() => {
+              const new_form_values = form
+                .getValues("profiles")
+                .filter(
+                  (form_value: any) =>
+                    !collapsible_options.some(
+                      (option) => option.id === form_value
+                    )
+                );
+
+              form.setValue("profiles", [...new_form_values]);
+            }}
+          >
+            отменить выбор
+          </Button>
+        )}
+      </>
+    </Collapsible>
   );
 };
 
@@ -381,9 +380,9 @@ function renderProfileListItem(
   return (
     <label>
       <ListItem
-        leftIcon={<Icon icon={profile.icon} className="rounded-full" />}
+        leftContent={<Icon icon={profile.icon} className="rounded-full" />}
         title={profile.label}
-        righticon={
+        rightContent={
           <>
             <CheckboxController
               control={form.control}

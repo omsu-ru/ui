@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from ".";
 import type { Meta, StoryObj } from "@storybook/react";
-import { Group } from "..";
+import { Group, Icon } from "..";
 
 const meta: Meta<typeof Accordion> = {
   component: Accordion,
@@ -28,17 +28,17 @@ export const Multiple: Story = {
     children: (
       <>
         <AccordionItem value="item-1">
-          <AccordionTrigger>Is it accessible?</AccordionTrigger>
+          <AccordionTrigger title="Вопрос №1" leftContent={<Icon text="?" />} />
           <AccordionContent>
             Yes. It adheres to the WAI-ARIA design pattern.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
-          <AccordionTrigger>Question 2</AccordionTrigger>
+          <AccordionTrigger title="Вопрос №2" leftContent={<Icon text="?" />} />
           <AccordionContent>Option 2</AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
-          <AccordionTrigger>Question 3</AccordionTrigger>
+          <AccordionTrigger title="Вопрос №3" leftContent={<Icon text="?" />} />
           <AccordionContent>Option 3</AccordionContent>
         </AccordionItem>
       </>
@@ -53,17 +53,17 @@ export const Single: Story = {
     children: (
       <>
         <AccordionItem value="item-1">
-          <AccordionTrigger>Is it accessible?</AccordionTrigger>
+          <AccordionTrigger title="Вопрос №1" leftContent={<Icon text="?" />} />
           <AccordionContent>
             Yes. It adheres to the WAI-ARIA design pattern.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
-          <AccordionTrigger>Question 2</AccordionTrigger>
+          <AccordionTrigger title="Вопрос №2" leftContent={<Icon text="?" />} />
           <AccordionContent>Option 2</AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
-          <AccordionTrigger>Question 3</AccordionTrigger>
+          <AccordionTrigger title="Вопрос №3" leftContent={<Icon text="?" />} />
           <AccordionContent>Option 3</AccordionContent>
         </AccordionItem>
       </>

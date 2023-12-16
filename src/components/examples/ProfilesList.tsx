@@ -150,7 +150,6 @@ const profiles: Profile[] = [
       options: [
         { id: "professor", label: "Преподаватель" },
         { id: "supervisor", label: "Заведующий кафедрой" },
-        { id: "dean", label: "Декан" },
       ],
     },
   },
@@ -256,7 +255,7 @@ const CollapsibleList = ({
           }
         />
       )}
-      content={({ setOpen }) => (
+      content={
         <>
           <RadioGroupController
             name="profiles"
@@ -287,14 +286,13 @@ const CollapsibleList = ({
                   );
 
                 form.setValue("profiles", [...new_form_values]);
-                setOpen(false);
               }}
             >
               отменить выбор
             </Button>
           )}
         </>
-      )}
+      }
     />
   );
 };
@@ -404,27 +402,8 @@ type Rules = {
   [key: string]: Array<string>;
 };
 const rules = {
-  employee: [
-    "employee",
-    "student",
-    "graduate",
-    "event_participant",
-    "professor",
-  ],
-  student: [
-    "employee",
-    "student",
-    "graduate",
-    "event_participant",
-    "professor",
-  ],
-  graduate: [
-    "employee",
-    "student",
-    "graduate",
-    "event_participant",
-    "professor",
-  ],
+  student: ["employee", "student", "graduate", "event_participant"],
+  graduate: ["employee", "student", "graduate", "event_participant"],
   event_participant: [
     "employee",
     "student",
@@ -432,10 +411,10 @@ const rules = {
     "event_participant",
     "pupil",
     "applicant",
-    "professor",
   ],
   partner: ["partner", "event_participant"],
   pupil: ["pupil", "event_participant"],
   applicant: ["applicant", "graduate", "event_participant"],
   professor: ["student", "graduate", "event_participant"],
+  supervisor: ["student", "graduate", "event_participant"],
 };

@@ -29,21 +29,28 @@ import {
   ChevronsDownUp,
   ChevronsUpDown,
 } from "@/icons";
-import { Collapsible } from "../Collapsible";
+import { Collapsible } from "../../../../Collapsible";
 import { cn } from "@/utils";
 import { Option } from "@/types";
+import { useAuthStore } from "../../store";
 
 const ProfilesList = React.memo(() => {
   const { toast } = useToast();
+  const { nextStep, setProfiles, step } = useAuthStore();
+
   function onSubmit(data: z.infer<typeof FormSchema>) {
+    setProfiles(data.profiles);
     toast({
       title: "You submitted the following values:",
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          <code className="text-white">
+            {JSON.stringify({ ...data, step }, null, 2)}
+          </code>
         </pre>
       ),
     });
+    nextStep();
   }
   const formInstance = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -54,7 +61,6 @@ const ProfilesList = React.memo(() => {
   });
 
   const { watch } = formInstance;
-
   const form_values = watch("profiles");
 
   const isDispatchAvailable = form_values.length === 0;

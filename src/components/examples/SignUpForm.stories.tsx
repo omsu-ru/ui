@@ -1,14 +1,14 @@
 import React from "react";
-import { ProfilesList } from "./SignUpForm/components/ProfilesList";
+import { SignUpForm } from "./SignUpForm";
 import type { Meta, StoryObj } from "@storybook/react";
 
-const meta: Meta<typeof ProfilesList> = {
-  component: ProfilesList,
+const meta: Meta<typeof SignUpForm> = {
+  component: SignUpForm,
   decorators: [(story) => <>{story()}</>],
 };
 
 export default meta;
-type Story = StoryObj<typeof ProfilesList>;
+type Story = StoryObj<typeof SignUpForm>;
 
 export const Default: Story = {
   args: {},

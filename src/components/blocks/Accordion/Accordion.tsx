@@ -32,12 +32,12 @@ const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   AccordionTriggerProps
 >(({ className, children, ...props }, ref) => (
-  <AccordionPrimitive.Header className="flex">
+  <AccordionPrimitive.Header>
     <AccordionPrimitive.Trigger ref={ref} asChild>
       <ListItem
         {...props}
         className={cn(
-          "flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline group ",
+          "flex flex-1 items-center justify-between py-4 font-medium transition-all  group ",
           className
         )}
         title={<>{props.title ? props.title : children}</>}

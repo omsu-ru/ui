@@ -6,9 +6,7 @@ import { Briefcase } from "@/icons";
 
 const meta: Meta<typeof Icon> = {
   component: Icon,
-  decorators: [
-    (Story) => <ListItem title="Иконка" leftIcon={<Story />}></ListItem>,
-  ],
+  decorators: [(Story) => <Story />],
 };
 
 export default meta;

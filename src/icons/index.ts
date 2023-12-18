@@ -30,6 +30,7 @@ export { default as LogOut } from "./LogOut";
 export { default as Logo } from "./Logo";
 export { default as Microscope } from "./Microscope";
 export { default as OmsuOutlined } from "./OmsuOutlined";
+export { default as OmsuThick } from "./OmsuThick";
 export { default as Paperclip } from "./Paperclip";
 export { default as PencilLine } from "./PencilLine";
 export { default as Professors } from "./Professors";

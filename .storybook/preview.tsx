@@ -22,13 +22,17 @@ export const decorators = [
 const preview: Preview = {
   decorators: [
     (Story) => (
-      <main className="container max-w-lg ">
+      <main
+        className=" relative p-0 grid items-center  h-screen min-h-screen content-center"
+        style={{ minHeight: "100vh" }}
+      >
         <Story />
         <Toaster />
       </main>
     ),
   ],
   parameters: {
+    layout: "fullscreen",
     backgrounds: {
       values: [
         { name: "dark", value: "#333" },

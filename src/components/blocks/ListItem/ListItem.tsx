@@ -38,9 +38,9 @@ const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
       <Comp
         ref={ref}
         className={cn(
-          className,
           "relative flex gap-4  select-none items-center cursor-pointer px-4 py-3  hover:bg-muted rounded-2xl text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 bg-background-content data-[state=open]:bg-muted",
-          "group"
+          "group text-text-display",
+          className
         )}
         {...props}
       >
@@ -48,8 +48,12 @@ const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
           React.cloneElement(leftContent, {
             className: cn(leftContent.props.className),
           })}
-        <div className="text-left">
-          <h3 className="text-base text-text-display ">{title}</h3>
+        <div className="text-left ">
+          {typeof title === "string" ? (
+            <h3 className="text-base leading-4">{title}</h3>
+          ) : (
+            <div>{title}</div>
+          )}
           <h4 className="text-xs text-text-secondary">{description}</h4>
         </div>
         <div className="ml-auto flex gap-2 mr-2 ">

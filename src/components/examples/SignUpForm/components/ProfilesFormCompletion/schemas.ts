@@ -1,28 +1,45 @@
 import { ZodObject, z } from "zod";
+import { ProfileSchemas } from "../../types";
+
+const TextSchema = z.string().min(1, "Это обязательное поле");
 
 const StudentSchema = z.object({
-  studentID: z.string(),
+  studentID: TextSchema,
 });
 
 const EmployeeSchema = z.object({
-  employeeID: z.string(),
+  employeeID: TextSchema,
 });
 
-type Profile =
-  | "student"
-  | "professor"
-  | "supervisor"
-  | "pupil"
-  | "applicant"
-  | "employee";
+const PartnerSchema = z.object({
+  partnerID: TextSchema,
+});
 
-type ProfileSchemas = Partial<{
-  [key in Profile]: ZodObject<any, any, any, any, any>;
-}>;
+const GraduateSchema = z.object({
+  graduateID: TextSchema,
+});
+
+const PupilSchema = z.object({
+  pupilID: TextSchema,
+});
+
+const EventParticipantSchema = z.object({
+  eventParticipantID: TextSchema,
+});
+
+const ApplicantSchema = z.object({
+  applicantID: TextSchema,
+});
 
 const profiles_schemas: ProfileSchemas = {
   student: StudentSchema,
-  employee: EmployeeSchema,
+  professor: EmployeeSchema,
+  supervisor: EmployeeSchema,
+  pupil: PupilSchema,
+  partner: PartnerSchema,
+  applicant: ApplicantSchema,
+  event_participant: EventParticipantSchema,
+  graduate: GraduateSchema,
 };
 
 export { profiles_schemas };

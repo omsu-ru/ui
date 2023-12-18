@@ -8,8 +8,15 @@ import {
   FormField,
   FormMessage,
   Group,
+  GroupContent,
+  GroupDescription,
+  GroupFooter,
+  GroupHeader,
+  GroupRoot,
+  GroupTitle,
   Icon,
   ListItem,
+  Logo,
   RadioGroupController,
   RadioGroupItem,
   Tooltip,
@@ -31,15 +38,20 @@ import {
 } from "@/icons";
 import { Collapsible } from "../../../../Collapsible";
 import { cn } from "@/utils";
-import { Option } from "@/types";
+import { Option, Profiles } from "@/types";
 import { useAuthStore } from "../../store";
 
 const ProfilesList = React.memo(() => {
   const { toast } = useToast();
-  const { nextStep, setProfiles, step } = useAuthStore();
+  const {
+    nextStep,
+    setProfiles,
+    step,
+    profiles: persisted_profiles,
+  } = useAuthStore();
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    setProfiles(data.profiles);
+    setProfiles(data.profiles as Profiles[]);
     toast({
       title: "You submitted the following values:",
       description: (
@@ -82,12 +94,30 @@ const ProfilesList = React.memo(() => {
     <Form {...formInstance}>
       <form
         onSubmit={formInstance.handleSubmit(onSubmit)}
-        className="space-y-8"
+        className="space-y-8 relative grid md:justify-center"
       >
-        <Group
-          title="Кто вы?"
-          description="Выберите один или несколько профилей"
-          footer={
+        <GroupRoot className="md:min-w-[440px] md:max-w-md max-sm:h-screen">
+          <GroupHeader className="max-sm:p-4 z-20 w-full bg-white/80 backdrop-blur-sm  max-sm:sticky max-sm:top-0">
+            <Logo />
+            <GroupTitle>Кто вы?</GroupTitle>
+            <GroupDescription>
+              Выберите один или несколько профилей
+            </GroupDescription>
+          </GroupHeader>
+          <GroupContent className="max-sm:p-0 max-sm:max-h-none">
+            <FormField
+              control={formInstance.control}
+              name="profiles"
+              render={() =>
+                renderFormField(
+                  selected_profiles,
+                  available_profiles,
+                  formInstance
+                )
+              }
+            />
+          </GroupContent>
+          <GroupFooter className="max-sm:fixed max-sm:bottom-0 w-full bg-white/80 backdrop-blur-sm">
             <Tooltip
               content={
                 isDispatchAvailable && "Необходимо выбрать хотя бы один профиль"
@@ -107,20 +137,8 @@ const ProfilesList = React.memo(() => {
                 </div>
               }
             />
-          }
-        >
-          <FormField
-            control={formInstance.control}
-            name="profiles"
-            render={() =>
-              renderFormField(
-                selected_profiles,
-                available_profiles,
-                formInstance
-              )
-            }
-          />
-        </Group>
+          </GroupFooter>
+        </GroupRoot>
       </form>
     </Form>
   );
@@ -146,6 +164,7 @@ type Profile = {
     }[];
   };
 };
+
 const profiles: Profile[] = [
   {
     id: "employee",

@@ -38,7 +38,14 @@ const GroupContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("px-2", className)} {...props} />
+  <div
+    ref={ref}
+    className={cn(
+      "px-2 max-h-[400px] overflow-y-auto scrollbar scrollbar-medium scrollbar-thumb-gray-300 scrollbar-track-gray-100",
+      className
+    )}
+    {...props}
+  />
 ));
 GroupContent.displayName = "GroupContent";
 
@@ -64,7 +71,7 @@ const GroupRoot = React.forwardRef<
   <section
     ref={ref}
     className={cn(
-      "rounded-2xl  bg-group text-group-foreground relative shadow-50  ",
+      "rounded-3xl w-full  bg-group text-group-foreground relative shadow-50 overflow-hidden  ",
       className
     )}
     {...props}

@@ -1,4 +1,6 @@
+"use client";
 import { cn } from "@utils/index";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import React from "react";
 import { InputHTMLAttributes, ReactNode, forwardRef } from "react";
 
@@ -10,13 +12,14 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, leftContent, rightContent, ...props }, ref) => {
+    const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
     return (
       <label
         attr-static={props.staticText}
         className="relative after:content-[attr(attr-static)] after:text-gray-400 dark:after:text-gray-400 after:text-sm after:absolute after:top-0 after:right-4 after:block"
       >
         <input
-          type={type}
+          type={isPasswordVisible ? "text" : type}
           ref={ref}
           {...props}
           className={cn(
@@ -24,6 +27,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             className
           )}
         />
+        {type === "password" && (
+          <div
+            className="  cursor-pointer z-10 absolute top-1/2 transform -translate-y-1/2 right-3 hover:text-ring text-slate-300 hover:text-slate-400"
+            onClick={() => setIsPasswordVisible((v) => !v)}
+          >
+            {isPasswordVisible ? "скрыть" : "показать"}
+          </div>
+        )}
         {leftContent && (
           <div className="grid w-fit absolute top-1/2 transform -translate-y-1/2 left-4">
             {leftContent}

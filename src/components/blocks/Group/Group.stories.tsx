@@ -13,6 +13,10 @@ import { useState } from "react";
 
 const meta: Meta<typeof Group> = {
   component: Group,
+  parameters: {
+    controls: { expanded: true },
+    layout: "centered",
+  },
   decorators: [
     (Story) => (
       <div className="max-w-md w-full">

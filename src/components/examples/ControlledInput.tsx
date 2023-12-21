@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Checkbox, Controller, Form, Input } from "@/components";
+import { Button, Checkbox, InputController, Form, Input } from "@/components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -31,7 +31,7 @@ const ControlleInput = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <Controller
+        <InputController
           control={form.control}
           name="text"
           component={<Input placeholder="Логин" />}

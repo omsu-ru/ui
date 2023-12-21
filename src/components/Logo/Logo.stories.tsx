@@ -5,6 +5,9 @@ import type { Meta, StoryObj } from "@storybook/react";
 const meta: Meta<typeof Logo> = {
   component: Logo,
   decorators: [(story) => <>{story()}</>],
+  parameters: {
+    layout: "centered",
+  },
 };
 
 export default meta;

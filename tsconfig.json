@@ -25,7 +25,7 @@
   "include": [
     "src/**/**/*.ts",
     "src/components/inputs/Input/Input.stories.tsx",
-    "src/components/Collapsible/Collapsible.tsx"
+    "src/components/blocks/Collapsible/Collapsible.tsx"
   ],
   "ts-node": {
     "compilerOptions": {

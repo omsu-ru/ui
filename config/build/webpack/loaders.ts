@@ -5,16 +5,16 @@ import { BuildOptions } from "./types";
 export function loaders(options: BuildOptions): ModuleOptions["rules"] {
   const isDev = options.mode === "development";
 
-  const svgr_loader = {
-    test: /\.svg$/i,
-    issuer: /\.[jt]sx?$/,
-    use: [
-      {
-        loader: "@svgr/webpack",
-        options: { icon: true, outDir: "../../../icons" },
-      },
-    ],
-  };
+  // const svgr_loader = {
+  //   test: /\.svg$/i,
+  //   issuer: /\.[jt]sx?$/,
+  //   use: [
+  //     {
+  //       loader: "@svgr/webpack",
+  //       options: { icon: true, outDir: "../../../icons" },
+  //     },
+  //   ],
+  // };
 
   const babel_loader = {
     test: /\.js$/,
@@ -54,5 +54,5 @@ export function loaders(options: BuildOptions): ModuleOptions["rules"] {
     exclude: /node_modules/,
   };
 
-  return [ts_loader, tailwind_loader, babel_loader, svgr_loader];
+  return [ts_loader, tailwind_loader, babel_loader];
 }

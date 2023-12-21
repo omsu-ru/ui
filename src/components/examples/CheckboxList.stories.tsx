@@ -4,6 +4,9 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof ControlledCheckboxList> = {
   component: ControlledCheckboxList,
+  parameters: {
+    layout: "centered",
+  },
   decorators: [(story) => <>{story()}</>],
 };
 

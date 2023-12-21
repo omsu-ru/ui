@@ -3,7 +3,7 @@
 import { cn } from "@/utils";
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
 import React, { ComponentPropsWithoutRef, ReactNode, useState } from "react";
-import { ListItem } from "..";
+import { ListItem } from "../..";
 
 const CollapsibleRoot = CollapsiblePrimitive.Root;
 
@@ -15,18 +15,6 @@ type ContentType =
   | string
   | React.ReactNode
   | ((state: { open: boolean }) => ReactNode);
-
-// interface CollapsibleProps
-//   extends Omit<
-//       React.ComponentPropsWithoutRef<
-//         typeof CollapsiblePrimitive.CollapsibleContent
-//       >,
-//       "content"
-//     >,
-//     ComponentPropsWithoutRef<typeof ListItem> {
-//   trigger: ContentType;
-//   content: ContentType;
-// }
 
 type CollapsibleProps = Omit<
   React.ComponentPropsWithoutRef<

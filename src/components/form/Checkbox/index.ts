@@ -1,2 +1,2 @@
 export * from "./Checkbox";
-export { Default as DefaultCheckboxStory } from "./Checkbox.stories";
+export { Single as DefaultCheckboxStory } from "./Checkbox.stories";

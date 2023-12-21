@@ -26,7 +26,7 @@ export function buildWebpack(options: BuildOptions): webpack.Configuration {
     },
     externals: externals(options),
     plugins: plugins(options),
-    devtool: isDev && "inline-source-map",
+    // devtool: isDev && "inline-source-map",
     devServer: isDev ? devServer(options) : undefined,
   };
 }

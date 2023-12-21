@@ -36,7 +36,7 @@ import {
   ChevronsDownUp,
   ChevronsUpDown,
 } from "@/icons";
-import { Collapsible } from "../../../../Collapsible";
+import { Collapsible } from "../../../../blocks/Collapsible";
 import { cn } from "@/utils";
 import { Option, Profiles } from "@/types";
 import { useAuthStore } from "../../store";

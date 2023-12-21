@@ -10,6 +10,10 @@ import { Group, Icon } from "..";
 
 const meta: Meta<typeof Accordion> = {
   component: Accordion,
+  parameters: {
+    controls: { expanded: true },
+    layout: "centered",
+  },
   decorators: [
     (story) => (
       <Group title="Аккордеон" className="px-2">

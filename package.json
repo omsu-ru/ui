@@ -1,6 +1,6 @@
 {
   "name": "uiom",
-  "version": "1.0.32",
+  "version": "1.0.33",
   "description": "",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",

@@ -6,12 +6,14 @@ import { plugins } from "./plugins";
 import { resolvers } from "./resolvers";
 import { externals } from "./externals";
 import { BuildOptions } from "./types";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
+import TerserPlugin from "terser-webpack-plugin";
 
 export function buildWebpack(options: BuildOptions): webpack.Configuration {
   const { mode, paths, library } = options;
   const isDev = options.mode === "development";
   return {
-    mode,
+    mode: "production",
     entry: paths.entry,
     module: {
       rules: loaders(options),
@@ -28,5 +30,23 @@ export function buildWebpack(options: BuildOptions): webpack.Configuration {
     plugins: plugins(options),
     // devtool: isDev && "inline-source-map",
     devServer: isDev ? devServer(options) : undefined,
+    target: ["web", "es5"],
+    optimization: {
+      minimize: true,
+      minimizer: [
+        // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
+        `...`,
+        new CssMinimizerPlugin(),
+        new TerserPlugin({
+          include: /\.min\.(css|js)$/,
+          extractComments: false,
+          terserOptions: {
+            format: {
+              comments: false,
+            },
+          },
+        }),
+      ],
+    },
   };
 }

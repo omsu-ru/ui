@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "outDir": "./lib",
+    "outDir": "./lib/cjs/",
     "noImplicitAny": true,
-    "module": "ESNext",
+    "module": "commonjs",
     "lib": ["ES2015", "DOM"],
     "target": "ESNext",
     "jsx": "react-jsx",
     "allowJs": true,
-    "moduleResolution": "Bundler",
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
@@ -21,11 +21,15 @@
       "@utils/*": ["src/utils/*"]
     }
   },
-  
-  "include": [
-    "src/**/**/*.ts",
+
+  "include": ["src/**/**/*.ts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".storybook",
+    "lib",
+    "./src/components/examples/**/**/*"
   ],
-  "exclude": ["node_modules", "dist", ".storybook", "lib", "./src/components/examples/**/**/*"], 
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"

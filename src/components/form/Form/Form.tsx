@@ -13,6 +13,8 @@ import {
   useFormContext,
 } from "react-hook-form";
 
+import { createContext } from "react";
+
 import { cn } from "@/utils";
 import { Button, Label, RadioRoot } from "@/components";
 
@@ -25,7 +27,7 @@ type FormFieldContextValue<
   name: TName;
 };
 
-const FormFieldContext = React.createContext<FormFieldContextValue>(
+const FormFieldContext = createContext<FormFieldContextValue>(
   {} as FormFieldContextValue
 );
 
@@ -69,7 +71,7 @@ type FormItemContextValue = {
   id: string;
 };
 
-const FormItemContext = React.createContext<FormItemContextValue>(
+const FormItemContext = createContext<FormItemContextValue>(
   {} as FormItemContextValue
 );
 

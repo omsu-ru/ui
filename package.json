@@ -1,6 +1,6 @@
 {
   "name": "uiom",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -48,7 +48,6 @@
   "devDependencies": {
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",
-
     "@babel/core": "^7.23.5",
     "@babel/preset-env": "^7.23.5",
     "@redux-devtools/extension": "^3.3.0",
@@ -106,12 +105,9 @@
   },
   "files": [
     "lib",
-    
     "plugin.d.ts",
     "plugin.js",
     "icons"
   ],
-  "readme": "ERROR: No README data found!",
-  "_id": "uiom@1.0.25"
+  "readme": "ERROR: No README data found!"
 }
-

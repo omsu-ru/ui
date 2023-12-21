@@ -1,9 +1,9 @@
 import React from "react";
-import { Button, Checkbox, InputController, Form, Input } from "@/components";
+import { Button, Checkbox, InputController, Form, Input } from "..";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { useToast } from "@/hooks";
+import { useToast } from "../../hooks";
 
 const FormSchema = z.object({
   text: z.string().default("").optional(),

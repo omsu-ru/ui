@@ -21,12 +21,11 @@
       "@utils/*": ["src/utils/*"]
     }
   },
-  "exclude": ["node_modules", "dist", "./src/stories", ".storybook", "lib"],
+  
   "include": [
     "src/**/**/*.ts",
-    "src/components/inputs/Input/Input.stories.tsx",
-    "src/components/blocks/Collapsible/Collapsible.tsx"
   ],
+  "exclude": ["node_modules", "dist", ".storybook", "lib", "./src/components/examples/**/**/*"], 
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"

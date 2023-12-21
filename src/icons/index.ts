@@ -27,7 +27,7 @@ export { default as LibrarySquare } from "./LibrarySquare";
 export { default as ListIcon } from "./List";
 export { default as LogIn } from "./LogIn";
 export { default as LogOut } from "./LogOut";
-export { default as LogoIcon } from "./Logo";
+export { default as LogoIcon } from "./LogoSvg";
 export { default as Microscope } from "./Microscope";
 export { default as OmsuOutlined } from "./OmsuOutlined";
 export { default as OmsuThick } from "./OmsuThick";

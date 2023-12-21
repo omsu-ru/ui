@@ -1,9 +1,8 @@
+"use client";
 import * as React from "react";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
 import {
-  ControllerFieldState,
-  ControllerRenderProps,
   Controller as FieldContoller,
   ControllerProps as FieldControllerProps,
   FieldPath,
@@ -22,7 +21,7 @@ const Form = FormProvider;
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > = {
   name: TName;
 };
@@ -33,7 +32,7 @@ const FormFieldContext = createContext<FormFieldContextValue>(
 
 const FormField = <
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   ...props
 }: FieldControllerProps<TFieldValues, TName>) => {
@@ -177,7 +176,7 @@ type Option = {
 
 interface ControllerProps<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > extends Omit<FieldControllerProps<TFieldValues, TName>, "render">,
     Pick<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   component: React.ReactElement;
@@ -188,19 +187,19 @@ interface ControllerProps<
 
 interface InputControllerProps<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > extends ControllerProps<TFieldValues, TName> {}
 
 interface CheckboxControllerProps<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > extends ControllerProps<TFieldValues, TName> {
   option: Option;
 }
 
 interface RadioGroupControllerProps<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > extends Omit<ControllerProps<TFieldValues, TName>, "component"> {
   options: Option[];
   component:
@@ -217,7 +216,7 @@ interface RadioGroupControllerProps<
 
 const InputController = <
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   ...props
 }: InputControllerProps<TFieldValues, TName>) => {
@@ -244,7 +243,7 @@ InputController.displayName = "InputController";
 
 const CheckboxController = <
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   ...props
 }: CheckboxControllerProps<TFieldValues, TName>) => {
@@ -293,7 +292,7 @@ CheckboxController.displayName = "CheckboxController";
 
 const RadioGroupController = <
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   ...props
 }: RadioGroupControllerProps<TFieldValues, TName>) => {

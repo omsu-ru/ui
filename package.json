@@ -111,7 +111,7 @@
     "lib",
     "plugin.d.ts",
     "plugin.js",
-    "icons"
+    "dist"
   ],
   "readme": "ERROR: No README data found!"
 }

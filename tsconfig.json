@@ -19,7 +19,8 @@
       "@components/*": ["src/components/*"],
       "@webpack/*": ["src/config/build/webpack/*"],
       "@utils/*": ["src/utils/*"]
-    }
+    },
+    "plugins": [{ "transform": "typescript-transform-paths" }]
   },
 
   "include": ["src/**/**/*.ts"],
@@ -31,6 +32,7 @@
     "./src/components/examples/**/**/*"
   ],
   "ts-node": {
+    "require": ["tsconfig-paths/register"],
     "compilerOptions": {
       "module": "CommonJS"
     }

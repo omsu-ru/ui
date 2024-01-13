@@ -33,21 +33,15 @@
     --secondary: 7 90% 67%; /*#F7715F*/
     --secondary-foreground: 0 0 100%; /* #fff */
 
+    --popover: 0 0 100%; /* #fff */
+    --popover-foreground: 240 10% 3.9%;
+
     --danger: 0 92% 95%; /* #FEE7E7 */
     --danger-foreground: 7 90% 67%; /*#F74242*/
 
-    /* --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%; */
-
-    /* --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%; */
-
-    /* --destructive: 0 100% 50%;
-    --destructive-foreground: 210 40% 98%; */
-
     /* --ring: 215 20.2% 65.1%; */
 
-    --radius: 0.5rem;
+    --radius: 1rem;
   }
 
   .dark {
@@ -80,7 +74,7 @@
 
     --ring: 216 34% 17%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
   }
 }
 
@@ -90,7 +84,9 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
 }
 

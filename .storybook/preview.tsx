@@ -5,6 +5,7 @@ import React from "react";
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
 import { withToaster } from "../src/decorators";
 import { Toaster } from "../src/components/toast";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 /* snipped for brevity */
 
@@ -19,16 +20,19 @@ export const decorators = [
   }),
 ];
 
+const queryClient = new QueryClient();
 const preview: Preview = {
   decorators: [
     (Story) => (
-      <main
-        className=" relative p-0 grid items-center  h-screen min-h-screen content-center"
-        style={{ minHeight: "100vh" }}
-      >
-        <Story />
-        <Toaster />
-      </main>
+      <QueryClientProvider client={queryClient}>
+        <main
+          className=" relative p-0 grid items-center  h-screen min-h-screen content-center"
+          style={{ minHeight: "100vh" }}
+        >
+          <Story />
+          <Toaster />
+        </main>
+      </QueryClientProvider>
     ),
   ],
   parameters: {

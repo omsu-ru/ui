@@ -18,8 +18,6 @@ const meta: Meta<typeof DataTable> = {
 export default meta;
 type Story = StoryObj<typeof DataTable>;
 
-const fetchFn = () => {};
-
 export const Default: Story = {
   args: {},
   render: () => (
@@ -27,7 +25,7 @@ export const Default: Story = {
       columns={columns}
       fetchFn={fetchData}
       filters={{
-        search: { columnID: "email", placeholder: "Email..." },
+        search: { columnID: "name", placeholder: "Поиск преподавателя..." },
         select: [
           {
             columnID: "faculty",

@@ -11,6 +11,7 @@ import {
   DataTableFacetedFilter,
 } from "@/components";
 import { ColumnsIcon, XIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -32,28 +33,64 @@ interface DataTableToolbarProps<TData> {
   };
 }
 
+function DebouncedInput({
+  value: initialValue,
+  onChange,
+  debounce = 500,
+  ...props
+}: {
+  value: string | number;
+  onChange: (value: string | number) => void;
+  debounce?: number;
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange">) {
+  const [value, setValue] = useState(initialValue);
+
+  useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      onChange(value);
+    }, debounce);
+
+    return () => clearTimeout(timeout);
+  }, [value]);
+
+  return (
+    <Input
+      {...props}
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      className="max-w-md"
+    />
+  );
+}
+
 export function DataTableToolbar<TData>({
   table,
   filters,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
+  const [query, setQuery] = useState("");
+
+  // table.setState((state) => ({ ...state, globalFilter: "jopa" }));
 
   return (
     <header className="flex items-center py-4 gap-4 ">
       {filters.search && (
-        <Input
+        <DebouncedInput
           placeholder={filters.search.placeholder}
           value={
             (table
               .getColumn(filters.search.columnID)
               ?.getFilterValue() as string) ?? ""
           }
-          onChange={(event) =>
+          onChange={(value) =>
             table
               .getColumn(filters.search ? filters.search.columnID : "")
-              ?.setFilterValue(event.target.value)
+              ?.setFilterValue(value)
           }
-          className="max-w-md"
         />
       )}
       {filters.select &&

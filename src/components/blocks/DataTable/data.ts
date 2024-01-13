@@ -268,12 +268,25 @@ const generateProfessorsArray = (count: number) =>
 
 const data = generateProfessorsArray(10000);
 
+type RequestData = {
+  pageIndex: number; // Номер страницы
+  pageSize: number; // Колл-во резултатов/рядов на странице
+  columnFilters: Array<{ id: string; value: unknown }>; // Фильтры колонок. Например, по колонке факультетов. Если typeof value === 'array', то это фильтр по значениям. Если typeof value === string, то это поисковый запрос
+  sorting: Array<{ id: string; desc: boolean }>; // Фильтры сортировке. Например, сортируем колонку ФИО (id: name) по убыванию (desc: true)
+};
+
+type ResponseData = {
+  totalRecords: number; // колл-во результатов/рядов
+  records: unknown; // отфильтрованные результаты
+};
+
 export async function fetchData(
   page: number,
   count: number,
   columnFilters: { id: string; value: unknown }[],
   sorting: SortingState
 ) {
+  console.log(sorting);
   // Simulate some network latency
   await new Promise((r) => setTimeout(r, 500));
 

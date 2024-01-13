@@ -23,20 +23,12 @@ interface DataTablePaginationProps<TData> {
 export function DataTablePagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
-  //   const router = useRouter();
-  //   const pathname = usePathname();
-
-  //   const page = searchParams.get("page") ?? "1";
-  //   const per_page = searchParams.get("perPage") ?? "10";
-
-  //   const set_page = (page: string) =>
-  //     router.push(`/${pathname}?page=${page}&perPage=${5}`);
   return (
     <div className="flex items-center justify-between  p-8">
-      {/* <div className="flex-1 text-sm text-muted-foreground">
-        {table.getFilteredSelectedRowModel().rows.length} of{" "}
-        {table.getFilteredRowModel().rows.length} row(s) selected.
-      </div> */}
+      <div className="flex-1 text-sm text-muted-foreground">
+        {table.getFilteredSelectedRowModel().rows.length} из{" "}
+        {table.getFilteredRowModel().rows.length} ряда(ов) selected.
+      </div>
       <div className="flex items-center space-x-6 lg:space-x-8 ml-auto">
         <div className="flex items-center space-x-2">
           <p className="text-sm font-medium">Рядов на странице:</p>

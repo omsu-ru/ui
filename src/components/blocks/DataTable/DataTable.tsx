@@ -115,12 +115,15 @@ export function DataTable<TData, TValue>({
     sorting,
   };
 
-  console.log(columnFilters);
+  const searchQuery =
+    columnFilters.find((column) => column.id === filters.search.columnID)
+      ?.value ?? "";
 
   const dataQuery = useQuery<any>({
     queryKey: ["data", fetchDataOptions],
     queryFn: () => fetchFn(pageIndex, pageSize, columnFilters, sorting),
     placeholderData: keepPreviousData,
+    staleTime: Infinity,
   });
 
   const defaultData = React.useMemo(() => [], []);
@@ -152,7 +155,7 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-
+    globalFilterFn: fuzzyFilter,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
@@ -162,7 +165,7 @@ export function DataTable<TData, TValue>({
     // getPaginationRowModel: getPaginationRowModel(),
   });
 
-  console.log(table.getState().sorting);
+  console.log(table.getState());
 
   return (
     <>

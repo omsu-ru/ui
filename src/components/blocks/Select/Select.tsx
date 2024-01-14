@@ -5,6 +5,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { Check, ChevronDown } from "lucide-react";
 
 import { cn } from "@/utils";
+import { RadioGroupItem } from "@/components/form";
 
 const Select = SelectPrimitive.Root;
 
@@ -19,7 +20,7 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3  text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+      "flex h-14 w-full data-[state=closed]:bg-white  items-center justify-between rounded-md border border-input bg-background px-3  text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none  disabled:cursor-not-allowed disabled:opacity-50",
       className
     )}
     {...props}
@@ -81,15 +82,15 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex w-full cursor-default select-none items-center rounded-sm py-4 pl-12 pr-4 text-sm outline-none focus:bg-muted focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 group",
       className
     )}
     {...props}
   >
-    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-      <SelectPrimitive.ItemIndicator>
-        <Check className="h-4 w-4" />
-      </SelectPrimitive.ItemIndicator>
+    <span className="absolute left-4 flex h-3.5 w-3.5 items-center justify-center">
+      <div className="aspect-square grid place-items-center h-6 w-6 group-focus:bg-white group-data-[state=checked]:bg-primary-900  bg-muted rounded-full  text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2  data-[state=unchecked]:hover:bg-primary-300 group">
+        <div className="aspect-square rounded-full hidden h-2 w-2 bg-white group-data-[state=checked]:block"></div>
+      </div>
     </span>
 
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

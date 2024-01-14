@@ -23,6 +23,10 @@ import {
   Icon,
   Avatar,
   AvatarFallback,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
 } from "@/components";
 import {
   ArrowUpDown,
@@ -146,7 +150,19 @@ export const columns: ColumnDef<Professor>[] = [
                 ))}
               </PopoverContent>
             </PopoverRoot>
-            {JSON.stringify(professor)}
+            <Tabs className="w-[400px]" defaultValue="1">
+              <TabsList className="w-full">
+                <TabsTrigger value="1">Основное</TabsTrigger>
+                <TabsTrigger value="2">Совместительство</TabsTrigger>
+              </TabsList>
+              <TabsContent value="1">
+                <p>Основное</p>
+              </TabsContent>
+              <TabsContent value="2">
+                <p>Совместительство</p>
+              </TabsContent>
+            </Tabs>
+
             <DialogFooter>
               <Button>Сохранить</Button>
             </DialogFooter>

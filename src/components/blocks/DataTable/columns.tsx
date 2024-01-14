@@ -21,6 +21,8 @@ import {
   DropdownMenuTrigger,
   ListItem,
   Icon,
+  Avatar,
+  AvatarFallback,
 } from "@/components";
 import {
   ArrowUpDown,
@@ -108,18 +110,29 @@ export const columns: ColumnDef<Professor>[] = [
         <Dialog>
           <DialogTrigger>Управление</DialogTrigger>
 
-          <DialogContent>
+          <DialogContent className="max-w-fit">
             <DialogHeader>
               <DialogTitle>Управление</DialogTitle>
             </DialogHeader>
             <PopoverRoot>
               <PopoverTrigger asChild>
                 <ListItem
+                  className="w-full h-20 border border-border"
                   title={professor.name}
+                  leftContent={
+                    <Avatar>
+                      <AvatarFallback variant="profile">
+                        {professor.name
+                          .split(" ")
+                          .map((word) => word.slice(0, 1))
+                          .join("")}
+                      </AvatarFallback>
+                    </Avatar>
+                  }
                   rightContent={popoverRightContent}
                 />
               </PopoverTrigger>
-              <PopoverContent className="w-full ">
+              <PopoverContent className="w-full" sideOffset={5}>
                 {professor_info.map((professor) => (
                   <div className="flex items-center gap-4 py-2">
                     <Icon icon={professor.icon} />

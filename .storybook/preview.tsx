@@ -14,8 +14,9 @@ export const decorators = [
     themes: {
       light: "light",
       dark: "dark",
+      white: "white",
     },
-    defaultTheme: "light",
+    defaultTheme: "white",
     attributeName: "data-mode",
   }),
 ];
@@ -36,11 +37,12 @@ const preview: Preview = {
     ),
   ],
   parameters: {
-    layout: "fullscreen",
+    layout: "centered",
     backgrounds: {
       values: [
         { name: "dark", value: "#333" },
         { name: "light", value: "#F2F0F4" },
+        { name: "white", value: "#fff" },
       ],
     },
 

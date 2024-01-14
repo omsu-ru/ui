@@ -1,19 +1,38 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Payment } from "./types";
+import { Professor } from "./types";
 import {
   Button,
   Checkbox,
+  PopoverContent,
+  PopoverRoot,
+  PopoverTrigger,
   DataTableColumnHeader,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  ListItem,
+  Icon,
 } from "@/components";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import {
+  ArrowUpDown,
+  HourglassIcon,
+  InboxIcon,
+  MoreHorizontal,
+  School2Icon,
+  WeightIcon,
+} from "lucide-react";
+import { Briefcase, ChevronsDownUp, ChevronsUpDown } from "@/icons";
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Professor>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -68,28 +87,58 @@ export const columns: ColumnDef<Payment>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original;
+      const professor = row.original;
+      const professor_info = [
+        { icon: Briefcase, title: "Должность", text: "доцент" },
+        { icon: InboxIcon, title: "Почта", text: professor.email },
+        { icon: School2Icon, title: "Факультет", text: professor.faculty },
+        { icon: School2Icon, title: "Кафедра", text: professor.department },
+        { icon: WeightIcon, title: "Объем ставки", text: "0.6" },
+        { icon: HourglassIcon, title: "Часы нагрузки", text: "900 часов" },
+      ];
+
+      const popoverRightContent = (
+        <>
+          <ChevronsDownUp className="w-6 h-6 stroke-1 text-muted-foreground stroke-muted-foreground hidden group-data-[state=open]:block " />
+          <ChevronsUpDown className="w-6 h-6 stroke-1  stroke-muted-foreground text-text-secondary hidden group-data-[state=closed]:block" />
+        </>
+      );
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Dialog>
+          <DialogTrigger>Управление</DialogTrigger>
+
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Управление</DialogTitle>
+            </DialogHeader>
+            <PopoverRoot>
+              <PopoverTrigger asChild>
+                <ListItem
+                  title={professor.name}
+                  rightContent={popoverRightContent}
+                />
+              </PopoverTrigger>
+              <PopoverContent className="w-full ">
+                {professor_info.map((professor) => (
+                  <div className="flex items-center gap-4 py-2">
+                    <Icon icon={professor.icon} />
+                    <div className="grid">
+                      <h3 className="text-sm text-muted-foreground">
+                        {professor.title}
+                      </h3>
+                      <p>{professor.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </PopoverContent>
+            </PopoverRoot>
+            {JSON.stringify(professor)}
+            <DialogFooter>
+              <Button>Сохранить</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       );
     },
   },

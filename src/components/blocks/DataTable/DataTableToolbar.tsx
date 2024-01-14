@@ -10,7 +10,7 @@ import {
   Button,
   DataTableFacetedFilter,
 } from "@/components";
-import { ColumnsIcon, XIcon } from "lucide-react";
+import { ColumnsIcon, SearchIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface DataTableToolbarProps<TData> {
@@ -62,7 +62,10 @@ function DebouncedInput({
       {...props}
       value={value}
       onChange={(e) => setValue(e.target.value)}
-      className="max-w-md"
+      className="w-80 h-14"
+      rightContent={
+        <SearchIcon className="w-4 h-4 text-muted-foreground stroke-1" />
+      }
     />
   );
 }
@@ -72,9 +75,6 @@ export function DataTableToolbar<TData>({
   filters,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
-  const [query, setQuery] = useState("");
-
-  // table.setState((state) => ({ ...state, globalFilter: "jopa" }));
 
   return (
     <header className="flex items-center py-4 gap-4 ">

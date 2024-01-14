@@ -258,8 +258,8 @@ const CollapsibleList = ({
 
   const collapsibleRightContent = (
     <>
-      <ChevronsDownUp className="w-6 h-6 stroke-1 text-muted-foreground hidden group-data-[state=open]:block " />
-      <ChevronsUpDown className="w-6 h-6 stroke-1 text-text-secondary hidden group-data-[state=closed]:block" />
+      <ChevronsDownUp className="w-6 h-6 stroke-1 text-muted-foreground stroke-muted-foreground hidden group-data-[state=open]:block " />
+      <ChevronsUpDown className="w-6 h-6 stroke-1  stroke-muted-foreground text-text-secondary hidden group-data-[state=closed]:block" />
     </>
   );
 

@@ -48,7 +48,10 @@ export function DataTableFacetedFilter<TData, TValue>({
   return (
     <PopoverRoot>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8 border-dashed">
+        <Button
+          variant="outline"
+          className=" border-dashed border-muted-foreground/30"
+        >
           <PlusCircle className="mr-2 h-4 w-4" />
           {title}
           {selectedValues?.size > 0 && (
@@ -70,7 +73,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                   </Badge>
                 ) : (
                   options
-                    .filter((option) => selectedValues.has(option.label))
+                    .filter((option) => selectedValues.has(option.value))
                     .map((option) => (
                       <Badge
                         variant="default"

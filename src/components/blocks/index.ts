@@ -14,3 +14,4 @@ export * from "./Command";
 export * from "./Dialog";
 export * from "./Badge";
 export * from "./Separator";
+export * from "./Avatar";

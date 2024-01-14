@@ -105,7 +105,7 @@ export function DataTable<TData, TValue>({
   const [{ pageIndex, pageSize }, setPagination] =
     React.useState<PaginationState>({
       pageIndex: 0,
-      pageSize: 10,
+      pageSize: 5,
     });
 
   const fetchDataOptions = {
@@ -170,7 +170,7 @@ export function DataTable<TData, TValue>({
   return (
     <>
       <DataTableToolbar filters={filters} table={table} />
-      <div className="rounded-md border relative ">
+      <div className="rounded-md  relative ">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

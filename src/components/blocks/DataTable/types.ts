@@ -1,6 +1,7 @@
-export type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
+export type Professor = {
+  name: string;
+  department: string;
+  faculty: string;
+
   email: string;
 };

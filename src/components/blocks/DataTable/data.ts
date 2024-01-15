@@ -314,7 +314,7 @@ export async function fetchData(
   });
 
   // Sorting
-  const sortData = (a, b, sort) => {
+  const sortData = (a: any, b: any, sort: any) => {
     for (let i = 0; i < sort.length; i++) {
       const { id, desc } = sort[i];
       if (a[id] < b[id]) {

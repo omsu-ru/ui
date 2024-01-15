@@ -16,6 +16,9 @@ const meta: Meta<typeof DataTable> = {
   decorators: [(story) => <>{story()}</>],
   parameters: {
     layout: "centered",
+    backgrounds: {
+      default: "light",
+    },
   },
 };
 

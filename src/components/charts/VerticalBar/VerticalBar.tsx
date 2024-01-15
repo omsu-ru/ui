@@ -197,4 +197,4 @@ const VerticalBar = <T,>({
   );
 };
 
-export {VerticalBar};
+export { VerticalBar };

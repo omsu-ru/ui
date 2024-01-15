@@ -122,38 +122,43 @@ const HorizontalBar = ({
                       const innerBarYPos =
                         outerBarYPos + barContainerWidth / 2 - barWidth / 2;
                       return (
-                        <g
-                          key={`bar-${xValue}`}
-                          className="cursor-pointer group "
-                        >
-                          <rect
-                            width={xMax}
-                            className="fill-transparent group-hover:fill-gray-200/40 transition-colors duration-200 "
-                            height={barContainerWidth}
-                            x={0}
-                            y={outerBarYPos}
-                            ry={35}
-                            onMouseOver={() => showTooltip({ tooltipData: d })}
-                          />
-                          <rect
-                            className="fill-gray-200 "
-                            width={xMax - barInnerPadding * 2}
-                            height={barWidth}
-                            x={barInnerPadding}
-                            y={innerBarYPos}
-                            ry={10}
-                          />
-                          <Bar
-                            x={barInnerPadding}
-                            y={innerBarYPos - 1.5}
-                            width={barProgress - barInnerPadding * 2}
-                            height={barWidth + 3}
-                            style={{
-                              fill: getProfessorEvaluationBarColor(yValue),
-                            }}
-                            ry={10}
-                          />
-                        </g>
+                        <>
+                          <g
+                            key={`bar-${xValue}`}
+                            className="cursor-pointer group "
+                          >
+                            <rect
+                              className="fill-gray-200 "
+                              width={xMax - barInnerPadding * 2}
+                              height={barWidth}
+                              x={barInnerPadding}
+                              y={innerBarYPos}
+                              ry={10}
+                            />
+                            <Bar
+                              x={barInnerPadding}
+                              y={innerBarYPos - 1.5}
+                              width={barProgress - barInnerPadding * 2}
+                              height={barWidth + 3}
+                              style={{
+                                fill: getProfessorEvaluationBarColor(yValue),
+                              }}
+                              ry={10}
+                            />
+                            <rect
+                              width={xMax}
+                              className="fill-transparent group-hover:fill-gray-200/40 transition-colors duration-200 "
+                              height={barWidth + 20}
+                              x={0}
+                              y={outerBarYPos - 10}
+                              ry={35}
+                              onMouseOver={() =>
+                                showTooltip({ tooltipData: d })
+                              }
+                            />
+                          </g>
+                          <text>{d.xValue}</text>
+                        </>
                       );
                     })}
 

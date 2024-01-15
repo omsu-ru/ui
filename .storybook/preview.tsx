@@ -38,6 +38,7 @@ const preview: Preview = {
   ],
   parameters: {
     layout: "centered",
+    default: "white",
     backgrounds: {
       values: [
         { name: "dark", value: "#333" },

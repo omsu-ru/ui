@@ -1,5 +1,5 @@
 import React from "react";
-import { HorizontalBar } from "./ui/HorizontalBar";
+import { VerticalBar } from ".";
 import type { Meta, StoryObj } from "@storybook/react";
 
 type WorkloadResponse = {
@@ -20,8 +20,8 @@ const evaluation_chart_accessors = {
   yAccessor: (d: WorkloadResponse) => d.yValue,
 };
 
-const meta: Meta<typeof HorizontalBar> = {
-  component: HorizontalBar,
+const meta: Meta<typeof VerticalBar> = {
+  component: VerticalBar,
   decorators: [(story) => <>{story()}</>],
   parameters: {
     layout: "centered",
@@ -29,7 +29,7 @@ const meta: Meta<typeof HorizontalBar> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof HorizontalBar>;
+type Story = StoryObj<typeof VerticalBar>;
 
 export const Default: Story = {
   args: {

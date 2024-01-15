@@ -71,7 +71,7 @@ const GroupRoot = React.forwardRef<
   <section
     ref={ref}
     className={cn(
-      "rounded-3xl w-full  bg-group text-group-foreground relative shadow-50 overflow-hidden  ",
+      "rounded-3xl w-full bg-card text-card-foreground relative shadow-50 overflow-hidden  ",
       className
     )}
     {...props}

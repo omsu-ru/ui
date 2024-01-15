@@ -110,14 +110,9 @@ module.exports = {
           foreground: "hsl(var(--input-foreground))",
         },
         // ring: "hsl(var(--ring))",
-        // card: {
-        //   DEFAULT: "hsl(var(--card))",
-        //   foreground: "hsl(var(--card-foreground))",
-        // },
-
-        group: {
-          DEFAULT: "hsl(var(--group))",
-          foreground: "hsl(var(--group-foreground))",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
       },
       borderRadius: {

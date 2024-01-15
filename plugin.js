@@ -123,10 +123,6 @@ export const omsuPlugin = withOptions(
               DEFAULT: "hsl(var(--card))",
               foreground: "hsl(var(--card-foreground))",
             },
-            group: {
-              DEFAULT: "hsl(var(--group))",
-              foreground: "hsl(var(--group-foreground))",
-            },
           },
           borderRadius: {
             lg: `var(--radius)`,

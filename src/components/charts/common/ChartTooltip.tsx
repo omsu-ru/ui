@@ -15,7 +15,7 @@ export const ChartTooltipFrame = ({
       // common
       "rounded-md text-foreground border",
       // light
-      "bg-group shadow-sm border-border",
+      "bg-card shadow-sm border-border",
       // dark
       ""
     )}

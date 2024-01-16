@@ -20,8 +20,8 @@
     --input: 0 0% 96%; /*#F4F4F4*/
     --input-foreground: 270 6% 55%; /*#8C8593*/
 
-    --group: 0 0% 100%; /* #fff */
-    --group-foreground: 0 0% 0%; /*#000*/
+    --card: 0 0% 100%; /* #fff */
+    --card-foreground: 0 0% 0%; /*#000*/
 
     --primary: 26 90% 67%; /*#F7A15F*/
     --primary-100: 26 100% 96%; /*#FFF3EB*/

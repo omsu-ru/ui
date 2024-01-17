@@ -34,12 +34,21 @@ import {
   SelectGroup,
   SelectItem,
   Textarea,
+  GroupRoot,
+  GroupHeader,
+  GroupDescription,
+  GroupTitle,
+  GroupContent,
+  GroupFooter,
 } from "@/components";
 import {
   ArrowUpDown,
+  CalendarCheck2Icon,
+  CircleDotDashedIcon,
   EyeIcon,
   HourglassIcon,
   InboxIcon,
+  MessageCircleIcon,
   MoreHorizontal,
   RedoIcon,
   School2Icon,
@@ -112,6 +121,20 @@ export const columns: ColumnDef<Professor>[] = [
         { icon: School2Icon, title: "Кафедра", text: professor.department },
         { icon: WeightIcon, title: "Объем ставки", text: "0.6" },
         { icon: HourglassIcon, title: "Часы нагрузки", text: "900 часов" },
+      ];
+
+      const form_info = [
+        {
+          icon: CalendarCheck2Icon,
+          title: "Дата заполнения формы",
+          text: "14.01.2024",
+        },
+        {
+          icon: CircleDotDashedIcon,
+          title: "Статус",
+          text: "На рассмотрении у зав.кафедрой",
+        },
+        { icon: MessageCircleIcon, title: "Комментарий", text: '" "' },
       ];
 
       const collapsibleRightContent = (
@@ -219,20 +242,46 @@ export const columns: ColumnDef<Professor>[] = [
               </CollapsibleContent>
             </CollapsibleRoot>
 
-            <section className="flex gap-2">
-              <Button
-                variant="muted"
-                className="flex items-center gap-2 flex-grow group-hover:bg-red-400 group-hover:text-red-400"
-              >
-                <EyeIcon /> Просмотр формы
-              </Button>
-              <Button variant="muted" className="flex items-center gap-2">
-                <RedoIcon /> Обнуление значений
-              </Button>
-              <Button variant="muted">
-                <Trash2Icon />
-              </Button>
-            </section>
+            <GroupRoot variant="outline">
+              <GroupHeader>
+                <GroupTitle>Форма</GroupTitle>
+                <GroupDescription>
+                  по{" "}
+                  {contract === "1"
+                    ? "основному месту работы"
+                    : "совместительству"}
+                </GroupDescription>
+              </GroupHeader>
+              <GroupContent className="px-6 pb-6">
+                <main>
+                  {form_info.map((info) => (
+                    <div className="flex items-center gap-4 py-2">
+                      <Icon icon={info.icon} />
+                      <div className="grid">
+                        <h3 className="text-sm text-muted-foreground">
+                          {info.title}
+                        </h3>
+                        <p>{info.text}</p>
+                      </div>
+                    </div>
+                  ))}
+                </main>
+              </GroupContent>
+              <GroupFooter className="gap-2">
+                <Button
+                  variant="muted"
+                  className="flex items-center gap-2 flex-grow group-hover:bg-red-400 group-hover:text-red-400"
+                >
+                  <EyeIcon /> Просмотр формы
+                </Button>
+                <Button variant="muted" className="flex items-center gap-2">
+                  <RedoIcon />
+                </Button>
+                <Button variant="muted">
+                  <Trash2Icon />
+                </Button>
+              </GroupFooter>
+            </GroupRoot>
 
             <Select>
               <SelectTrigger className="w-full">

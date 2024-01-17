@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { cn } from "@/utils";
+import { VariantProps, cva } from "class-variance-authority";
 
 const GroupHeader = React.forwardRef<
   HTMLDivElement,
@@ -64,19 +65,34 @@ const GroupFooter = React.forwardRef<
 ));
 GroupFooter.displayName = "GroupFooter";
 
-const GroupRoot = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <section
-    ref={ref}
-    className={cn(
-      "rounded-3xl w-full bg-card text-card-foreground relative shadow-50 overflow-hidden  ",
-      className
-    )}
-    {...props}
-  />
-));
+const groupVariants = cva(
+  "rounded-3xl w-full  text-card-foreground relative overflow-hidden",
+  {
+    variants: {
+      variant: {
+        default: "bg-card shadow-50",
+        outline: "border border-border",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
+
+export interface GroupRootProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof groupVariants> {}
+
+const GroupRoot = React.forwardRef<HTMLDivElement, GroupRootProps>(
+  ({ className, variant, ...props }, ref) => (
+    <section
+      ref={ref}
+      className={cn(groupVariants({ variant }), className)}
+      {...props}
+    />
+  )
+);
 GroupRoot.displayName = "GroupRoot";
 
 interface GroupProps extends React.HTMLAttributes<HTMLDivElement> {

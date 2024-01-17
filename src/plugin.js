@@ -97,6 +97,11 @@ export const omsuPlugin = withOptions(
             foreground: "hsl(var(--foreground))",
             primary: {
               DEFAULT: "hsl(var(--primary))",
+              100: "hsl(var(--primary-100))",
+              200: "hsl(var(--primary-200))",
+              300: "hsl(var(--primary-300))",
+              700: "hsl(var(--primary-700))",
+              900: "hsl(var(--primary-900))",
               foreground: "hsl(var(--primary-foreground))",
             },
             secondary: {

@@ -145,6 +145,7 @@ export function DataTable<TData, TValue>({
     data: dataQuery.data ?? defaultData,
     columns,
     manualPagination: true,
+    manualFiltering: true,
     state: {
       sorting,
       columnFilters,

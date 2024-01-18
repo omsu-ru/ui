@@ -286,7 +286,7 @@ export async function fetchData(
   columnFilters: { id: string; value: unknown }[],
   sorting: SortingState
 ) {
-  console.log(sorting);
+  console.log({ columnFilters });
   // Simulate some network latency
   await new Promise((r) => setTimeout(r, 500));
 
@@ -305,8 +305,7 @@ export async function fetchData(
           const faculty = faculties.find(
             (faculty) => faculty.label === item[id]
           );
-          console.log(value, faculty.value);
-          return value.includes(faculty.value);
+          return value.includes(faculty.label);
         }
       }
       return true; // If the filter value is not a string or array, ignore this filter.

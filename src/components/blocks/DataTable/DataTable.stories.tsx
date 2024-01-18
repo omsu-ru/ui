@@ -47,7 +47,7 @@ export const Default: Story = {
               {
                 columnID: "faculty",
                 options: faculties,
-                title: "Факультет",
+                title: "Факультеты",
               },
               {
                 columnID: "department",

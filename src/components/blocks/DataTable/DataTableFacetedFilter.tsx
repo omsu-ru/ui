@@ -73,7 +73,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                   </Badge>
                 ) : (
                   options
-                    .filter((option) => selectedValues.has(option.value))
+                    .filter((option) => selectedValues.has(option.label))
                     .map((option) => (
                       <Badge
                         variant="default"
@@ -97,17 +97,17 @@ export function DataTableFacetedFilter<TData, TValue>({
             <TooltipProvider>
               <CommandGroup>
                 {options.map((option) => {
-                  const isSelected = selectedValues.has(option.value);
+                  const isSelected = selectedValues.has(option.label);
                   return (
-                    <TooltipRoot key={option.value}>
+                    <TooltipRoot key={option.label}>
                       <TooltipTrigger>
                         {" "}
                         <CommandItem
                           onSelect={() => {
                             if (isSelected) {
-                              selectedValues.delete(option.value);
+                              selectedValues.delete(option.label);
                             } else {
-                              selectedValues.add(option.value);
+                              selectedValues.add(option.label);
                             }
                             const filterValues = Array.from(selectedValues);
                             column?.setFilterValue(

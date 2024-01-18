@@ -57,6 +57,7 @@ import {
 } from "lucide-react";
 import { Briefcase, ChevronsDownUp, ChevronsUpDown } from "@/icons";
 import { useState } from "react";
+import { departments } from "./data";
 
 export const columns: ColumnDef<Professor>[] = [
   {
@@ -97,6 +98,7 @@ export const columns: ColumnDef<Professor>[] = [
   },
   {
     accessorKey: "faculty",
+    filterFn: "fuzzy",
     header: () => <div>Факультет</div>,
     cell: ({ row }) => {
       return <div className=" font-medium">{row.getValue("faculty")}</div>;
@@ -104,9 +106,13 @@ export const columns: ColumnDef<Professor>[] = [
   },
   {
     accessorKey: "department",
+    filterFn: "fuzzy",
     header: () => <div>Кафедра</div>,
     cell: ({ row }) => {
-      return <div className=" font-medium">{row.getValue("department")}</div>;
+      const department = departments.find(
+        (department) => department.label === row.getValue("department")
+      );
+      return <div className=" font-medium">{department.label}</div>;
     },
   },
   {

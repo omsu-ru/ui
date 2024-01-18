@@ -2,22 +2,23 @@ import type { Preview } from "@storybook/react";
 import "../src/main.css";
 import React from "react";
 // .storybook/preview.js
-import { withThemeByDataAttribute } from "@storybook/addon-themes";
+import { withThemeByClassName } from "@storybook/addon-themes";
 import { withToaster } from "../src/decorators";
 import { Toaster } from "../src/components/toast";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { darkTheme } from "./constants";
+import { DocsContainer } from "./DocsContainer";
 
 /* snipped for brevity */
 
 export const decorators = [
-  withThemeByDataAttribute({
+  withThemeByClassName({
     themes: {
       light: "light",
       dark: "dark",
       white: "white",
     },
-    defaultTheme: "white",
-    attributeName: "data-mode",
+    defaultTheme: "light",
   }),
 ];
 
@@ -39,6 +40,14 @@ const preview: Preview = {
   parameters: {
     layout: "centered",
     default: "white",
+    darkMode: {
+      classTarget: "html",
+      dark: darkTheme,
+      stylePreview: true,
+    },
+    docs: {
+      container: DocsContainer,
+    },
     backgrounds: {
       values: [
         { name: "dark", value: "#333" },

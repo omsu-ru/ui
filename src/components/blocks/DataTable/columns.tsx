@@ -185,7 +185,7 @@ export const columns: ColumnDef<Professor>[] = [
           <DialogTrigger>
             <Button
               variant="muted"
-              className="group-hover:bg-white border border-border cursor-pointer"
+              className="group-hover:bg-background-content border border-border cursor-pointer"
             >
               Управление
             </Button>
@@ -276,7 +276,7 @@ export const columns: ColumnDef<Professor>[] = [
               <GroupFooter className="gap-2">
                 <Button
                   variant="muted"
-                  className="flex items-center gap-2 flex-grow group-hover:bg-red-400 group-hover:text-red-400"
+                  className="flex items-center gap-2 flex-grow"
                 >
                   <EyeIcon /> Просмотр формы
                 </Button>

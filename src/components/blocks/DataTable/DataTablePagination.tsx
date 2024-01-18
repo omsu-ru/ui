@@ -27,7 +27,7 @@ export function DataTablePagination<TData>({
     <div className="flex items-center justify-between  p-8">
       <div className="flex-1 text-sm text-muted-foreground">
         {table.getFilteredSelectedRowModel().rows.length} из{" "}
-        {table.getFilteredRowModel().rows.length} ряда(ов) selected.
+        {table.getFilteredRowModel().rows.length} ряда(ов) выбрано
       </div>
       <div className="flex items-center space-x-6 lg:space-x-8 ml-auto">
         <div className="flex items-center space-x-2">

@@ -152,9 +152,7 @@
     "tailwindcss": "^3"
   },
   "files": [
-    "lib",
-    "plugin.d.ts",
-    "plugin.js"
+    "lib"
   ],
   "readme": "ERROR: No README data found!"
 }

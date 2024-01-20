@@ -3,6 +3,9 @@
   "version": "0.1.13",
   "description": "Библиотека UI компонентов для ОмГУ",
   "main": "lib/index.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github/@omsu-ru"
+  },
   "module": "lib/index.mjs",
   "typings": "lib/index.d.ts",
   "exports": {

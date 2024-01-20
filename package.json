@@ -40,7 +40,7 @@
     "pkg:patch": "npm version patch",
     "pkg:minor": "npm version minor",
     "pkg:load": "npm publish --access public",
-    "pkg:publish": "run-s build:npm pkg:patch pkg:load",
+    "pkg:publish": "run-s build:npm pkg:patch",
     "pkg:publish:minor": "run-s build:npm pkg:minor pkg:load",
     "icons:build": "svgr --out-dir src/icons --typescript --svg-props stroke={props.color} --replace-attr-values #56565D=currentColor --icon -- assets",
     "chromatic": "chromatic --exit-zero-on-changes"

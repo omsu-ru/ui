@@ -21,6 +21,6 @@ jobs:
           # Defaults to the user or organization that owns the workflow file
           scope: "@omsu-ru"
       - run: yarn
-      - run: yarn npm publish
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

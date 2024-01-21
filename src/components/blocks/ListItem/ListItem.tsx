@@ -38,7 +38,7 @@ const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
       <Comp
         ref={ref}
         className={cn(
-          "relative flex gap-4  select-none items-center cursor-pointer px-4 py-3  hover:bg-muted rounded-2xl text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 bg-background-content data-[state=open]:bg-muted",
+          "relative flex gap-4  select-none items-center cursor-pointer px-4 py-3  hover:bg-muted rounded-2xl text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[state=open]:bg-muted",
           "group text-text-display",
           className
         )}

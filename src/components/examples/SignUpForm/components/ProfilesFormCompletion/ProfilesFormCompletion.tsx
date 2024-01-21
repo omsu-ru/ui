@@ -27,6 +27,8 @@ import {
   Logo,
 } from "@/components";
 
+import { IdLogo } from "@/icons";
+
 import { Profiles } from "@/types";
 import { profiles_fields } from "../../data";
 
@@ -68,7 +70,7 @@ const ProfilesFormCompletion = () => {
       >
         <GroupRoot className="md:min-w-[440px] md:max-w-md max-sm:h-screen">
           <GroupHeader className="max-sm:p-4 z-20 w-full bg-white/80 backdrop-blur-sm  max-sm:sticky max-sm:top-0">
-            <Logo variant="default" size="default" />
+            <Logo variant="default" size="default" icon={IdLogo} />
             <GroupTitle>Заполнение данных</GroupTitle>
             <GroupDescription>Остался последний шаг!</GroupDescription>
           </GroupHeader>

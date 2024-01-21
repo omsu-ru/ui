@@ -1,5 +1,6 @@
 import React from "react";
 import { Logo } from ".";
+import { IdLogo as IdLogoSVG } from "@/icons";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof Logo> = {
@@ -17,5 +18,14 @@ export const Default: Story = {
   args: {
     variant: "default",
     size: "default",
+    icon: IdLogoSVG,
+  },
+};
+
+export const Muted: Story = {
+  args: {
+    variant: "muted",
+    size: "default",
+    icon: IdLogoSVG,
   },
 };

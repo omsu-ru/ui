@@ -10,6 +10,7 @@ import {
   GroupTitle,
 } from "../Group";
 import { Logo } from "@/components/Logo";
+import { IdLogo } from "@/icons";
 
 const meta: Meta<typeof DataTable> = {
   component: DataTable,
@@ -31,7 +32,7 @@ export const Default: Story = {
     <GroupRoot>
       <GroupHeader>
         {" "}
-        <Logo />
+        <Logo icon={IdLogo} />
         <GroupTitle>Панель управления</GroupTitle>
         <GroupDescription>
           формами индивидуального планирования

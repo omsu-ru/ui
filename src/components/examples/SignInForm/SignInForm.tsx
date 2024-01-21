@@ -12,7 +12,7 @@ import {
   Logo,
 } from "@/components";
 import { toast } from "@/hooks";
-import { Gosuslugi } from "@/icons";
+import { Gosuslugi, IdLogo } from "@/icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -57,15 +57,15 @@ const SignInForm = () => {
         onSubmit={formInstance.handleSubmit(onSubmit)}
         className="space-y-8 relative grid md:justify-center "
       >
-        <GroupRoot className="md:min-w-[440px] md:max-w-md max-sm:h-screen rounded-none shadow-none overflow-hidden">
-          <GroupHeader className="px-4 md:px-6">
-            <Logo />
+        <GroupRoot className="md:min-w-[440px] md:max-w-md max-sm:h-screen max-sm:rounded-none max-sm:shadow-none overflow-hidden">
+          <GroupHeader className="sm:px-4 md:px-6">
+            <Logo icon={IdLogo} />
             <GroupTitle>Добро пожаловать!</GroupTitle>
             <GroupDescription>
               ОмГУ ID - один ключ для многих сервисов
             </GroupDescription>
           </GroupHeader>
-          <GroupContent className=" max-sm:max-h-none px-4 md:px-6">
+          <GroupContent className=" max-sm:max-h-none sm:px-4 md:px-6">
             <InputController
               component={<Input />}
               name="login"
@@ -83,7 +83,7 @@ const SignInForm = () => {
               // description="Не помню пароль"
             />
           </GroupContent>
-          <GroupFooter className="flex flex-col w-full gap-3 mt-4 px-4 md:px-6 border-b-0">
+          <GroupFooter className="flex flex-col w-full gap-3 mt-4 sm:px-4 md:px-6 border-b-0 border-none">
             <Button
               type="submit"
               size="lg"

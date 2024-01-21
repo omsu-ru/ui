@@ -35,6 +35,7 @@ import {
   Sparkles,
   ChevronsDownUp,
   ChevronsUpDown,
+  IdLogo,
 } from "@/icons";
 import { Collapsible } from "../../../../blocks/Collapsible";
 import { cn } from "@/utils";
@@ -97,8 +98,8 @@ const ProfilesList = React.memo(() => {
         className="space-y-8 relative grid md:justify-center"
       >
         <GroupRoot className="md:min-w-[440px] md:max-w-md max-sm:h-screen">
-          <GroupHeader className="max-sm:p-4 z-20 w-full bg-white/80 backdrop-blur-sm  max-sm:sticky max-sm:top-0">
-            <Logo />
+          <GroupHeader className="max-sm:p-4 z-20 w-full bg-card/80 backdrop-blur-sm  max-sm:sticky max-sm:top-0">
+            <Logo icon={IdLogo} />
             <GroupTitle>Кто вы?</GroupTitle>
             <GroupDescription>
               Выберите один или несколько профилей
@@ -117,7 +118,7 @@ const ProfilesList = React.memo(() => {
               }
             />
           </GroupContent>
-          <GroupFooter className="max-sm:fixed max-sm:bottom-0 w-full bg-white/80 backdrop-blur-sm">
+          <GroupFooter className="max-sm:fixed max-sm:bottom-0 w-full bg-card/80 backdrop-blur-sm">
             <Tooltip
               content={
                 isDispatchAvailable && "Необходимо выбрать хотя бы один профиль"
@@ -332,7 +333,7 @@ function renderUserIcons(selected_profiles: Profile[]) {
           <Icon
             icon={icon}
             key={key}
-            className="-ml-4 rounded-full border-white border-2"
+            className="-ml-4 rounded-full border-card border-2"
           />
         ))}
       </div>

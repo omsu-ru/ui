@@ -1,5 +1,4 @@
 import React from "react";
-import { LogoIcon, OmsuThick } from "@/icons";
 
 import { cva, type VariantProps } from "class-variance-authority";
 
@@ -25,11 +24,13 @@ const logoVariants = cva("", {
 
 export interface LogoProps
   extends React.SVGAttributes<SVGElement>,
-    VariantProps<typeof logoVariants> {}
+    VariantProps<typeof logoVariants> {
+  icon: React.ComponentType<{ className?: string }>;
+}
 
 const Logo = ({ variant, size, className, ...props }: LogoProps) => {
   return (
-    <LogoIcon
+    <props.icon
       {...props}
       className={cn(logoVariants({ variant, size, className }))}
     />

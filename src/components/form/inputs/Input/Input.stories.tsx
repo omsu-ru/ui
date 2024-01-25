@@ -11,7 +11,7 @@ const meta: Meta<typeof Input> = {
 
   decorators: [
     (Story) => (
-      <Group className="container ">
+      <Group className="container w-[500px]">
         {/* 👇 Decorators in Storybook also accept a function. Replace <Story/> with Story() to enable it  */}
         <Story />
       </Group>
@@ -39,6 +39,13 @@ export const WithLabel: Story = {
     ),
   ],
   args: {
+    //👇 The args you need here will depend on your component
+  },
+};
+
+export const WithRightContent: Story = {
+  args: {
+    rightContent: "часов",
     //👇 The args you need here will depend on your component
   },
 };

@@ -2,28 +2,47 @@ import { cn } from "@/utils";
 import { HTMLAttributes, ReactNode, forwardRef } from "react";
 import React from "react";
 import { CheckIcon, XIcon } from "lucide-react";
+import { cva, type VariantProps } from "class-variance-authority";
 
-interface IconProps extends HTMLAttributes<HTMLDivElement> {
+const iconVariant = cva(
+  "w-12 h-12  rounded-xl  flex items-center justify-center  relative",
+  {
+    variants: {
+      variant: {
+        default:
+          "group-hover:bg-background-content bg-muted group-data-[state=open]:bg-background-content",
+      },
+      size: {
+        default: "w-12 h-12",
+        sm: "h-8 w-8",
+        lg: "h-16 w-16",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
+export interface IconProps
+  extends HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof iconVariant> {
   icon?: React.ComponentType<{ className?: string }>;
   text?: string;
   status?: "success" | "error";
 }
 
 const Icon = forwardRef<HTMLDivElement, IconProps>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(
-        "w-12 h-12 min-w-[55px] min-h-[55px] rounded-xl bg-muted flex items-center justify-center group-hover:bg-background-content group-data-[state=open]:bg-background-content relative",
-        className
+  ({ className, variant, size, ...props }, ref) => (
+    <div ref={ref} className={cn(iconVariant({ variant, size, className }))}>
+      {props.icon && (
+        <props.icon className="text-muted-foreground h-1/2 w-1/2" />
       )}
-    >
-      {props.icon && <props.icon className="text-muted-foreground h-6 w-6 " />}
       {props.text && <span className="text-sm">{props.text}</span>}
       {props.status && (
         <span
           className={cn(
-            "w-6 h-6 = rounded-full absolute bottom-0 right-0  border shadow-sm   bg-background-content grid place-content-center"
+            "h-1/2 w-1/2 rounded-full absolute bottom-0 right-0  border shadow-sm   bg-background-content grid place-content-center"
           )}
         >
           {props.status === "success" && (

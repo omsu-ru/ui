@@ -34,7 +34,7 @@
     "sb": "storybook dev -p 6006",
     "build:lib": "tsup",
     "clean:lib": "rm -rf lib",
-    "build:package": "run-s clean:lib build:lib pkg:patch",
+    "build:package": "run-s clean:lib build:lib ",
     "build-storybook": "storybook build"
   },
   "keywords": [],

@@ -34,10 +34,10 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 declare const Input: React__default.ForwardRefExoticComponent<InputProps & React__default.RefAttributes<HTMLInputElement>>;
 
-type Story$7 = StoryObj<typeof Input>;
-declare const Primary: Story$7;
-declare const WithLabel: Story$7;
-declare const WithRightContent: Story$7;
+type Story$8 = StoryObj<typeof Input>;
+declare const Primary: Story$8;
+declare const WithLabel: Story$8;
+declare const WithRightContent: Story$8;
 
 interface StepperProps extends InputHTMLAttributes<HTMLInputElement> {
     increase: (name: string) => void;
@@ -58,8 +58,8 @@ declare const Checkbox: React$1.ForwardRefExoticComponent<Omit<CheckboxPrimitive
 
 declare const ControlledCheckbox: () => react_jsx_runtime.JSX.Element;
 
-type Story$6 = StoryObj<typeof ControlledCheckbox>;
-declare const Single$1: Story$6;
+type Story$7 = StoryObj<typeof ControlledCheckbox>;
+declare const Single$1: Story$7;
 
 declare const Form: <TFieldValues extends FieldValues, TContext = any, TTransformedValues extends FieldValues = undefined>(props: react_hook_form.FormProviderProps<TFieldValues, TContext, TTransformedValues>) => React$1.JSX.Element;
 declare const FormField: <TFieldValues extends FieldValues = FieldValues, TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>>({ ...props }: ControllerProps$1<TFieldValues, TName>) => react_jsx_runtime.JSX.Element;
@@ -163,8 +163,8 @@ interface IconProps extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof 
 }
 declare const Icon: React__default.ForwardRefExoticComponent<IconProps & React__default.RefAttributes<HTMLDivElement>>;
 
-type Story$5 = StoryObj<typeof Icon>;
-declare const Default$4: Story$5;
+type Story$6 = StoryObj<typeof Icon>;
+declare const Default$5: Story$6;
 
 interface ListItemProps extends Omit<HTMLAttributes<HTMLLIElement>, "title"> {
     leftContent?: ReactElement;
@@ -186,9 +186,9 @@ declare const AccordionItem: React$1.ForwardRefExoticComponent<Omit<AccordionPri
 declare const AccordionTrigger: React$1.ForwardRefExoticComponent<Omit<Omit<AccordionPrimitive.AccordionTriggerProps & React$1.RefAttributes<HTMLButtonElement>, "ref">, "content"> & Omit<Omit<ListItemProps & React$1.RefAttributes<HTMLLIElement>, "ref">, "content"> & React$1.RefAttributes<HTMLButtonElement>>;
 declare const AccordionContent: React$1.ForwardRefExoticComponent<Omit<AccordionPrimitive.AccordionContentProps & React$1.RefAttributes<HTMLDivElement>, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
 
-type Story$4 = StoryObj<typeof Accordion>;
-declare const Multiple: Story$4;
-declare const Single: Story$4;
+type Story$5 = StoryObj<typeof Accordion>;
+declare const Multiple: Story$5;
+declare const Single: Story$5;
 
 declare const PopoverRoot: React$1.FC<PopoverPrimitive.PopoverProps>;
 declare const PopoverTrigger: React$1.ForwardRefExoticComponent<PopoverPrimitive.PopoverTriggerProps & React$1.RefAttributes<HTMLButtonElement>>;
@@ -199,8 +199,8 @@ interface PopoverProps extends React$1.ComponentProps<typeof PopoverPrimitive.Co
 }
 declare const Popover: React$1.ForwardRefExoticComponent<Omit<PopoverProps, "ref"> & React$1.RefAttributes<HTMLDivElement>>;
 
-type Story$3 = StoryObj<typeof Popover>;
-declare const Default$3: Story$3;
+type Story$4 = StoryObj<typeof Popover>;
+declare const Default$4: Story$4;
 
 declare const CollapsibleRoot: React__default.ForwardRefExoticComponent<CollapsiblePrimitive.CollapsibleProps & React__default.RefAttributes<HTMLDivElement>>;
 declare const CollapsibleTrigger: React__default.ForwardRefExoticComponent<CollapsiblePrimitive.CollapsibleTriggerProps & React__default.RefAttributes<HTMLButtonElement>>;
@@ -212,8 +212,8 @@ declare const Collapsible: React__default.ForwardRefExoticComponent<Omit<Omit<Co
     children: ContentType;
 } & React__default.RefAttributes<HTMLDivElement>>;
 
-type Story$2 = StoryObj<typeof Collapsible>;
-declare const Default$2: Story$2;
+type Story$3 = StoryObj<typeof Collapsible>;
+declare const Default$3: Story$3;
 
 declare const Table: React$1.ForwardRefExoticComponent<React$1.HTMLAttributes<HTMLTableElement> & React$1.RefAttributes<HTMLTableElement>>;
 declare const TableHeader: React$1.ForwardRefExoticComponent<React$1.HTMLAttributes<HTMLTableSectionElement> & React$1.RefAttributes<HTMLTableSectionElement>>;
@@ -342,6 +342,9 @@ declare const DropdownMenuShortcut: {
     ({ className, ...props }: React$1.HTMLAttributes<HTMLSpanElement>): react_jsx_runtime.JSX.Element;
     displayName: string;
 };
+
+type Story$2 = StoryObj<typeof DropdownMenu>;
+declare const Default$2: Story$2;
 
 declare const Select: React$1.FC<SelectPrimitive.SelectProps>;
 declare const SelectGroup: React$1.ForwardRefExoticComponent<SelectPrimitive.SelectGroupProps & React$1.RefAttributes<HTMLDivElement>>;
@@ -737,4 +740,4 @@ declare const omsuPlugin: {
     __isOptionsFunction: true;
 };
 
-export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AreaChart, type AreaChartProps, SvgArrowLeft as ArrowLeft, SvgArrowRight as ArrowRight, Avatar, AvatarFallback, type AvatarFallbackProps, AvatarImage, Badge, type BadgeProps, SvgBanknote as Banknote, BarList, type BarListProps, SvgBatteryMedium as BatteryMedium, SvgBell as Bell, SvgBookOpen as BookOpen, SvgBriefcase as Briefcase, Button, type ButtonProps, SvgCalendarHeart as CalendarHeart, SvgCalendarSearch as CalendarSearch, SvgCamera as Camera, Checkbox, CheckboxController, SvgChevronDown as ChevronDown, SvgChevronLeft as ChevronLeft, SvgChevronRight as ChevronRight, SvgChevronUp as ChevronUp, SvgChevronsDownUp as ChevronsDownUp, SvgChevronsUpDown as ChevronsUpDown, SvgClipboardList as ClipboardList, Collapsible, CollapsibleContent, CollapsibleRoot, CollapsibleTrigger, Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut, SvgCornerRightDown as CornerRightDown, DataTable, DataTableColumnHeader, DataTableFacetedFilter, DataTablePagination, DataTableToolbar, meta as DefaultBarListStory, Single$1 as DefaultCheckboxStory, Default$2 as DefaultCollapsibleStory, meta$1 as DefaultDataTableStory, Default$1 as DefaultTooltip, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, SvgExternalLink as ExternalLink, SvgFlame as Flame, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, SvgGosuslugi as Gosuslugi, SvgGraduation as Graduation, SvgGraduationCap as GraduationCap, Group, GroupContent, GroupDescription, GroupFooter, GroupHeader, GroupRoot, type GroupRootProps, GroupTitle, SvgHeartHandshake as HeartHandshake, HorizontalBar, Icon, Default$4 as IconDefaultStory, type IconProps, SvgLogo as IdLogo, SvgInbox as Inbox, Input, InputController, type InputProps, Label, SvgLibrarySquare as LibrarySquare, List, SvgList as ListIcon, ListItem, type ListItemProps, SvgLogIn as LogIn, SvgLogOut as LogOut, Logo, Default as LogoDefaultStory, type LogoProps, SvgMicroscope as Microscope, Multiple as MultipleAccordionStory, SvgOmsuOutlined as OmsuOutlined, SvgOmsuThick as OmsuThick, type Option, SvgPaperclip as Paperclip, SvgPencilLine as PencilLine, Popover, PopoverContent, Default$3 as PopoverDefaultStory, PopoverRoot, PopoverTrigger, Primary, SvgProfessors as Professors, Profiles, SvgProfilesSettings as ProfilesSettings, RadioGroup, RadioGroupController, RadioGroupItem, RadioRoot, SvgRocket as Rocket, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue, Separator, Single as SingleAccordionStory, SvgSparkles as Sparkles, Stepper, type StepperProps, Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, Tabs, TabsContent, TabsList, TabsTrigger, Textarea, type TextareaProps, Toast$1 as Toast, ToastAction, type ToastActionElement, ToastClose, ToastDescription, type ToastProps, ToastProvider, ToastTitle, ToastViewport, Toaster, Tooltip, TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger, SvgTrash2 as Trash2, SvgUserCog2 as UserCog2, SvgUserPlus2 as UserPlus2, SvgUsers2 as Users2, VerticalBar, WithLabel, WithRightContent, SvgZap as Zap, badgeVariants, buttonVariants, columns, omsuPlugin, reducer, toast, useFormField, useQuantityDeclension, useToast };
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AreaChart, type AreaChartProps, SvgArrowLeft as ArrowLeft, SvgArrowRight as ArrowRight, Avatar, AvatarFallback, type AvatarFallbackProps, AvatarImage, Badge, type BadgeProps, SvgBanknote as Banknote, BarList, type BarListProps, SvgBatteryMedium as BatteryMedium, SvgBell as Bell, SvgBookOpen as BookOpen, SvgBriefcase as Briefcase, Button, type ButtonProps, SvgCalendarHeart as CalendarHeart, SvgCalendarSearch as CalendarSearch, SvgCamera as Camera, Checkbox, CheckboxController, SvgChevronDown as ChevronDown, SvgChevronLeft as ChevronLeft, SvgChevronRight as ChevronRight, SvgChevronUp as ChevronUp, SvgChevronsDownUp as ChevronsDownUp, SvgChevronsUpDown as ChevronsUpDown, SvgClipboardList as ClipboardList, Collapsible, CollapsibleContent, CollapsibleRoot, CollapsibleTrigger, Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut, SvgCornerRightDown as CornerRightDown, DataTable, DataTableColumnHeader, DataTableFacetedFilter, DataTablePagination, DataTableToolbar, meta as DefaultBarListStory, Single$1 as DefaultCheckboxStory, Default$3 as DefaultCollapsibleStory, meta$1 as DefaultDataTableStory, Default$2 as DefaultDropdownMenuStory, Default$1 as DefaultTooltip, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, SvgExternalLink as ExternalLink, SvgFlame as Flame, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, SvgGosuslugi as Gosuslugi, SvgGraduation as Graduation, SvgGraduationCap as GraduationCap, Group, GroupContent, GroupDescription, GroupFooter, GroupHeader, GroupRoot, type GroupRootProps, GroupTitle, SvgHeartHandshake as HeartHandshake, HorizontalBar, Icon, Default$5 as IconDefaultStory, type IconProps, SvgLogo as IdLogo, SvgInbox as Inbox, Input, InputController, type InputProps, Label, SvgLibrarySquare as LibrarySquare, List, SvgList as ListIcon, ListItem, type ListItemProps, SvgLogIn as LogIn, SvgLogOut as LogOut, Logo, Default as LogoDefaultStory, type LogoProps, SvgMicroscope as Microscope, Multiple as MultipleAccordionStory, SvgOmsuOutlined as OmsuOutlined, SvgOmsuThick as OmsuThick, type Option, SvgPaperclip as Paperclip, SvgPencilLine as PencilLine, Popover, PopoverContent, Default$4 as PopoverDefaultStory, PopoverRoot, PopoverTrigger, Primary, SvgProfessors as Professors, Profiles, SvgProfilesSettings as ProfilesSettings, RadioGroup, RadioGroupController, RadioGroupItem, RadioRoot, SvgRocket as Rocket, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue, Separator, Single as SingleAccordionStory, SvgSparkles as Sparkles, Stepper, type StepperProps, Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, Tabs, TabsContent, TabsList, TabsTrigger, Textarea, type TextareaProps, Toast$1 as Toast, ToastAction, type ToastActionElement, ToastClose, ToastDescription, type ToastProps, ToastProvider, ToastTitle, ToastViewport, Toaster, Tooltip, TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger, SvgTrash2 as Trash2, SvgUserCog2 as UserCog2, SvgUserPlus2 as UserPlus2, SvgUsers2 as Users2, VerticalBar, WithLabel, WithRightContent, SvgZap as Zap, badgeVariants, buttonVariants, columns, omsuPlugin, reducer, toast, useFormField, useQuantityDeclension, useToast };

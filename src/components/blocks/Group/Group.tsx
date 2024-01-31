@@ -42,7 +42,7 @@ const GroupContent = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "px-2  overflow-y-auto scrollbar scrollbar-medium scrollbar-thumb-gray-300 scrollbar-track-gray-100",
+      "px-6    overflow-y-auto scrollbar scrollbar-medium scrollbar-thumb-gray-300 scrollbar-track-gray-100",
       className
     )}
     {...props}

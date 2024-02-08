@@ -284,7 +284,6 @@ type CustomColumnFilter<TData> = {
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     isLoading?: boolean;
-    test?: keyof TData;
     initialFilters?: CustomColumnFilter<TData>[];
     onColumnFiltersChange?: (columnFilters: CustomColumnFilter<TData>[]) => void;
     fetchFn: (pageIndex: number, pageSize: number, filters: ColumnFilter[], sorting: SortingState) => void;

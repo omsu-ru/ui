@@ -55,10 +55,10 @@ type CustomColumnFilter<TData> = {
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  // data: TData[] | [];
   isLoading?: boolean;
   test?: keyof TData;
   initialFilters?: CustomColumnFilter<TData>[];
+  onColumnFiltersChange?: (columnFilters: CustomColumnFilter<TData>[]) => void;
   fetchFn: (
     pageIndex: number,
     pageSize: number,
@@ -82,7 +82,7 @@ const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
   return itemRank.passed;
 };
 
-// interface CustomTableOptions<TData> extends TableOptions<TData, TValue> {}
+declare type Updater<T> = T | ((old: T) => T);
 
 export function DataTable<TData, TValue>({
   columns,
@@ -92,6 +92,7 @@ export function DataTable<TData, TValue>({
   noResults = "Ничего не найдено",
   isLoading,
   fetchFn,
+  ...props
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -154,7 +155,15 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     globalFilterFn: fuzzyFilter,
     onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
+    onColumnFiltersChange: (columnFiltersUpdater) => {
+      setColumnFilters(columnFiltersUpdater);
+
+      const newFilters =
+        typeof columnFiltersUpdater === "function"
+          ? (columnFiltersUpdater(columnFilters) as CustomColumnFilter<TData>[])
+          : (columnFiltersUpdater as CustomColumnFilter<TData>[]);
+      props.onColumnFiltersChange(newFilters);
+    },
     onColumnVisibilityChange: setColumnVisibility,
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),

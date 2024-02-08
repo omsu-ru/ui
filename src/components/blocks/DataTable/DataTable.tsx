@@ -15,6 +15,7 @@ import {
   Column,
   getFacetedRowModel,
   getFacetedUniqueValues,
+  TableOptions,
   FilterFn,
   ColumnFilter,
 } from "@tanstack/react-table";
@@ -36,6 +37,7 @@ import {
 } from "@tanstack/match-sorter-utils";
 
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import { TableFilters } from "./types";
 
 declare module "@tanstack/table-core" {
   interface FilterFns {
@@ -46,33 +48,24 @@ declare module "@tanstack/table-core" {
   }
 }
 
+type CustomColumnFilter<TData> = {
+  id: keyof TData;
+  value: unknown;
+};
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   // data: TData[] | [];
   isLoading?: boolean;
+  test?: keyof TData;
+  initialFilters?: CustomColumnFilter<TData>[];
   fetchFn: (
     pageIndex: number,
     pageSize: number,
     filters: ColumnFilter[],
     sorting: SortingState
   ) => void;
-  filters: {
-    show_attributes?: boolean;
-
-    search?: {
-      columnID: string;
-      placeholder: string;
-    };
-    select?: Array<{
-      columnID: string;
-      title: string;
-      options: {
-        label: string;
-        value: string;
-        icon?: React.ComponentType<{ className?: string }>;
-      }[];
-    }>;
-  };
+  filters: TableFilters<TData>;
   noResults?: string;
 }
 
@@ -89,17 +82,20 @@ const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
   return itemRank.passed;
 };
 
+// interface CustomTableOptions<TData> extends TableOptions<TData, TValue> {}
+
 export function DataTable<TData, TValue>({
   columns,
   // data,
   filters,
+  initialFilters = [],
   noResults = "Ничего не найдено",
   isLoading,
   fetchFn,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    initialFilters as ColumnFiltersState
   );
 
   const [{ pageIndex, pageSize }, setPagination] =
@@ -138,7 +134,7 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
 
-  const table = useReactTable({
+  const table = useReactTable<TData>({
     filterFns: {
       fuzzy: fuzzyFilter,
     },

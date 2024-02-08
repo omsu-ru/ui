@@ -41,6 +41,7 @@ export const Default: Story = {
       <GroupContent className="max-h-none">
         <DataTable
           columns={columns}
+          initialFilters={[{ id: "faculty", value: [faculties[0].label] }]}
           fetchFn={fetchData}
           filters={{
             search: { columnID: "name", placeholder: "Поиск преподавателя..." },

@@ -11,6 +11,7 @@ import * as react_hook_form from 'react-hook-form';
 import { FieldValues, FieldPath, ControllerProps as ControllerProps$1 } from 'react-hook-form';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
+import * as TogglePrimitive from '@radix-ui/react-toggle';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { FilterFn, ColumnDef, ColumnFilter, SortingState, Column, Table as Table$1 } from '@tanstack/react-table';
 import { RankingInfo } from '@tanstack/match-sorter-utils';
@@ -142,6 +143,15 @@ declare const ToggleGroupItem: React$1.ForwardRefExoticComponent<Omit<ToggleGrou
     size?: "default" | "sm" | "lg";
 } & class_variance_authority_dist_types.ClassProp) => string> & React$1.RefAttributes<HTMLButtonElement>>;
 
+declare const toggleVariants: (props?: {
+    variant?: "default" | "outline";
+    size?: "default" | "sm" | "lg";
+} & class_variance_authority_dist_types.ClassProp) => string;
+declare const Toggle: React$1.ForwardRefExoticComponent<Omit<TogglePrimitive.ToggleProps & React$1.RefAttributes<HTMLButtonElement>, "ref"> & VariantProps<(props?: {
+    variant?: "default" | "outline";
+    size?: "default" | "sm" | "lg";
+} & class_variance_authority_dist_types.ClassProp) => string> & React$1.RefAttributes<HTMLButtonElement>>;
+
 declare const GroupHeader: React$1.ForwardRefExoticComponent<React$1.HTMLAttributes<HTMLDivElement> & React$1.RefAttributes<HTMLDivElement>>;
 declare const GroupTitle: React$1.ForwardRefExoticComponent<React$1.HTMLAttributes<HTMLHeadingElement> & React$1.RefAttributes<HTMLParagraphElement>>;
 declare const GroupDescription: React$1.ForwardRefExoticComponent<React$1.HTMLAttributes<HTMLParagraphElement> & React$1.RefAttributes<HTMLParagraphElement>>;
@@ -234,6 +244,31 @@ declare const TableHead: React$1.ForwardRefExoticComponent<React$1.ThHTMLAttribu
 declare const TableCell: React$1.ForwardRefExoticComponent<React$1.TdHTMLAttributes<HTMLTableCellElement> & React$1.RefAttributes<HTMLTableCellElement>>;
 declare const TableCaption: React$1.ForwardRefExoticComponent<React$1.HTMLAttributes<HTMLTableCaptionElement> & React$1.RefAttributes<HTMLTableCaptionElement>>;
 
+type Professor = {
+    name: string;
+    department: string;
+    faculty: string;
+    email: string;
+};
+interface TableFilters<TData> {
+    show_attributes?: boolean;
+    search?: {
+        columnID: keyof TData;
+        placeholder: string;
+    };
+    select?: Array<{
+        columnID: keyof TData;
+        title: string;
+        options: {
+            label: string;
+            value: string;
+            icon?: React.ComponentType<{
+                className?: string;
+            }>;
+        }[];
+    }>;
+}
+
 declare module "@tanstack/table-core" {
     interface FilterFns {
         fuzzy: FilterFn<unknown>;
@@ -242,31 +277,20 @@ declare module "@tanstack/table-core" {
         itemRank: RankingInfo;
     }
 }
+type CustomColumnFilter<TData> = {
+    id: keyof TData;
+    value: unknown;
+};
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     isLoading?: boolean;
+    test?: keyof TData;
+    initialFilters?: CustomColumnFilter<TData>[];
     fetchFn: (pageIndex: number, pageSize: number, filters: ColumnFilter[], sorting: SortingState) => void;
-    filters: {
-        show_attributes?: boolean;
-        search?: {
-            columnID: string;
-            placeholder: string;
-        };
-        select?: Array<{
-            columnID: string;
-            title: string;
-            options: {
-                label: string;
-                value: string;
-                icon?: React$1.ComponentType<{
-                    className?: string;
-                }>;
-            }[];
-        }>;
-    };
+    filters: TableFilters<TData>;
     noResults?: string;
 }
-declare function DataTable<TData, TValue>({ columns, filters, noResults, isLoading, fetchFn, }: DataTableProps<TData, TValue>): react_jsx_runtime.JSX.Element;
+declare function DataTable<TData, TValue>({ columns, filters, initialFilters, noResults, isLoading, fetchFn, }: DataTableProps<TData, TValue>): react_jsx_runtime.JSX.Element;
 
 interface DataTableColumnHeaderProps<TData, TValue> extends React.HTMLAttributes<HTMLDivElement> {
     column: Column<TData, TValue>;
@@ -281,24 +305,7 @@ declare function DataTablePagination<TData>({ table, }: DataTablePaginationProps
 
 interface DataTableToolbarProps<TData> {
     table: Table$1<TData>;
-    filters: {
-        show_attributes?: boolean;
-        search?: {
-            columnID: string;
-            placeholder: string;
-        };
-        select?: Array<{
-            columnID: string;
-            title: string;
-            options: {
-                label: string;
-                value: string;
-                icon?: React.ComponentType<{
-                    className?: string;
-                }>;
-            }[];
-        }>;
-    };
+    filters: TableFilters<TData>;
 }
 declare function DataTableToolbar<TData>({ table, filters, }: DataTableToolbarProps<TData>): react_jsx_runtime.JSX.Element;
 
@@ -316,13 +323,6 @@ interface DataTableFacetedFilterProps<TData, TValue> {
     }[];
 }
 declare function DataTableFacetedFilter<TData, TValue>({ column, title, options, noResultsMessage, }: DataTableFacetedFilterProps<TData, TValue>): react_jsx_runtime.JSX.Element;
-
-type Professor = {
-    name: string;
-    department: string;
-    faculty: string;
-    email: string;
-};
 
 declare const columns: ColumnDef<Professor>[];
 
@@ -750,4 +750,4 @@ declare const omsuPlugin: {
     __isOptionsFunction: true;
 };
 
-export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AreaChart, type AreaChartProps, SvgArrowLeft as ArrowLeft, SvgArrowRight as ArrowRight, Avatar, AvatarFallback, type AvatarFallbackProps, AvatarImage, Badge, type BadgeProps, SvgBanknote as Banknote, BarList, type BarListProps, SvgBatteryMedium as BatteryMedium, SvgBell as Bell, SvgBookOpen as BookOpen, SvgBriefcase as Briefcase, Button, type ButtonProps, SvgCalendarHeart as CalendarHeart, SvgCalendarSearch as CalendarSearch, SvgCamera as Camera, Checkbox, CheckboxController, SvgChevronDown as ChevronDown, SvgChevronLeft as ChevronLeft, SvgChevronRight as ChevronRight, SvgChevronUp as ChevronUp, SvgChevronsDownUp as ChevronsDownUp, SvgChevronsUpDown as ChevronsUpDown, SvgClipboardList as ClipboardList, Collapsible, CollapsibleContent, CollapsibleRoot, CollapsibleTrigger, Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut, SvgCornerRightDown as CornerRightDown, DataTable, DataTableColumnHeader, DataTableFacetedFilter, DataTablePagination, DataTableToolbar, meta as DefaultBarListStory, Single$1 as DefaultCheckboxStory, Default$3 as DefaultCollapsibleStory, meta$1 as DefaultDataTableStory, Default$2 as DefaultDropdownMenuStory, Default$1 as DefaultTooltip, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, SvgExternalLink as ExternalLink, SvgFlame as Flame, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, SvgGosuslugi as Gosuslugi, SvgGraduation as Graduation, SvgGraduationCap as GraduationCap, Group, GroupContent, GroupDescription, GroupFooter, GroupHeader, GroupRoot, type GroupRootProps, GroupTitle, SvgHeartHandshake as HeartHandshake, HorizontalBar, Icon, Default$5 as IconDefaultStory, type IconProps, SvgLogo as IdLogo, SvgInbox as Inbox, Input, InputController, type InputProps, Label, SvgLibrarySquare as LibrarySquare, List, SvgList as ListIcon, ListItem, type ListItemProps, SvgLogIn as LogIn, SvgLogOut as LogOut, Logo, Default as LogoDefaultStory, type LogoProps, SvgMicroscope as Microscope, Multiple as MultipleAccordionStory, SvgOmsuOutlined as OmsuOutlined, SvgOmsuThick as OmsuThick, type Option, SvgPaperclip as Paperclip, SvgPencilLine as PencilLine, Popover, PopoverContent, Default$4 as PopoverDefaultStory, PopoverRoot, PopoverTrigger, Primary, SvgProfessors as Professors, Profiles, SvgProfilesSettings as ProfilesSettings, RadioGroup, RadioGroupController, RadioGroupItem, RadioRoot, SvgRocket as Rocket, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue, Separator, Single as SingleAccordionStory, SvgSparkles as Sparkles, Stepper, type StepperProps, Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, Tabs, TabsContent, TabsList, TabsTrigger, Textarea, type TextareaProps, Toast$1 as Toast, ToastAction, type ToastActionElement, ToastClose, ToastDescription, type ToastProps, ToastProvider, ToastTitle, ToastViewport, Toaster, ToggleGroup, ToggleGroupItem, Tooltip, TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger, SvgTrash2 as Trash2, SvgUserCog2 as UserCog2, SvgUserPlus2 as UserPlus2, SvgUsers2 as Users2, VerticalBar, WithLabel, WithRightContent, SvgZap as Zap, badgeVariants, buttonVariants, columns, omsuPlugin, reducer, toast, useFormField, useQuantityDeclension, useToast };
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AreaChart, type AreaChartProps, SvgArrowLeft as ArrowLeft, SvgArrowRight as ArrowRight, Avatar, AvatarFallback, type AvatarFallbackProps, AvatarImage, Badge, type BadgeProps, SvgBanknote as Banknote, BarList, type BarListProps, SvgBatteryMedium as BatteryMedium, SvgBell as Bell, SvgBookOpen as BookOpen, SvgBriefcase as Briefcase, Button, type ButtonProps, SvgCalendarHeart as CalendarHeart, SvgCalendarSearch as CalendarSearch, SvgCamera as Camera, Checkbox, CheckboxController, SvgChevronDown as ChevronDown, SvgChevronLeft as ChevronLeft, SvgChevronRight as ChevronRight, SvgChevronUp as ChevronUp, SvgChevronsDownUp as ChevronsDownUp, SvgChevronsUpDown as ChevronsUpDown, SvgClipboardList as ClipboardList, Collapsible, CollapsibleContent, CollapsibleRoot, CollapsibleTrigger, Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut, SvgCornerRightDown as CornerRightDown, DataTable, DataTableColumnHeader, DataTableFacetedFilter, DataTablePagination, DataTableToolbar, meta as DefaultBarListStory, Single$1 as DefaultCheckboxStory, Default$3 as DefaultCollapsibleStory, meta$1 as DefaultDataTableStory, Default$2 as DefaultDropdownMenuStory, Default$1 as DefaultTooltip, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, SvgExternalLink as ExternalLink, SvgFlame as Flame, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, SvgGosuslugi as Gosuslugi, SvgGraduation as Graduation, SvgGraduationCap as GraduationCap, Group, GroupContent, GroupDescription, GroupFooter, GroupHeader, GroupRoot, type GroupRootProps, GroupTitle, SvgHeartHandshake as HeartHandshake, HorizontalBar, Icon, Default$5 as IconDefaultStory, type IconProps, SvgLogo as IdLogo, SvgInbox as Inbox, Input, InputController, type InputProps, Label, SvgLibrarySquare as LibrarySquare, List, SvgList as ListIcon, ListItem, type ListItemProps, SvgLogIn as LogIn, SvgLogOut as LogOut, Logo, Default as LogoDefaultStory, type LogoProps, SvgMicroscope as Microscope, Multiple as MultipleAccordionStory, SvgOmsuOutlined as OmsuOutlined, SvgOmsuThick as OmsuThick, type Option, SvgPaperclip as Paperclip, SvgPencilLine as PencilLine, Popover, PopoverContent, Default$4 as PopoverDefaultStory, PopoverRoot, PopoverTrigger, Primary, SvgProfessors as Professors, Profiles, SvgProfilesSettings as ProfilesSettings, RadioGroup, RadioGroupController, RadioGroupItem, RadioRoot, SvgRocket as Rocket, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue, Separator, Single as SingleAccordionStory, SvgSparkles as Sparkles, Stepper, type StepperProps, Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, Tabs, TabsContent, TabsList, TabsTrigger, Textarea, type TextareaProps, Toast$1 as Toast, ToastAction, type ToastActionElement, ToastClose, ToastDescription, type ToastProps, ToastProvider, ToastTitle, ToastViewport, Toaster, Toggle, ToggleGroup, ToggleGroupItem, Tooltip, TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger, SvgTrash2 as Trash2, SvgUserCog2 as UserCog2, SvgUserPlus2 as UserPlus2, SvgUsers2 as Users2, VerticalBar, WithLabel, WithRightContent, SvgZap as Zap, badgeVariants, buttonVariants, columns, omsuPlugin, reducer, toast, toggleVariants, useFormField, useQuantityDeclension, useToast };

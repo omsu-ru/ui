@@ -157,11 +157,15 @@ export function DataTable<TData, TValue>({
     onColumnFiltersChange: (columnFiltersUpdater) => {
       setColumnFilters(columnFiltersUpdater);
 
-      const newFilters =
-        typeof columnFiltersUpdater === "function"
-          ? (columnFiltersUpdater(columnFilters) as CustomColumnFilter<TData>[])
-          : (columnFiltersUpdater as CustomColumnFilter<TData>[]);
-      props.onColumnFiltersChange(newFilters);
+      if (props.onColumnFiltersChange) {
+        const newFilters =
+          typeof columnFiltersUpdater === "function"
+            ? (columnFiltersUpdater(
+                columnFilters
+              ) as CustomColumnFilter<TData>[])
+            : (columnFiltersUpdater as CustomColumnFilter<TData>[]);
+        props.onColumnFiltersChange(newFilters);
+      }
     },
     onColumnVisibilityChange: setColumnVisibility,
     getFacetedRowModel: getFacetedRowModel(),

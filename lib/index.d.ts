@@ -286,11 +286,12 @@ interface DataTableProps<TData, TValue> {
     isLoading?: boolean;
     test?: keyof TData;
     initialFilters?: CustomColumnFilter<TData>[];
+    onColumnFiltersChange?: (columnFilters: CustomColumnFilter<TData>[]) => void;
     fetchFn: (pageIndex: number, pageSize: number, filters: ColumnFilter[], sorting: SortingState) => void;
     filters: TableFilters<TData>;
     noResults?: string;
 }
-declare function DataTable<TData, TValue>({ columns, filters, initialFilters, noResults, isLoading, fetchFn, }: DataTableProps<TData, TValue>): react_jsx_runtime.JSX.Element;
+declare function DataTable<TData, TValue>({ columns, filters, initialFilters, noResults, isLoading, fetchFn, ...props }: DataTableProps<TData, TValue>): react_jsx_runtime.JSX.Element;
 
 interface DataTableColumnHeaderProps<TData, TValue> extends React.HTMLAttributes<HTMLDivElement> {
     column: Column<TData, TValue>;

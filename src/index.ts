@@ -9,5 +9,6 @@ export * from "./icons";
 export * from "./hooks";
 export * from "./types";
 export * from "./plugin";
+export { cn } from "./utils";
 
 export { Stepper, Input, ListItem, Icon };

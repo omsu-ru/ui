@@ -1,6 +1,6 @@
 {
   "name": "@omsu-ru/ui",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Библиотека UI компонентов для ОмГУ",
   "main": "lib/index.js",
   "repository": {

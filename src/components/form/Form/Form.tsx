@@ -17,6 +17,16 @@ import { createContext } from "react";
 import { cn } from "@/utils";
 import { Button, Label, RadioRoot } from "@/components";
 
+export interface ControllerProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> extends Omit<FieldControllerProps<TFieldValues, TName>, "render">,
+    Pick<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
+  component: React.ReactElement;
+  label?: string;
+  description?: string;
+}
+
 const Form = FormProvider;
 
 type FormFieldContextValue<
@@ -169,263 +179,6 @@ const FormMessage = React.forwardRef<
 });
 FormMessage.displayName = "FormMessage";
 
-type Option = {
-  id: string;
-  label?: string;
-};
-
-interface ControllerProps<
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> extends Omit<FieldControllerProps<TFieldValues, TName>, "render">,
-    Pick<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
-  component: React.ReactElement;
-  label?: string;
-  description?: string;
-  // option?: Option;
-}
-
-interface InputControllerProps<
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> extends ControllerProps<TFieldValues, TName> {}
-
-interface CheckboxControllerProps<
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> extends ControllerProps<TFieldValues, TName> {
-  option: Option;
-}
-
-interface RadioGroupControllerProps<
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> extends Omit<ControllerProps<TFieldValues, TName>, "component"> {
-  options: Option[];
-  component:
-    | React.ReactElement
-    | ((option: { option: Option }) => React.ReactElement);
-}
-
-// Разделить логину Controller на InputController, CheckboxController, RadioController, RadioGroupController.
-// Попробовать использовать Controller как шаблон для остальных Controller'ов
-// Есть 3 варианта решить проблему с радиокнопками
-// 1.Собрать логику из компонентов Form. Минус заключается в том, что эту логику из компонентов все равно придется инкапсульровать в одельных компонент, т.к код будет очень тяжело читать
-// 2. Обрабатывать логику радиокнопок через добавление пропса options в Controller. Минус в том, что Controller становится тяжело читать
-// 3. Разделить логику на отдельные контроллеры. Отдельные контроллеры для одного поля и для нескольких. Минусов пока не вижу.
-
-const InputController = <
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({
-  ...props
-}: InputControllerProps<TFieldValues, TName>) => {
-  return (
-    <FormField
-      {...props}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>{props.label}</FormLabel>
-          <FormControl>
-            {React.cloneElement(props.component, {
-              ...field,
-            })}
-          </FormControl>
-          <FormDescription>{props.description}</FormDescription>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
-
-InputController.displayName = "InputController";
-
-const CheckboxController = <
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({
-  ...props
-}: CheckboxControllerProps<TFieldValues, TName>) => {
-  return (
-    <FormField
-      {...props}
-      render={({ field }) => {
-        const options = field.value;
-
-        const isChecked =
-          typeof options === "object"
-            ? options.includes(props.option.id)
-            : field.value;
-
-        const handleCheckedChange = (checked: boolean) => {
-          if (typeof options === "object") {
-            return checked
-              ? field.onChange([...options, props.option.id])
-              : field.onChange(
-                  options.filter((value: any) => value !== props.option.id)
-                );
-          } else {
-            return field.onChange(checked);
-          }
-        };
-
-        return (
-          <FormItem>
-            <FormLabel>{props.option.label}</FormLabel>
-            <FormControl>
-              {React.cloneElement(props.component, {
-                checked: isChecked,
-                onCheckedChange: handleCheckedChange,
-              })}
-            </FormControl>
-            <FormDescription>{props.description}</FormDescription>
-            {!props.option && <FormMessage />}
-          </FormItem>
-        );
-      }}
-    />
-  );
-};
-
-CheckboxController.displayName = "CheckboxController";
-
-const RadioGroupController = <
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({
-  ...props
-}: RadioGroupControllerProps<TFieldValues, TName>) => {
-  return (
-    <FormField
-      {...props}
-      render={({ field }) => {
-        const form_values = field.value;
-        const active = form_values.filter((form_value: any) =>
-          props.options.some((option) => option.id === form_value)
-        )[0];
-
-        const handleRadioChange = (value: string) => {
-          // 1. Удаляем активную радиокнопку из массива form_values
-          const new_form_values = form_values.filter(
-            (form_value: any) =>
-              !props.options.some((option) => option.id === form_value)
-          );
-
-          // 2. Добавляем id выбранной радиокнопки вместе с другими значениями в массив формы.
-          field.onChange([...new_form_values, value]);
-        };
-
-        const clearRadioButtons = () => {
-          const new_form_values = form_values.filter(
-            (form_value: any) =>
-              !props.options.some((option) => option.id === form_value)
-          );
-
-          field.onChange([...new_form_values]);
-        };
-
-        return (
-          <FormItem>
-            <FormLabel>{props.label}</FormLabel>
-            <FormControl>
-              <RadioRoot
-                onValueChange={handleRadioChange}
-                defaultValue={active}
-              >
-                {props.options.map((option) => (
-                  <>
-                    {React.cloneElement(
-                      typeof props.component === "function"
-                        ? props.component({ option })
-                        : props.component,
-                      {
-                        value: option.id,
-                      }
-                    )}
-                  </>
-                ))}
-              </RadioRoot>
-            </FormControl>
-            <FormDescription>{props.description}</FormDescription>
-          </FormItem>
-        );
-      }}
-    />
-  );
-};
-
-RadioGroupController.displayName = "RadioGroupController";
-
-// const Controller = <
-//   TFieldValues extends FieldValues = FieldValues,
-//   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
-// >({
-//   ...props
-// }: ControllerProps<TFieldValues, TName>) => {
-//   const isCheckbox = props.type === "checkbox";
-//   const isRadio = props.type === "radio";
-//   return (
-//     <FormField
-//       {...props}
-//       render={({ field }) => {
-//         const options = field.value;
-
-//         const isChecked = props.option
-//           ? options.includes(props.option.id)
-//           : field.value;
-
-//         const handleCheckedChange = (checked: boolean) => {
-//           const options = field.value;
-//           if (props.option) {
-//             return checked
-//               ? field.onChange([...options, props.option.id])
-//               : field.onChange(
-//                   options.filter((value: any) => value !== props.option.id)
-//                 );
-//           }
-//           return field.onChange(checked);
-//         };
-
-//         const handleRadioChange = (value: string) => {
-//           console.log({ value });
-//           console.log(options);
-//           return field.onChange([...options, value]);
-//         };
-
-//         return (
-//           <FormItem>
-//             <FormLabel>{props.label}</FormLabel>
-//             <FormControl>
-//               <>
-//                 {isCheckbox &&
-//                   React.cloneElement(props.component, {
-//                     checked: isChecked,
-//                     onCheckedChange: handleCheckedChange,
-//                   })}
-
-//                 {isRadio &&
-//                   React.cloneElement(props.component, {
-//                     value: field.value,
-//                     onValueChange: handleRadioChange,
-//                   })}
-
-//                 {!isRadio &&
-//                   !isCheckbox &&
-//                   React.cloneElement(props.component, {
-//                     ...field,
-//                   })}
-//               </>
-//             </FormControl>
-//             <FormDescription>{props.description}</FormDescription>
-//             {!props.option && <FormMessage />}
-//           </FormItem>
-//         );
-//       }}
-//     />
-//   );
-// };
-
 export {
   useFormField,
   Form,
@@ -435,8 +188,5 @@ export {
   FormDescription,
   FormMessage,
   FormField,
-  RadioGroupController,
   // Controller,
-  InputController,
-  CheckboxController,
 };

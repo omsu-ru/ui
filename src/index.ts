@@ -5,6 +5,7 @@ export * from "./components/Logo";
 export * from "./components/Tooltip";
 export * from "./components/toast";
 export * from "./components/charts";
+export * from "./components/form/Form/controllers";
 export * from "./icons";
 export * from "./hooks";
 export * from "./types";

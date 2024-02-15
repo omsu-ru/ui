@@ -26,7 +26,7 @@ interface SelectControllerProps<
   items: { value: string; content: any }[];
 }
 
-const SelectController = <
+export const SelectController = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({

@@ -23,7 +23,7 @@ interface RadioGroupControllerProps<
     | ((option: { option: Option }) => React.ReactElement);
 }
 
-const RadioGroupController = <
+export const RadioGroupController = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({

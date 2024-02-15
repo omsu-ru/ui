@@ -19,7 +19,7 @@ interface CheckboxControllerProps<
   option: Option;
 }
 
-const CheckboxController = <
+export const CheckboxController = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({

@@ -17,3 +17,4 @@ export * from "./Separator";
 export * from "./Avatar";
 export * from "./Tabs";
 export * from "./DataTable";
+export * from "./Alert";

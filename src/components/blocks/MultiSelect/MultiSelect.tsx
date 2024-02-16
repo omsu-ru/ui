@@ -16,7 +16,7 @@ import { useEffect } from "react";
 import { cn } from "@/utils";
 import { useDebounce } from "@/hooks";
 
-export interface Option {
+export interface MultiSelectOption {
   value: string;
   label: string;
   disable?: boolean;
@@ -26,14 +26,14 @@ export interface Option {
   [key: string]: string | boolean | undefined;
 }
 interface GroupOption {
-  [key: string]: Option[];
+  [key: string]: MultiSelectOption[];
 }
 
 interface MultiSelectProps {
-  value?: Option[];
-  defaultOptions?: Option[];
+  value?: MultiSelectOption[];
+  defaultOptions?: MultiSelectOption[];
   /** manually controlled options */
-  options?: Option[];
+  options?: MultiSelectOption[];
   placeholder?: string;
   /** Loading component. */
   loadingIndicator?: React.ReactNode;
@@ -47,8 +47,8 @@ interface MultiSelectProps {
    **/
   triggerSearchOnFocus?: boolean;
   /** async search */
-  onSearch?: (value: string) => Promise<Option[]>;
-  onChange?: (options: Option[]) => void;
+  onSearch?: (value: string) => Promise<MultiSelectOption[]>;
+  onChange?: (options: MultiSelectOption[]) => void;
   /** Limit the maximum number of selected options. */
   maxSelected?: number;
   /** When the number of selected options exceeds the limit, the onMaxSelected will be called. */
@@ -79,11 +79,11 @@ interface MultiSelectProps {
 }
 
 export interface MultiSelectRef {
-  selectedValue: Option[];
+  selectedValue: MultiSelectOption[];
   input: HTMLInputElement;
 }
 
-function transToGroupOption(options: Option[], groupBy?: string) {
+function transToGroupOption(options: MultiSelectOption[], groupBy?: string) {
   if (options.length === 0) {
     return {};
   }
@@ -104,7 +104,10 @@ function transToGroupOption(options: Option[], groupBy?: string) {
   return groupOption;
 }
 
-function removePickedOption(groupOption: GroupOption, picked: Option[]) {
+function removePickedOption(
+  groupOption: GroupOption,
+  picked: MultiSelectOption[]
+) {
   const cloneOption = JSON.parse(JSON.stringify(groupOption)) as GroupOption;
 
   for (const [key, value] of Object.entries(cloneOption)) {
@@ -146,7 +149,9 @@ const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
     const [open, setOpen] = React.useState(false);
     const [isLoading, setIsLoading] = React.useState(false);
 
-    const [selected, setSelected] = React.useState<Option[]>(value || []);
+    const [selected, setSelected] = React.useState<MultiSelectOption[]>(
+      value || []
+    );
     const [options, setOptions] = React.useState<GroupOption>(
       transToGroupOption(arrayDefaultOptions, groupBy)
     );
@@ -163,7 +168,7 @@ const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
     );
 
     const handleUnselect = React.useCallback(
-      (option: Option) => {
+      (option: MultiSelectOption) => {
         const newOptions = selected.filter((s) => s.value !== option.value);
         setSelected(newOptions);
         onChange?.(newOptions);

@@ -18,3 +18,4 @@ export * from "./Avatar";
 export * from "./Tabs";
 export * from "./DataTable";
 export * from "./Alert";
+export * from "./MultiSelect";

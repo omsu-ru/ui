@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { MultiSelect } from ".";
 import type { Meta, StoryObj } from "@storybook/react";
+import { LayoutIcon, TerminalIcon } from "lucide-react";
 
 const OPTIONS = [
   { label: "nextjs", value: "Nextjs" },
@@ -26,14 +27,23 @@ type Story = StoryObj<typeof MultiSelect>;
 
 export const Default: Story = {
   args: {
-    selectFirstItem: false,
-    defaultOptions: OPTIONS,
-    hidePlaceholderWhenSelected: true,
-    placeholder: "Выберите любимые фреймворки",
-    emptyIndicator: (
-      <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
-        Ничего не найдено
+    options: OPTIONS,
+    className: "w-[500px]",
+    label: (
+      <p className="flex items-center gap-2">
+        <TerminalIcon className="w-5 h-5" /> Ваши любимые фреймворки:
       </p>
     ),
+  },
+  render(args) {
+    const [selected, setSelected] = useState<string[]>([]);
+    return (
+      <MultiSelect
+        {...args}
+        selected={selected}
+        onChange={setSelected}
+        placeholder="Выберите ваши любимые фреймворки"
+      />
+    );
   },
 };

@@ -25,7 +25,6 @@ import * as SeparatorPrimitive from '@radix-ui/react-separator';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
-import { Command as Command$1 } from 'cmdk';
 import * as ToastPrimitives from '@radix-ui/react-toast';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { Payload, NameType } from 'recharts/types/component/DefaultTooltipContent';
@@ -485,65 +484,19 @@ declare const AlertDialogDescription: React$1.ForwardRefExoticComponent<Omit<Ale
 declare const AlertDialogAction: React$1.ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogActionProps & React$1.RefAttributes<HTMLButtonElement>, "ref"> & React$1.RefAttributes<HTMLButtonElement>>;
 declare const AlertDialogCancel: React$1.ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogCancelProps & React$1.RefAttributes<HTMLButtonElement>, "ref"> & React$1.RefAttributes<HTMLButtonElement>>;
 
-interface MultiSelectOption {
-    value: string;
+type OptionType = {
     label: string;
-    disable?: boolean;
-    /** fixed option that can't be removed. */
-    fixed?: boolean;
-    /** Group the options by providing key. */
-    [key: string]: string | boolean | undefined;
-}
-interface MultiSelectProps {
-    value?: MultiSelectOption[];
-    defaultOptions?: MultiSelectOption[];
-    /** manually controlled options */
-    options?: MultiSelectOption[];
-    placeholder?: string;
-    /** Loading component. */
-    loadingIndicator?: React$1.ReactNode;
-    /** Empty component. */
-    emptyIndicator?: React$1.ReactNode;
-    /** Debounce time for async search. Only work with `onSearch`. */
-    delay?: number;
-    /**
-     * Only work with `onSearch` prop. Trigger search when `onFocus`.
-     * For example, when user click on the input, it will trigger the search to get initial options.
-     **/
-    triggerSearchOnFocus?: boolean;
-    /** async search */
-    onSearch?: (value: string) => Promise<MultiSelectOption[]>;
-    onChange?: (options: MultiSelectOption[]) => void;
-    /** Limit the maximum number of selected options. */
-    maxSelected?: number;
-    /** When the number of selected options exceeds the limit, the onMaxSelected will be called. */
-    onMaxSelected?: (maxLimit: number) => void;
-    /** Hide the placeholder when there are options selected. */
-    hidePlaceholderWhenSelected?: boolean;
-    disabled?: boolean;
-    /** Group the options base on provided key. */
-    groupBy?: string;
+    value: string;
+};
+interface MultiSelectProps extends Omit<React$1.HTMLAttributes<HTMLInputElement>, "onChange"> {
+    options: OptionType[];
+    selected: string[];
+    onChange: React$1.Dispatch<React$1.SetStateAction<string[]>>;
     className?: string;
-    badgeClassName?: string;
-    /**
-     * First item selected is a default behavior by cmdk. That is why the default is true.
-     * This is a workaround solution by add a dummy item.
-     *
-     * @reference: https://github.com/pacocoursey/cmdk/issues/171
-     */
-    selectFirstItem?: boolean;
-    /** Allow user to create option when there is no option matched. */
-    creatable?: boolean;
-    /** Props of `Command` */
-    commandProps?: React$1.ComponentPropsWithoutRef<typeof Command>;
-    /** Props of `CommandInput` */
-    inputProps?: Omit<React$1.ComponentPropsWithoutRef<typeof Command$1.Input>, "value" | "placeholder" | "disabled">;
+    label: string | React$1.ReactNode;
+    emptyIndicator?: React$1.ReactNode;
 }
-interface MultiSelectRef {
-    selectedValue: MultiSelectOption[];
-    input: HTMLInputElement;
-}
-declare const MultiSelect: React$1.ForwardRefExoticComponent<MultiSelectProps & React$1.RefAttributes<MultiSelectRef>>;
+declare function MultiSelect({ options, selected, onChange, className, label, emptyIndicator, ...props }: MultiSelectProps): react_jsx_runtime.JSX.Element;
 
 declare const ToastProvider: React$1.FC<ToastPrimitives.ToastProviderProps>;
 declare const ToastViewport: React$1.ForwardRefExoticComponent<Omit<ToastPrimitives.ToastViewportProps & React$1.RefAttributes<HTMLOListElement>, "ref"> & React$1.RefAttributes<HTMLOListElement>>;
@@ -853,4 +806,4 @@ declare const omsuPlugin: {
 
 declare function cn(...inputs: ClassValue[]): string;
 
-export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, AlertDialogPortal, AlertDialogTitle, AlertDialogTrigger, AreaChart, type AreaChartProps, SvgArrowLeft as ArrowLeft, SvgArrowRight as ArrowRight, Avatar, AvatarFallback, type AvatarFallbackProps, AvatarImage, Badge, type BadgeProps, SvgBanknote as Banknote, BarList, type BarListProps, SvgBatteryMedium as BatteryMedium, SvgBell as Bell, SvgBookOpen as BookOpen, SvgBriefcase as Briefcase, Button, type ButtonProps, SvgCalendarHeart as CalendarHeart, SvgCalendarSearch as CalendarSearch, SvgCamera as Camera, Checkbox, CheckboxController, SvgChevronDown as ChevronDown, SvgChevronLeft as ChevronLeft, SvgChevronRight as ChevronRight, SvgChevronUp as ChevronUp, SvgChevronsDownUp as ChevronsDownUp, SvgChevronsUpDown as ChevronsUpDown, SvgClipboardList as ClipboardList, Collapsible, CollapsibleContent, CollapsibleRoot, CollapsibleTrigger, Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut, type ControllerProps, SvgCornerRightDown as CornerRightDown, DataTable, DataTableColumnHeader, DataTableFacetedFilter, DataTablePagination, DataTableToolbar, meta as DefaultBarListStory, Single$1 as DefaultCheckboxStory, Default$3 as DefaultCollapsibleStory, meta$1 as DefaultDataTableStory, Default$2 as DefaultDropdownMenuStory, Default$1 as DefaultTooltip, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, SvgExternalLink as ExternalLink, SvgFlame as Flame, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, SvgGosuslugi as Gosuslugi, SvgGraduation as Graduation, SvgGraduationCap as GraduationCap, Group, GroupContent, GroupDescription, GroupFooter, GroupHeader, GroupRoot, type GroupRootProps, GroupTitle, SvgHeartHandshake as HeartHandshake, HorizontalBar, Icon, Default$5 as IconDefaultStory, type IconProps, SvgLogo as IdLogo, SvgInbox as Inbox, Input, InputController, type InputProps, Label, SvgLibrarySquare as LibrarySquare, List, SvgList as ListIcon, ListItem, type ListItemProps, SvgLogIn as LogIn, SvgLogOut as LogOut, Logo, Default as LogoDefaultStory, type LogoProps, SvgMicroscope as Microscope, MultiSelect, type MultiSelectOption, type MultiSelectRef, Multiple as MultipleAccordionStory, SvgOmsuOutlined as OmsuOutlined, SvgOmsuThick as OmsuThick, type Option, SvgPaperclip as Paperclip, SvgPencilLine as PencilLine, Popover, PopoverContent, Default$4 as PopoverDefaultStory, PopoverRoot, PopoverTrigger, Primary, SvgProfessors as Professors, Profiles, SvgProfilesSettings as ProfilesSettings, RadioGroup, RadioGroupController, RadioGroupItem, RadioRoot, SvgRocket as Rocket, Select, SelectContent, SelectController, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue, Separator, Single as SingleAccordionStory, SvgSparkles as Sparkles, Stepper, type StepperProps, Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, Tabs, TabsContent, TabsList, TabsTrigger, Textarea, type TextareaProps, Toast$1 as Toast, ToastAction, type ToastActionElement, ToastClose, ToastDescription, type ToastProps, ToastProvider, ToastTitle, ToastViewport, Toaster, Toggle, ToggleGroup, ToggleGroupItem, Tooltip, TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger, SvgTrash2 as Trash2, SvgUserCog2 as UserCog2, SvgUserPlus2 as UserPlus2, SvgUsers2 as Users2, VerticalBar, WithLabel, WithRightContent, SvgZap as Zap, badgeVariants, buttonVariants, cn, columns, omsuPlugin, reducer, toast, toggleVariants, useDebounce, useFormField, useQuantityDeclension, useToast };
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, AlertDialogPortal, AlertDialogTitle, AlertDialogTrigger, AreaChart, type AreaChartProps, SvgArrowLeft as ArrowLeft, SvgArrowRight as ArrowRight, Avatar, AvatarFallback, type AvatarFallbackProps, AvatarImage, Badge, type BadgeProps, SvgBanknote as Banknote, BarList, type BarListProps, SvgBatteryMedium as BatteryMedium, SvgBell as Bell, SvgBookOpen as BookOpen, SvgBriefcase as Briefcase, Button, type ButtonProps, SvgCalendarHeart as CalendarHeart, SvgCalendarSearch as CalendarSearch, SvgCamera as Camera, Checkbox, CheckboxController, SvgChevronDown as ChevronDown, SvgChevronLeft as ChevronLeft, SvgChevronRight as ChevronRight, SvgChevronUp as ChevronUp, SvgChevronsDownUp as ChevronsDownUp, SvgChevronsUpDown as ChevronsUpDown, SvgClipboardList as ClipboardList, Collapsible, CollapsibleContent, CollapsibleRoot, CollapsibleTrigger, Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut, type ControllerProps, SvgCornerRightDown as CornerRightDown, DataTable, DataTableColumnHeader, DataTableFacetedFilter, DataTablePagination, DataTableToolbar, meta as DefaultBarListStory, Single$1 as DefaultCheckboxStory, Default$3 as DefaultCollapsibleStory, meta$1 as DefaultDataTableStory, Default$2 as DefaultDropdownMenuStory, Default$1 as DefaultTooltip, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, SvgExternalLink as ExternalLink, SvgFlame as Flame, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, SvgGosuslugi as Gosuslugi, SvgGraduation as Graduation, SvgGraduationCap as GraduationCap, Group, GroupContent, GroupDescription, GroupFooter, GroupHeader, GroupRoot, type GroupRootProps, GroupTitle, SvgHeartHandshake as HeartHandshake, HorizontalBar, Icon, Default$5 as IconDefaultStory, type IconProps, SvgLogo as IdLogo, SvgInbox as Inbox, Input, InputController, type InputProps, Label, SvgLibrarySquare as LibrarySquare, List, SvgList as ListIcon, ListItem, type ListItemProps, SvgLogIn as LogIn, SvgLogOut as LogOut, Logo, Default as LogoDefaultStory, type LogoProps, SvgMicroscope as Microscope, MultiSelect, Multiple as MultipleAccordionStory, SvgOmsuOutlined as OmsuOutlined, SvgOmsuThick as OmsuThick, type Option, type OptionType, SvgPaperclip as Paperclip, SvgPencilLine as PencilLine, Popover, PopoverContent, Default$4 as PopoverDefaultStory, PopoverRoot, PopoverTrigger, Primary, SvgProfessors as Professors, Profiles, SvgProfilesSettings as ProfilesSettings, RadioGroup, RadioGroupController, RadioGroupItem, RadioRoot, SvgRocket as Rocket, Select, SelectContent, SelectController, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue, Separator, Single as SingleAccordionStory, SvgSparkles as Sparkles, Stepper, type StepperProps, Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, Tabs, TabsContent, TabsList, TabsTrigger, Textarea, type TextareaProps, Toast$1 as Toast, ToastAction, type ToastActionElement, ToastClose, ToastDescription, type ToastProps, ToastProvider, ToastTitle, ToastViewport, Toaster, Toggle, ToggleGroup, ToggleGroupItem, Tooltip, TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger, SvgTrash2 as Trash2, SvgUserCog2 as UserCog2, SvgUserPlus2 as UserPlus2, SvgUsers2 as Users2, VerticalBar, WithLabel, WithRightContent, SvgZap as Zap, badgeVariants, buttonVariants, cn, columns, omsuPlugin, reducer, toast, toggleVariants, useDebounce, useFormField, useQuantityDeclension, useToast };

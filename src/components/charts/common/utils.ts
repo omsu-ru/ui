@@ -147,3 +147,6 @@ export function getColorClassNames(
     fillColor: `fill-${color}-${shade}`,
   };
 }
+
+export const sumNumericArray = (arr: number[]) =>
+  arr.reduce((prefixSum, num) => prefixSum + num, 0);

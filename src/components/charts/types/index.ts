@@ -1,3 +1,8 @@
+import {
+  NameType,
+  Payload,
+} from "recharts/types/component/DefaultTooltipContent";
+
 export type BarDataResponse = {
   xValue: string;
   yValue: number;
@@ -66,3 +71,11 @@ export type IntervalType = "preserveStartEnd" | Interval;
 
 export type Color = (typeof colorValues)[number];
 export type CustomColor = Color | string;
+
+export type CustomTooltipProps = {
+  payload:
+    | Payload<string | number | (string | number)[], string | number>[]
+    | undefined;
+  active: boolean | undefined;
+  label: NameType | undefined;
+};

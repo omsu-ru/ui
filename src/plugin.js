@@ -27,7 +27,6 @@ export const omsuPlugin = withOptions(
   () => {
     return {
       darkMode: ["class", '[data-mode="dark"]'],
-      plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
       safelist: [
         {
           pattern:

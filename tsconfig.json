@@ -23,7 +23,7 @@
     "plugins": [{ "transform": "typescript-transform-paths" }]
   },
 
-  "include": ["src/**/**/*.ts"],
+  "include": ["src/**/**/*.ts", "tailwindPreset.ts"],
   "exclude": [
     "node_modules",
     "dist",

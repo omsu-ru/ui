@@ -10,4 +10,3 @@ export * from "./hooks";
 export * from "./types";
 export * from "./plugin";
 export { cn } from "./utils";
-export { default as omsuTwPreset } from "./tailwindPreset";

@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import omsuTwPreset from "./src/tailwindPreset";
+import omsuTwPreset from "./tailwindPreset";
 
 const twConfig = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],

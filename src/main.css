@@ -36,8 +36,8 @@
     --popover: 0 0 100%; /* #fff */
     --popover-foreground: 240 10% 3.9%;
 
-    --danger: 0 92% 95%; /* #FEE7E7 */
-    --danger-foreground: 7 90% 67%; /*#F74242*/
+    --destructive: 0 92% 95%; /* #FEE7E7 */
+    --destructive-foreground: 7 90% 67%; /*#F74242*/
 
     /* --ring: 215 20.2% 65.1%; */
 

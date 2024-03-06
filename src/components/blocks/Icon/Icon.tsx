@@ -10,7 +10,9 @@ const iconVariant = cva(
     variants: {
       variant: {
         default:
-          "group-hover:bg-background-content bg-muted group-data-[state=open]:bg-background-content",
+          "group-hover:bg-background-content text-muted-foreground bg-muted group-data-[state=open]:bg-background-content",
+        destructive:
+          "group-hover:bg-background-content bg-destructive text-destructive-foreground",
       },
       size: {
         default: "w-12 h-12",
@@ -35,9 +37,7 @@ export interface IconProps
 const Icon = forwardRef<HTMLDivElement, IconProps>(
   ({ className, variant, size, ...props }, ref) => (
     <div ref={ref} className={cn(iconVariant({ variant, size, className }))}>
-      {props.icon && (
-        <props.icon className="text-muted-foreground h-1/2 w-1/2" />
-      )}
+      {props.icon && <props.icon className=" h-1/2 w-1/2" />}
       {props.text && <span className="text-sm">{props.text}</span>}
       {props.status && (
         <span

@@ -22,3 +22,11 @@ export const Default: Story = {
     //👇 The args you need here will depend on your component
   },
 };
+
+export const Destructive: Story = {
+  args: {
+    icon: Briefcase,
+    variant: "destructive",
+    //👇 The args you need here will depend on your component
+  },
+};

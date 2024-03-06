@@ -3,7 +3,7 @@ import { PresetsConfig } from "tailwindcss/types/config";
 import twAnimate from "tailwindcss-animate";
 import twScrollbar from "tailwind-scrollbar";
 
-export const omsuTwPreset = {
+const omsuTwPreset = {
   darkMode: ["class", '[data-mode="dark"]'],
   safelist: [
     {
@@ -132,3 +132,5 @@ export const omsuTwPreset = {
     },
   },
 } satisfies PresetsConfig;
+
+export default omsuTwPreset;

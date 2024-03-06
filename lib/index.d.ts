@@ -768,30 +768,6 @@ type ToasterToast = ToastProps & {
     description?: React$1.ReactNode;
     action?: ToastActionElement;
 };
-declare const actionTypes: {
-    readonly ADD_TOAST: "ADD_TOAST";
-    readonly UPDATE_TOAST: "UPDATE_TOAST";
-    readonly DISMISS_TOAST: "DISMISS_TOAST";
-    readonly REMOVE_TOAST: "REMOVE_TOAST";
-};
-type ActionType = typeof actionTypes;
-type Action = {
-    type: ActionType["ADD_TOAST"];
-    toast: ToasterToast;
-} | {
-    type: ActionType["UPDATE_TOAST"];
-    toast: Partial<ToasterToast>;
-} | {
-    type: ActionType["DISMISS_TOAST"];
-    toastId?: ToasterToast["id"];
-} | {
-    type: ActionType["REMOVE_TOAST"];
-    toastId?: ToasterToast["id"];
-};
-interface State {
-    toasts: ToasterToast[];
-}
-declare const reducer: (state: State, action: Action) => State;
 type Toast = Omit<ToasterToast, "id">;
 declare function toast({ ...props }: Toast): {
     id: string;
@@ -805,6 +781,32 @@ declare function useToast(): {
 };
 
 declare function useDebounce<T>(value: T, delay?: number): T;
+
+/**
+ * @desc The 'useBreakpoint()' hook is used to get the current
+ *       screen breakpoint based on the TailwindCSS config.
+ *
+ * @usage
+ *    import { useBreakpoint } from "@/hooks/useBreakpoint";
+ *
+ *    const { isAboveSm, isBelowSm, sm } = useBreakpoint("sm");
+ *    console.log({ isAboveSm, isBelowSm, sm });
+ *
+ *    const { isAboveMd } = useBreakpoint("md");
+ *    const { isAboveLg } = useBreakpoint("lg");
+ *    const { isAbove2Xl } = useBreakpoint("2xl");
+ *    console.log({ isAboveMd, isAboveLg, isAbove2Xl });
+ * @requirements npm install react-responsive
+ */
+declare const breakpointsValues: {
+    xs: string;
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+};
+type BreakpointKey = keyof typeof breakpointsValues;
+declare function useBreakpoint<K extends BreakpointKey>(breakpointKey: K): Record<K, number> & Record<`isAbove${Capitalize<K>}` | `isBelow${Capitalize<K>}`, boolean>;
 
 type Option = {
     id: string;
@@ -832,4 +834,4 @@ declare const omsuPlugin: {
 
 declare function cn(...inputs: ClassValue[]): string;
 
-export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, AlertDialogPortal, AlertDialogTitle, AlertDialogTrigger, AreaChart, type AreaChartProps, SvgArrowLeft as ArrowLeft, SvgArrowRight as ArrowRight, Avatar, AvatarFallback, type AvatarFallbackProps, AvatarImage, Badge, type BadgeProps, SvgBanknote as Banknote, BarList, type BarListProps, SvgBatteryMedium as BatteryMedium, SvgBell as Bell, SvgBookOpen as BookOpen, SvgBriefcase as Briefcase, Button, type ButtonProps, SvgCalendarHeart as CalendarHeart, SvgCalendarSearch as CalendarSearch, SvgCamera as Camera, Checkbox, CheckboxController, SvgChevronDown as ChevronDown, SvgChevronLeft as ChevronLeft, SvgChevronRight as ChevronRight, SvgChevronUp as ChevronUp, SvgChevronsDownUp as ChevronsDownUp, SvgChevronsUpDown as ChevronsUpDown, SvgClipboardList as ClipboardList, Collapsible, CollapsibleContent, CollapsibleRoot, CollapsibleTrigger, Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut, type ControllerProps, SvgCornerRightDown as CornerRightDown, DataTable, DataTableColumnHeader, DataTableFacetedFilter, DataTablePagination, DataTableToolbar, meta as DefaultBarListStory, Single as DefaultCheckboxStory, Default$2 as DefaultCollapsibleStory, meta$1 as DefaultDataTableStory, Default$1 as DefaultDropdownMenuStory, Default$4 as DefaultTooltip, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, Default as DrawerDefaultStory, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, SvgExternalLink as ExternalLink, SvgFlame as Flame, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, SvgGosuslugi as Gosuslugi, SvgGraduation as Graduation, SvgGraduationCap as GraduationCap, Group, GroupContent, GroupDescription, GroupFooter, GroupHeader, GroupRoot, type GroupRootProps, GroupTitle, SvgHeartHandshake as HeartHandshake, HorizontalBar, Icon, Default$6 as IconDefaultStory, type IconProps, SvgLogo as IdLogo, SvgInbox as Inbox, Input, InputController, type InputProps, Label, SvgLibrarySquare as LibrarySquare, List, SvgList as ListIcon, ListItem, type ListItemProps, SvgLogIn as LogIn, SvgLogOut as LogOut, Logo, Default$3 as LogoDefaultStory, type LogoProps, SvgMicroscope as Microscope, MultiSelect, Multiple as MultipleAccordionStory, SvgOmsuOutlined as OmsuOutlined, SvgOmsuThick as OmsuThick, type Option, type OptionType, SvgPaperclip as Paperclip, SvgPencilLine as PencilLine, Popover, PopoverContent, Default$5 as PopoverDefaultStory, PopoverRoot, PopoverTrigger, Primary, SvgProfessors as Professors, Profiles, SvgProfilesSettings as ProfilesSettings, RadioGroup, RadioGroupController, RadioGroupItem, RadioRoot, SvgRocket as Rocket, Select, SelectContent, SelectController, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue, Separator, Single$1 as SingleAccordionStory, SvgSparkles as Sparkles, Stepper, type StepperProps, Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, Tabs, TabsContent, TabsList, TabsTrigger, Textarea, type TextareaProps, Toast$1 as Toast, ToastAction, type ToastActionElement, ToastClose, ToastDescription, type ToastProps, ToastProvider, ToastTitle, ToastViewport, Toaster, Toggle, ToggleGroup, ToggleGroupItem, Tooltip, TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger, SvgTrash2 as Trash2, SvgUserCog2 as UserCog2, SvgUserPlus2 as UserPlus2, SvgUsers2 as Users2, VerticalBar, WithLabel, WithRightContent, SvgZap as Zap, badgeVariants, buttonVariants, cn, columns, omsuPlugin, reducer, toast, toggleVariants, useDebounce, useFormField, useQuantityDeclension, useToast };
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, AlertDialogPortal, AlertDialogTitle, AlertDialogTrigger, AreaChart, type AreaChartProps, SvgArrowLeft as ArrowLeft, SvgArrowRight as ArrowRight, Avatar, AvatarFallback, type AvatarFallbackProps, AvatarImage, Badge, type BadgeProps, SvgBanknote as Banknote, BarList, type BarListProps, SvgBatteryMedium as BatteryMedium, SvgBell as Bell, SvgBookOpen as BookOpen, SvgBriefcase as Briefcase, Button, type ButtonProps, SvgCalendarHeart as CalendarHeart, SvgCalendarSearch as CalendarSearch, SvgCamera as Camera, Checkbox, CheckboxController, SvgChevronDown as ChevronDown, SvgChevronLeft as ChevronLeft, SvgChevronRight as ChevronRight, SvgChevronUp as ChevronUp, SvgChevronsDownUp as ChevronsDownUp, SvgChevronsUpDown as ChevronsUpDown, SvgClipboardList as ClipboardList, Collapsible, CollapsibleContent, CollapsibleRoot, CollapsibleTrigger, Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut, type ControllerProps, SvgCornerRightDown as CornerRightDown, DataTable, DataTableColumnHeader, DataTableFacetedFilter, DataTablePagination, DataTableToolbar, meta as DefaultBarListStory, Single as DefaultCheckboxStory, Default$2 as DefaultCollapsibleStory, meta$1 as DefaultDataTableStory, Default$1 as DefaultDropdownMenuStory, Default$4 as DefaultTooltip, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, Default as DrawerDefaultStory, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, SvgExternalLink as ExternalLink, SvgFlame as Flame, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, SvgGosuslugi as Gosuslugi, SvgGraduation as Graduation, SvgGraduationCap as GraduationCap, Group, GroupContent, GroupDescription, GroupFooter, GroupHeader, GroupRoot, type GroupRootProps, GroupTitle, SvgHeartHandshake as HeartHandshake, HorizontalBar, Icon, Default$6 as IconDefaultStory, type IconProps, SvgLogo as IdLogo, SvgInbox as Inbox, Input, InputController, type InputProps, Label, SvgLibrarySquare as LibrarySquare, List, SvgList as ListIcon, ListItem, type ListItemProps, SvgLogIn as LogIn, SvgLogOut as LogOut, Logo, Default$3 as LogoDefaultStory, type LogoProps, SvgMicroscope as Microscope, MultiSelect, Multiple as MultipleAccordionStory, SvgOmsuOutlined as OmsuOutlined, SvgOmsuThick as OmsuThick, type Option, type OptionType, SvgPaperclip as Paperclip, SvgPencilLine as PencilLine, Popover, PopoverContent, Default$5 as PopoverDefaultStory, PopoverRoot, PopoverTrigger, Primary, SvgProfessors as Professors, Profiles, SvgProfilesSettings as ProfilesSettings, RadioGroup, RadioGroupController, RadioGroupItem, RadioRoot, SvgRocket as Rocket, Select, SelectContent, SelectController, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue, Separator, Single$1 as SingleAccordionStory, SvgSparkles as Sparkles, Stepper, type StepperProps, Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, Tabs, TabsContent, TabsList, TabsTrigger, Textarea, type TextareaProps, Toast$1 as Toast, ToastAction, type ToastActionElement, ToastClose, ToastDescription, type ToastProps, ToastProvider, ToastTitle, ToastViewport, Toaster, Toggle, ToggleGroup, ToggleGroupItem, Tooltip, TooltipContent, TooltipProvider, TooltipRoot, TooltipTrigger, SvgTrash2 as Trash2, SvgUserCog2 as UserCog2, SvgUserPlus2 as UserPlus2, SvgUsers2 as Users2, VerticalBar, WithLabel, WithRightContent, SvgZap as Zap, badgeVariants, buttonVariants, cn, columns, omsuPlugin, toast, toggleVariants, useBreakpoint, useDebounce, useFormField, useQuantityDeclension, useToast };

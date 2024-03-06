@@ -6,7 +6,13 @@ export * from "./components/toast";
 export * from "./components/charts";
 export * from "./components/form/Form/controllers";
 export * from "./icons";
-export * from "./hooks";
+export {
+  toast,
+  useBreakpoint,
+  useDebounce,
+  useToast,
+  useQuantityDeclension,
+} from "./hooks";
 export * from "./types";
 export * from "./plugin";
 export { cn } from "./utils";

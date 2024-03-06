@@ -1,9 +1,10 @@
-const { fontFamily } = require("tailwindcss/defaultTheme");
+import { fontFamily } from "tailwindcss/defaultTheme";
+import { PresetsConfig } from "tailwindcss/types/config";
+import twAnimate from "tailwindcss-animate";
+import twScrollbar from "tailwind-scrollbar";
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  darkMode: ["class"],
-  content: ["./src/**/*.{js,ts,jsx,tsx}"],
+export const omsuTwPreset = {
+  darkMode: ["class", '[data-mode="dark"]'],
   safelist: [
     {
       pattern:
@@ -49,6 +50,7 @@ module.exports = {
       `ui-selected:text-${customColor}`,
     ]),
   ],
+  plugins: [twAnimate, twScrollbar],
   theme: {
     container: {
       center: true,
@@ -58,11 +60,19 @@ module.exports = {
       },
     },
     extend: {
-      boxShadow: { 50: "0px 2px 6px 0px rgba(0, 0, 0, 0.04)" },
       backgroundImage: {
         omsu: "linear-gradient(to right, #F98F48, #F54242)",
       },
       colors: {
+        omsu: "linear-gradient(to right, #F98F48, #F54242)",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: {
+          DEFAULT: "hsl(var(--background))",
+          content: "hsl(var(--background-content))",
+        },
+        foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           100: "hsl(var(--primary-100))",
@@ -72,23 +82,6 @@ module.exports = {
           900: "hsl(var(--primary-900))",
           foreground: "hsl(var(--primary-foreground))",
         },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        text: {
-          DEFAULT: "hsl(var(--text))",
-          secondary: "hsl(var(--text-secondary))",
-          display: "hsl(var(--text-display))",
-        },
-        background: {
-          DEFAULT: "hsl(var(--background))",
-          content: "hsl(var(--background-content))",
-        },
-        foreground: "hsl(var(--foreground))",
-        border: "hsl(var(--border))",
-        omsu: "linear-gradient(to right, #F98F48, #F54242)",
-
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -96,6 +89,10 @@ module.exports = {
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
@@ -105,11 +102,6 @@ module.exports = {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
         },
-        input: {
-          DEFAULT: "hsl(var(--input))",
-          foreground: "hsl(var(--input-foreground))",
-        },
-        // ring: "hsl(var(--ring))",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -121,31 +113,16 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: [
-          '"Inter"',
-          "system-ui",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          '"Segoe UI"',
-          "Roboto",
-          '"Helvetica Neue"',
-          "Arial",
-          '"Noto Sans"',
-          "sans-serif",
-          '"Apple Color Emoji"',
-          '"Segoe UI Emoji"',
-          '"Segoe UI Symbol"',
-          '"Noto Color Emoji"',
-        ],
+        sans: ["Inter", ...fontFamily.sans],
       },
       keyframes: {
         "accordion-down": {
-          from: { height: 0 },
+          from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
+          to: { height: "0" },
         },
       },
       animation: {
@@ -154,8 +131,4 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    require("tailwind-scrollbar")({ nocompatible: true }),
-  ],
-};
+} satisfies PresetsConfig;

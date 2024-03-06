@@ -1,4 +1,3 @@
-import { Stepper, Input, ListItem, Icon } from "./components";
 export * from "./components/blocks";
 export * from "./components/form";
 export * from "./components/Logo";
@@ -11,5 +10,4 @@ export * from "./hooks";
 export * from "./types";
 export * from "./plugin";
 export { cn } from "./utils";
-
-export { Stepper, Input, ListItem, Icon };
+export { omsuTwPreset } from "../tailwind.preset";

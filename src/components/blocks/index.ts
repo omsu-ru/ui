@@ -19,3 +19,4 @@ export * from "./Tabs";
 export * from "./DataTable";
 export * from "./Alert";
 export * from "./MultiSelect";
+export * from "./Drawer";

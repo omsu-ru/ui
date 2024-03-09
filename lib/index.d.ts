@@ -78,7 +78,7 @@ declare const Toggle: React$1.ForwardRefExoticComponent<Omit<TogglePrimitive.Tog
 } & class_variance_authority_dist_types.ClassProp) => string> & React$1.RefAttributes<HTMLButtonElement>>;
 
 declare const iconVariant: (props?: {
-    variant?: "default" | "destructive";
+    variant?: "default" | "destructive" | "standalone";
     size?: "default" | "sm" | "lg";
 } & class_variance_authority_dist_types.ClassProp) => string;
 interface IconProps extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof iconVariant> {

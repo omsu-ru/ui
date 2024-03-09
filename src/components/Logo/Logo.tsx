@@ -8,7 +8,7 @@ const logoVariants = cva("", {
   variants: {
     variant: {
       default: "text-black [&_path]:fill-white",
-      muted: "text-muted [&_path]:fill-text-muted-foreground",
+      muted: "text-muted [&_path]:fill-muted-foreground/40",
     },
     size: {
       default: "w-16 h-16",

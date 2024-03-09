@@ -30,3 +30,11 @@ export const Destructive: Story = {
     //👇 The args you need here will depend on your component
   },
 };
+export const Standalone: Story = {
+  args: {
+    icon: Briefcase,
+    variant: "standalone",
+    className: "w-6 h-6",
+    //👇 The args you need here will depend on your component
+  },
+};

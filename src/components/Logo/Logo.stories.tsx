@@ -18,7 +18,7 @@ export const Default: Story = {
   args: {
     variant: "default",
     size: "default",
-    icon: IdLogoSVG,
+    text: "Аналитика",
   },
 };
 
@@ -26,6 +26,7 @@ export const Muted: Story = {
   args: {
     variant: "muted",
     size: "default",
-    icon: IdLogoSVG,
+    className: "h-16",
+    text: "Аналитика",
   },
 };

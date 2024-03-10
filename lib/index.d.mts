@@ -275,11 +275,9 @@ declare const logoVariants: (props?: {
     size?: "default" | "sm" | "lg";
 } & class_variance_authority_dist_types.ClassProp) => string;
 interface LogoProps extends React__default.SVGAttributes<SVGElement>, VariantProps<typeof logoVariants> {
-    icon: React__default.ComponentType<{
-        className?: string;
-    }>;
+    text: string;
 }
-declare const Logo: ({ variant, size, className, ...props }: LogoProps) => react_jsx_runtime.JSX.Element;
+declare const Logo: ({ variant, size, className, text, ...props }: LogoProps) => react_jsx_runtime.JSX.Element;
 
 type Story$3 = StoryObj<typeof Logo>;
 declare const Default$3: Story$3;

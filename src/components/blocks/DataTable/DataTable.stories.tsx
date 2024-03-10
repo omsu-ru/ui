@@ -33,7 +33,7 @@ export const Default: Story = {
     return (
       <GroupRoot>
         <GroupHeader>
-          <Logo icon={IdLogo} />
+          <Logo text="ИПП" />
           <GroupTitle>Панель управления</GroupTitle>
 
           <GroupDescription>

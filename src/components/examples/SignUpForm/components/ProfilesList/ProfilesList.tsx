@@ -99,7 +99,7 @@ const ProfilesList = React.memo(() => {
       >
         <GroupRoot className="md:min-w-[440px] md:max-w-md max-sm:h-screen">
           <GroupHeader className="max-sm:p-4 z-20 w-full bg-card/80 backdrop-blur-sm  max-sm:sticky max-sm:top-0">
-            <Logo icon={IdLogo} />
+            <Logo text="ID" />
             <GroupTitle>Кто вы?</GroupTitle>
             <GroupDescription>
               Выберите один или несколько профилей

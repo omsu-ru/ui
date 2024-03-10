@@ -59,7 +59,7 @@ const SignInForm = () => {
       >
         <GroupRoot className="md:min-w-[440px] md:max-w-md max-sm:h-screen max-sm:rounded-none max-sm:shadow-none overflow-hidden">
           <GroupHeader className="sm:px-4 md:px-6">
-            <Logo icon={IdLogo} />
+            <Logo text="ID" />
             <GroupTitle>Добро пожаловать!</GroupTitle>
             <GroupDescription>
               ОмГУ ID - один ключ для многих сервисов

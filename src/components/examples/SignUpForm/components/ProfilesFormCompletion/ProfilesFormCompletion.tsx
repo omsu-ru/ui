@@ -70,7 +70,7 @@ const ProfilesFormCompletion = () => {
       >
         <GroupRoot className="md:min-w-[440px] md:max-w-md max-sm:h-screen">
           <GroupHeader className="max-sm:p-4 z-20 w-full bg-white/80 backdrop-blur-sm  max-sm:sticky max-sm:top-0">
-            <Logo variant="default" size="default" icon={IdLogo} />
+            <Logo text="ID" />
             <GroupTitle>Заполнение данных</GroupTitle>
             <GroupDescription>Остался последний шаг!</GroupDescription>
           </GroupHeader>

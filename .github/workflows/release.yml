@@ -20,7 +20,7 @@ jobs:
           scope: "@omsu-ru"
       - name: Login to GitHub private NPM registry
         env:
-          CI_ACCESS_TOKEN: ${{ secrets.@omsu/ci }}
+          CI_ACCESS_TOKEN: ${{ secrets.omsu }}
         shell: bash
         run: |
           npm install -g npm-cli-login

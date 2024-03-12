@@ -74,7 +74,7 @@ const Logo = ({ variant, size, className, text, ...props }: LogoProps) => {
           x={24 + 8} // Ширина логотипа + расстояние
           dominantBaseline="middle"
           textAnchor="start"
-          fontSize="16"
+          fontSize="20"
           fill="currentColor"
           fontWeight={800}
         >

@@ -9,6 +9,13 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { darkTheme } from "./constants";
 import { DocsContainer } from "./DocsContainer";
 
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { type ThemeProviderProps } from "next-themes/dist/types";
+
+export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
+}
+
 /* snipped for brevity */
 
 export const decorators = [
@@ -26,15 +33,17 @@ const queryClient = new QueryClient();
 const preview: Preview = {
   decorators: [
     (Story) => (
-      <QueryClientProvider client={queryClient}>
-        <main
-          className=" relative p-0 grid items-center  h-screen min-h-screen content-center"
-          style={{ minHeight: "100vh" }}
-        >
-          <Story />
-          <Toaster />
-        </main>
-      </QueryClientProvider>
+      <ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <main
+            className=" relative p-0 grid items-center  h-screen min-h-screen content-center"
+            style={{ minHeight: "100vh" }}
+          >
+            <Story />
+            <Toaster />
+          </main>
+        </QueryClientProvider>
+      </ThemeProvider>
     ),
   ],
   parameters: {

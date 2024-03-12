@@ -7,10 +7,10 @@ jobs:
     steps:
       - name: Check if secret is set
         run: |
-          if [ -z "${{ secrets.MY_SECRET_TOKEN }}" ]; then
+          if [ -z ${{ secrets.MY_SECRET_TOKEN }} ]; then
             echo "Secret is not set"
           else
-            echo "${{ secrets.MY_SECRET_TOKEN }}"
+            echo ${{ secrets.MY_SECRET_TOKEN }}
           fi
   release:
     runs-on: ubuntu-latest

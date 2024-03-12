@@ -24,7 +24,7 @@ jobs:
       - name: Install deps and build
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm ci
+        run: npm install
       - name: Build
         run: npm run build:lib
       - name: Release

@@ -19,15 +19,18 @@ jobs:
           # Defaults to the user or organization that owns the workflow file
           scope: "@omsu-ru"
 
-      - name: Install deps and build
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm install
-      - name: Build
-        run: npm run build:lib
+      - name: Install deps
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        run: npm install
+      - name: Build
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run build:lib
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

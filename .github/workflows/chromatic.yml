@@ -2,7 +2,7 @@
 
 name: "Chromatic"
 
-on: push
+on: workflow_dispatch
 
 jobs:
   chromatic:

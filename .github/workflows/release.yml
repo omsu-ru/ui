@@ -23,7 +23,6 @@ jobs:
       - name: Install deps and build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
         run: npm ci
       - name: Build
         run: npm run build

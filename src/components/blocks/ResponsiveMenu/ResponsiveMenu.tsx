@@ -1,3 +1,4 @@
+"use client";
 import React, { ReactNode, RefObject } from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { Drawer, DrawerContent, DrawerTrigger } from "../Drawer";

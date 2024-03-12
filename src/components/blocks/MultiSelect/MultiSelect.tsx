@@ -28,6 +28,7 @@ interface MultiSelectProps
   className?: string;
   label: string | React.ReactNode;
   emptyIndicator?: React.ReactNode;
+  placeholder?: string;
 }
 
 function MultiSelect({

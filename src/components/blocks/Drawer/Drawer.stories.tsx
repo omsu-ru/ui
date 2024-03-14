@@ -25,7 +25,7 @@ export const Default: Story = {
   render: () => (
     <Drawer>
       <DrawerTrigger>Open</DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent onOverlayClick={() => console.log("overlay click")}>
         <DrawerHeader>
           <DrawerTitle>Are you absolutely sure?</DrawerTitle>
           <DrawerDescription>This action cannot be undone.</DrawerDescription>

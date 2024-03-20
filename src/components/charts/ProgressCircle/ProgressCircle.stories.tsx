@@ -15,5 +15,6 @@ export const Default: Story = {
     value: 72,
     radius: 25,
     strokeWidth: 6,
+    color: "amber",
   },
 };

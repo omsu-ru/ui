@@ -3,5 +3,5 @@ export * from "./AreaChart";
 export * from "./BarList";
 export * from "./HorizontalBar";
 export * from "./VerticalBar";
-export { BarList } from "./BarList";
 export { CategoryBar } from "./CategoryBar";
+export { ProgressCircle } from "./ProgressCircle";

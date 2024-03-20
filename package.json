@@ -43,7 +43,7 @@
   "license": "ISC",
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
-    "@omsu-ru/hooks": "^1.0.4",
+    "@omsu-ru/hooks": "^1.1.0",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-avatar": "^1.0.4",
@@ -97,7 +97,7 @@
     "@storybook/addon-interactions": "^7.5.3",
     "@storybook/addon-links": "^7.5.3",
     "@storybook/addon-onboarding": "^1.0.8",
-    "@storybook/addon-styling-webpack": "^0.0.5",
+    "@storybook/addon-styling-webpack": "^1.0.0",
     "@storybook/addon-themes": "^7.5.3",
     "@storybook/blocks": "^7.5.3",
     "@storybook/cli": "^7.5.3",

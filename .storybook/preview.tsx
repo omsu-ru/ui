@@ -1,6 +1,6 @@
 import type { Preview } from "@storybook/react";
 import "../src/main.css";
-import React from "react";
+import * as React from "react";
 // .storybook/preview.js
 import { withThemeByClassName } from "@storybook/addon-themes";
 import { withToaster } from "../src/decorators";

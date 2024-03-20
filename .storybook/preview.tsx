@@ -3,7 +3,6 @@ import "../src/main.css";
 import * as React from "react";
 // .storybook/preview.js
 import { withThemeByClassName } from "@storybook/addon-themes";
-import { withToaster } from "../src/decorators";
 import { Toaster } from "../src/components/toast";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { darkTheme } from "./constants";

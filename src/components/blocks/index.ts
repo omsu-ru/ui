@@ -21,3 +21,4 @@ export * from "./Alert";
 export * from "./MultiSelect";
 export * from "./Drawer";
 export { ProfileMenuTrigger } from "./ProfileMenuTrigger";
+export { BadgeDelta } from "./BadgeDelta";

@@ -1,8 +1,7 @@
 import React from "react";
-import { Color } from "../types";
-import { cn } from "@/utils";
-import { getColorClassNames } from "../common/utils";
-import { colorPalette } from "../theme";
+import { cn, getColorClassNames } from "@/utils";
+import { colorPalette } from "@/shared/theme";
+import { Color } from "@/types";
 
 export type Size = "xs" | "sm" | "md" | "lg" | "xl";
 

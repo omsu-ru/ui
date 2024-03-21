@@ -1,9 +1,9 @@
-import { cn } from "@/utils";
+import { colorPalette } from "@/shared/theme";
+import { Color } from "@/types";
+import { cn, getColorClassNames } from "@/utils";
 import React from "react";
-import { Color, ValueFormatter } from "../types";
-import { getColorClassNames } from "./utils";
-import { colorPalette } from "../theme";
-import { BaseColors } from "../constants";
+import { ValueFormatter } from "../types";
+import { BaseColors } from "@/shared/consts";
 
 export const ChartTooltipFrame = ({
   children,

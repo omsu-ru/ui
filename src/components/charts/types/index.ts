@@ -25,52 +25,9 @@ export type ValueFormatter = {
 
 export type CurveType = "linear" | "natural" | "monotone" | "step";
 
-export interface ColorClassNames {
-  bgColor: string;
-  hoverBgColor: string;
-  selectBgColor: string;
-  textColor: string;
-  selectTextColor: string;
-  hoverTextColor: string;
-  borderColor: string;
-  selectBorderColor: string;
-  hoverBorderColor: string;
-  ringColor: string;
-  strokeColor: string;
-  fillColor: string;
-}
-
-export const colorValues = [
-  "slate",
-  "gray",
-  "zinc",
-  "neutral",
-  "stone",
-  "red",
-  "orange",
-  "amber",
-  "yellow",
-  "lime",
-  "green",
-  "emerald",
-  "teal",
-  "cyan",
-  "sky",
-  "blue",
-  "indigo",
-  "violet",
-  "purple",
-  "fuchsia",
-  "pink",
-  "rose",
-] as const;
-
 export type Interval = "preserveStartEnd" | "equidistantPreserveStart";
 
 export type IntervalType = "preserveStartEnd" | Interval;
-
-export type Color = (typeof colorValues)[number];
-export type CustomColor = Color | string;
 
 export type CustomTooltipProps = {
   payload:

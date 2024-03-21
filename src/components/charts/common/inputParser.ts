@@ -1,7 +1,9 @@
-import { getColorClassNames, sumNumericArray } from "./utils";
-import { BaseColors } from "../constants";
-import { colorPalette } from "../theme";
-import { Color, ValueFormatter } from "../types";
+import { Color } from "@/types";
+import { sumNumericArray } from "./utils";
+import { BaseColors } from "@/shared/consts";
+import { getColorClassNames } from "@/utils";
+import { ValueFormatter } from "@tremor/react";
+import { colorPalette } from "@/shared/theme";
 
 export const parseData = (data: any[], colors: (Color | string)[]) =>
   data.map((dataPoint: any, idx: number) => {

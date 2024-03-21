@@ -1,7 +1,5 @@
 "use client";
 
-import { BaseColors } from "../constants";
-import { themeColorRange } from "../theme";
 import { defaultValueFormatter } from "../common/utils";
 import { cn } from "@/utils";
 import React, { useEffect } from "react";
@@ -13,7 +11,7 @@ import {
   Tooltip,
 } from "recharts";
 
-import { Color, ValueFormatter } from "../types";
+import { ValueFormatter } from "../types";
 
 import NoData from "../common/NoData";
 
@@ -26,6 +24,9 @@ import type { EventProps } from "../common";
 import { CustomTooltipProps } from "../types";
 
 import type BaseAnimationTimingProps from "../common/BaseAnimationTimingProps";
+import { Color } from "@/types";
+import { themeColorRange } from "@/shared/theme";
+import { BaseColors } from "@/shared/consts";
 
 type DonutChartVariant = "donut" | "pie";
 

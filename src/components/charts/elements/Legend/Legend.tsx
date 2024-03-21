@@ -1,13 +1,10 @@
 import React, { useEffect, useCallback } from "react";
 
-import { cn } from "@/utils";
-import { getColorClassNames } from "../../common/utils";
-import { themeColorRange } from "../../theme";
-import { Color } from "../../types";
+import { cn, getColorClassNames } from "@/utils";
 
 import { ChevronRight, ChevronLeft } from "lucide-react";
-
-import { colorPalette } from "../../theme";
+import { Color } from "@/types";
+import { colorPalette, themeColorRange } from "@/shared/theme";
 
 export interface LegendItemProps {
   name: string;

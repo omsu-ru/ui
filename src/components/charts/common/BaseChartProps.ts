@@ -1,4 +1,5 @@
-import { Color, ValueFormatter, IntervalType } from "../types";
+import { Color } from "@/types";
+import { ValueFormatter, IntervalType } from "../types";
 import type BaseAnimationTimingProps from "./BaseAnimationTimingProps";
 import { CustomTooltipType } from "./CustomTooltipProps";
 

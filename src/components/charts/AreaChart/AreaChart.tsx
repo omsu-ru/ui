@@ -21,15 +21,14 @@ import NoData from "../common/NoData";
 import {
   constructCategoryColors,
   defaultValueFormatter,
-  getColorClassNames,
   getYAxisDomain,
   hasOnlyOneValueForThisKey,
 } from "../common/utils";
 
 import { CurveType } from "../types";
-import { colorPalette, themeColorRange } from "../theme";
-import { cn } from "@/utils";
-import { BaseColors } from "../constants";
+import { cn, getColorClassNames } from "@/utils";
+import { colorPalette, themeColorRange } from "@/shared/theme";
+import { BaseColors } from "@/shared/consts";
 
 export interface AreaChartProps extends BaseChartProps {
   stack?: boolean;

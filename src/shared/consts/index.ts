@@ -1,4 +1,29 @@
-import { Color } from "./types";
+import { Color } from "@/types";
+
+export const colorValues = [
+  "slate",
+  "gray",
+  "zinc",
+  "neutral",
+  "stone",
+  "red",
+  "orange",
+  "amber",
+  "yellow",
+  "lime",
+  "green",
+  "emerald",
+  "teal",
+  "cyan",
+  "sky",
+  "blue",
+  "indigo",
+  "violet",
+  "purple",
+  "fuchsia",
+  "pink",
+  "rose",
+] as const;
 
 export const BaseColors: { [key: string]: Color } = {
   Slate: "slate",
@@ -24,3 +49,5 @@ export const BaseColors: { [key: string]: Color } = {
   Pink: "pink",
   Rose: "rose",
 };
+
+export const sizeValues = ["xs", "sm", "md", "lg", "xl"] as const;

@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
-import { Color } from "../types";
-import { getColorClassNames, sumNumericArray } from "../common/utils";
-import { colorPalette, themeColorRange } from "../theme";
-import { cn } from "@/utils";
+import { sumNumericArray } from "../common/utils";
+import { cn, getColorClassNames } from "@/utils";
 import { Tooltip, useTooltip } from "../elements/Tooltip";
+import { Color } from "@/types";
+import { colorPalette, themeColorRange } from "@/shared/theme";
 
 const getMarkerBgColor = (
   markerValue: number | undefined,

@@ -22,3 +22,15 @@ export * from "./MultiSelect";
 export * from "./Drawer";
 export { ProfileMenuTrigger } from "./ProfileMenuTrigger";
 export { BadgeDelta } from "./BadgeDelta";
+export {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetOverlay,
+  SheetPortal,
+  SheetTitle,
+  SheetTrigger,
+} from "./Sheet";

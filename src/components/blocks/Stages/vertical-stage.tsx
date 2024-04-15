@@ -2,17 +2,17 @@ import { Collapsible, CollapsibleContent } from "@/components";
 import { cn } from "@/utils";
 import { cva } from "class-variance-authority";
 import * as React from "react";
-import { StepButtonContainer } from "./step-button-container";
-import { StepIcon } from "./step-icon";
-import { StepLabel } from "./step-label";
-import type { StepSharedProps } from "./types";
-import { useStepper } from "./use-stepper";
+import { StageButtonContainer } from "./stage-button-container";
+import { StageIcon } from "./stage-icon";
+import { StageLabel } from "./stage-label";
+import type { StageSharedProps } from "./types";
+import { useStages } from "./use-stages";
 
-type VerticalStepProps = StepSharedProps & {
+type VerticalStageProps = StageSharedProps & {
   children?: React.ReactNode;
 };
 
-const verticalStepVariants = cva(
+const verticalStageVariants = cva(
   [
     "flex flex-col relative transition-all duration-200",
     "data-[completed=true]:[&:not(:last-child)]:after:bg-emerald-500",
@@ -22,12 +22,12 @@ const verticalStepVariants = cva(
     variants: {
       variant: {
         circle: cn(
-          "[&:not(:last-child)]:pb-[var(--step-gap)] [&:not(:last-child)]:gap-[var(--step-gap)]",
+          "[&:not(:last-child)]:pb-[var(--stage-gap)] [&:not(:last-child)]:gap-[var(--stage-gap)]",
           "[&:not(:last-child)]:after:content-[''] [&:not(:last-child)]:after:w-[2px] [&:not(:last-child)]:after:bg-border",
-          "[&:not(:last-child)]:after:inset-x-[calc(var(--step-icon-size)/2)]",
+          "[&:not(:last-child)]:after:inset-x-[calc(var(--stage-icon-size)/2)]",
           "[&:not(:last-child)]:after:absolute",
-          "[&:not(:last-child)]:after:top-[calc(var(--step-icon-size)+var(--step-gap))]",
-          "[&:not(:last-child)]:after:bottom-[var(--step-gap)]",
+          "[&:not(:last-child)]:after:top-[calc(var(--stage-icon-size)+var(--stage-gap))]",
+          "[&:not(:last-child)]:after:bottom-[var(--stage-gap)]",
           "[&:not(:last-child)]:after:transition-all [&:not(:last-child)]:after:duration-200"
         ),
         line: "flex-1 border-t-0 mb-4",
@@ -36,13 +36,13 @@ const verticalStepVariants = cva(
   }
 );
 
-const VerticalStep = React.forwardRef<HTMLDivElement, VerticalStepProps>(
+const VerticalStage = React.forwardRef<HTMLDivElement, VerticalStageProps>(
   (props, ref) => {
     const {
       children,
       index,
-      isCompletedStep,
-      isCurrentStep,
+      isCompletedStage,
+      isCurrentStage,
       label,
       description,
       icon,
@@ -50,7 +50,7 @@ const VerticalStep = React.forwardRef<HTMLDivElement, VerticalStepProps>(
       state,
       checkIcon: checkIconProp,
       errorIcon: errorIconProp,
-      onClickStep,
+      onClickStage,
     } = props;
 
     const {
@@ -59,30 +59,32 @@ const VerticalStep = React.forwardRef<HTMLDivElement, VerticalStepProps>(
       isError,
       isLoading,
       variant,
-      onClickStep: onClickStepGeneral,
+      onClickStage: onClickStageGeneral,
       clickable,
-      expandVerticalSteps,
+      expandVerticalStages,
       styles,
       scrollTracking,
       orientation,
-      steps,
-      setStep,
-      isLastStep: isLastStepCurrentStep,
-    } = useStepper();
+      stages,
+      setStage,
+      isLastStage: isLastStageCurrentStage,
+    } = useStages();
 
     const opacity = hasVisited ? 1 : 0.8;
     const localIsLoading = isLoading || state === "loading";
     const localIsError = isError || state === "error";
 
-    const isLastStep = index === steps.length - 1;
+    const isLastStage = index === stages.length - 1;
 
     const active =
-      variant === "line" ? isCompletedStep || isCurrentStep : isCompletedStep;
+      variant === "line"
+        ? isCompletedStage || isCurrentStage
+        : isCompletedStage;
     const checkIcon = checkIconProp || checkIconContext;
     const errorIcon = errorIconProp || errorIconContext;
 
     const renderChildren = () => {
-      if (!expandVerticalSteps) {
+      if (!expandVerticalStages) {
         return <>{children}</>;
       }
       return children;
@@ -92,54 +94,54 @@ const VerticalStep = React.forwardRef<HTMLDivElement, VerticalStepProps>(
       <div
         ref={ref}
         className={cn(
-          "stepper__vertical-step",
-          verticalStepVariants({
+          "stages__vertical-stage",
+          verticalStageVariants({
             variant: variant?.includes("circle") ? "circle" : "line",
           }),
-          isLastStepCurrentStep && "gap-[var(--step-gap)]",
-          styles?.["vertical-step"]
+          isLastStageCurrentStage && "gap-[var(--stage-gap)]",
+          styles?.["vertical-stage"]
         )}
-        data-optional={steps[index || 0]?.optional}
-        data-completed={isCompletedStep}
+        data-optional={stages[index || 0]?.optional}
+        data-completed={isCompletedStage}
         data-active={active}
-        data-clickable={clickable || !!onClickStep}
+        data-clickable={clickable || !!onClickStage}
         data-invalid={localIsError}
         onClick={() =>
-          onClickStep?.(index || 0, setStep) ||
-          onClickStepGeneral?.(index || 0, setStep)
+          onClickStage?.(index || 0, setStage) ||
+          onClickStageGeneral?.(index || 0, setStage)
         }
       >
         <div
           data-vertical={true}
           data-active={active}
           className={cn(
-            "stepper__vertical-step-container",
+            "stages__vertical-stage-container",
             "flex items-center",
             variant === "line" &&
               "border-s-[3px] data-[active=true]:border-primary py-2 ps-3",
-            styles?.["vertical-step-container"]
+            styles?.["vertical-stage-container"]
           )}
         >
-          <StepButtonContainer
+          <StageButtonContainer
             {...{ isLoading: localIsLoading, isError: localIsError, ...props }}
           >
-            <StepIcon
+            <StageIcon
               {...{
                 index,
                 isError: localIsError,
                 isLoading: localIsLoading,
-                isCurrentStep,
-                isCompletedStep,
+                isCurrentStage,
+                isCompletedStage,
               }}
               icon={icon}
               checkIcon={checkIcon}
               errorIcon={errorIcon}
             />
-          </StepButtonContainer>
-          <StepLabel
+          </StageButtonContainer>
+          <StageLabel
             label={label}
             description={description}
-            {...{ isCurrentStep, opacity }}
+            {...{ isCurrentStage, opacity }}
           />
         </div>
         <div
@@ -152,11 +154,11 @@ const VerticalStep = React.forwardRef<HTMLDivElement, VerticalStepProps>(
             }
           }}
           className={cn(
-            "stepper__vertical-step-content",
-            !isLastStep && "min-h-4",
-            variant !== "line" && "ps-[--step-icon-size]",
+            "stages__vertical-stage-content",
+            !isLastStage && "min-h-4",
+            variant !== "line" && "ps-[--stage-icon-size]",
             variant === "line" && orientation === "vertical" && "min-h-0",
-            styles?.["vertical-step-content"]
+            styles?.["vertical-stage-content"]
           )}
         >
           {renderChildren()}
@@ -166,4 +168,4 @@ const VerticalStep = React.forwardRef<HTMLDivElement, VerticalStepProps>(
   }
 );
 
-export { VerticalStep };
+export { VerticalStage };

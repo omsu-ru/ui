@@ -35,4 +35,4 @@ export {
   SheetTrigger,
 } from "./Sheet";
 
-export { Step, StepProps, Stepper, StepperProps, useStepper } from "./Stepper";
+export { Stage, StageProps, Stages, StagesProps, useStages } from "./Stages";

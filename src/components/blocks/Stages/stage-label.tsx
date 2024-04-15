@@ -1,9 +1,9 @@
 import { cn } from "@/utils";
 import { cva } from "class-variance-authority";
-import { useStepper } from "./use-stepper";
+import { useStages } from "./use-stages";
 
-interface StepLabelProps {
-  isCurrentStep?: boolean;
+interface StageLabelProps {
+  isCurrentStage?: boolean;
   opacity: number;
   label?: string | React.ReactNode;
   description?: string | null;
@@ -35,26 +35,26 @@ const descriptionVariants = cva("", {
   },
 });
 
-const StepLabel = ({
-  isCurrentStep,
+const StageLabel = ({
+  isCurrentStage,
   opacity,
   label,
   description,
-}: StepLabelProps) => {
-  const { variant, styles, size, orientation } = useStepper();
+}: StageLabelProps) => {
+  const { variant, styles, size, orientation } = useStages();
   const shouldRender = !!label || !!description;
 
   return shouldRender ? (
     <div
-      aria-current={isCurrentStep ? "step" : undefined}
+      aria-current={isCurrentStage ? "step" : undefined}
       className={cn(
-        "stepper__step-label-container",
+        "stages__stage-label-container",
         "flex-col flex",
         variant !== "line" ? "ms-2" : orientation === "horizontal" && "my-2",
         variant === "circle-alt" && "text-center",
         variant === "circle-alt" && orientation === "horizontal" && "ms-0",
         variant === "circle-alt" && orientation === "vertical" && "text-start",
-        styles?.["step-label-container"]
+        styles?.["stage-label-container"]
       )}
       style={{
         opacity,
@@ -63,9 +63,9 @@ const StepLabel = ({
       {!!label && (
         <span
           className={cn(
-            "stepper__step-label",
+            "stages__stage-label",
             labelVariants({ size }),
-            styles?.["step-label"]
+            styles?.["stage-label"]
           )}
         >
           {label}
@@ -74,10 +74,10 @@ const StepLabel = ({
       {!!description && (
         <span
           className={cn(
-            "stepper__step-description",
+            "stages__stage-description",
             "text-muted-foreground",
             descriptionVariants({ size }),
-            styles?.["step-description"]
+            styles?.["stage-description"]
           )}
         >
           {description}
@@ -87,4 +87,4 @@ const StepLabel = ({
   ) : null;
 };
 
-export { StepLabel };
+export { StageLabel };

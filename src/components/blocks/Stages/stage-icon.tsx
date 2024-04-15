@@ -3,11 +3,11 @@ import { cva } from "class-variance-authority";
 import { CheckIcon, Loader2, X } from "lucide-react";
 import * as React from "react";
 import type { IconType } from "./types";
-import { useStepper } from "./use-stepper";
+import { useStages } from "./use-stages";
 
-interface StepIconProps {
-  isCompletedStep?: boolean;
-  isCurrentStep?: boolean;
+interface StageIconProps {
+  isCompletedStage?: boolean;
+  isCurrentStage?: boolean;
   isError?: boolean;
   isLoading?: boolean;
   isKeepError?: boolean;
@@ -30,13 +30,13 @@ const iconVariants = cva("", {
   },
 });
 
-const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
+const StageIcon = React.forwardRef<HTMLDivElement, StageIconProps>(
   (props, ref) => {
-    const { size } = useStepper();
+    const { size } = useStages();
 
     const {
-      isCompletedStep,
-      isCurrentStep,
+      isCompletedStage,
+      isCurrentStage,
       isError,
       isLoading,
       isKeepError,
@@ -62,7 +62,7 @@ const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
     );
 
     return React.useMemo(() => {
-      if (isCompletedStep) {
+      if (isCompletedStage) {
         if (isError && isKeepError) {
           return (
             <div key="icon">
@@ -76,7 +76,7 @@ const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
           </div>
         );
       }
-      if (isCurrentStep) {
+      if (isCurrentStage) {
         if (isError && ErrorIcon) {
           return (
             <div key="error-icon">
@@ -99,7 +99,7 @@ const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
       }
       if (Icon) {
         return (
-          <div key="step-icon">
+          <div key="stage-icon">
             <Icon className={cn(iconVariants({ size }))} />
           </div>
         );
@@ -114,8 +114,8 @@ const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
         </span>
       );
     }, [
-      isCompletedStep,
-      isCurrentStep,
+      isCompletedStage,
+      isCurrentStage,
       isError,
       isLoading,
       Icon,
@@ -129,4 +129,4 @@ const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
   }
 );
 
-export { StepIcon };
+export { StageIcon };

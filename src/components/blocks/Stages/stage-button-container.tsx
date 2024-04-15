@@ -1,28 +1,28 @@
 import { Button } from "@/components";
 import { cn } from "@/utils";
-import type { StepSharedProps } from "./types";
-import { useStepper } from "./use-stepper";
+import type { StageSharedProps } from "./types";
+import { useStages } from "./use-stages";
 
-type StepButtonContainerProps = StepSharedProps & {
+type StageButtonContainerProps = StageSharedProps & {
   children?: React.ReactNode;
 };
 
-const StepButtonContainer = ({
-  isCurrentStep,
-  isCompletedStep,
+const StageButtonContainer = ({
+  isCurrentStage,
+  isCompletedStage,
   children,
   isError,
   isLoading: isLoadingProp,
-  onClickStep,
-}: StepButtonContainerProps) => {
+  onClickStage,
+}: StageButtonContainerProps) => {
   const {
     clickable,
     isLoading: isLoadingContext,
     variant,
     styles,
-  } = useStepper();
+  } = useStages();
 
-  const currentStepClickable = clickable || !!onClickStep;
+  const currentStageClickable = clickable || !!onClickStage;
 
   const isLoading = isLoadingProp || isLoadingContext;
 
@@ -34,26 +34,26 @@ const StepButtonContainer = ({
     <Button
       variant="ghost"
       className={cn(
-        "stepper__step-button-container",
+        "stages__stage-button-container",
         "rounded-full p-0 pointer-events-none",
-        "w-[var(--step-icon-size)] h-[var(--step-icon-size)]",
+        "w-[var(--stage-icon-size)] h-[var(--stage-icon-size)]",
         "border-[3px] flex rounded-full justify-center items-center",
         "data-[clickable=true]:pointer-events-auto",
         "data-[active=true]:bg-emerald-500 data-[active=true]:border-none data-[active=true]:text-primary-foreground",
         "data-[current=true]:border-emerald-500 data-[current=true]:bg-muted",
         "data-[invalid=true]:bg-destructive data-[invalid=true]:border-destructive data-[invalid=true]:text-destructive-foreground",
-        styles?.["step-button-container"]
+        styles?.["stage-button-container"]
       )}
-      aria-current={isCurrentStep ? "step" : undefined}
-      data-current={isCurrentStep}
-      data-invalid={isError && (isCurrentStep || isCompletedStep)}
-      data-active={isCompletedStep}
-      data-clickable={currentStepClickable}
-      data-loading={isLoading && (isCurrentStep || isCompletedStep)}
+      aria-current={isCurrentStage ? "step" : undefined}
+      data-current={isCurrentStage}
+      data-invalid={isError && (isCurrentStage || isCompletedStage)}
+      data-active={isCompletedStage}
+      data-clickable={currentStageClickable}
+      data-loading={isLoading && (isCurrentStage || isCompletedStage)}
     >
       {children}
     </Button>
   );
 };
 
-export { StepButtonContainer };
+export { StageButtonContainer };

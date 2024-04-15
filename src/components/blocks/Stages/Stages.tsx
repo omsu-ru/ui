@@ -2,11 +2,11 @@
 
 import { cn } from "@/utils";
 import * as React from "react";
-import { StepperProvider } from "./context";
-import { Step } from "./step";
-import type { StepItem, StepProps, StepperProps } from "./types";
+import { StagesProvider } from "./context";
+import { Stage } from "./stage";
+import type { StageItem, StageProps, StagesProps } from "./types";
 import { useMediaQuery } from "./use-media-query";
-import { useStepper } from "./use-stepper";
+import { useStages } from "./use-stages";
 
 const VARIABLE_SIZES = {
   sm: "36px",
@@ -14,7 +14,7 @@ const VARIABLE_SIZES = {
   lg: "44px",
 };
 
-const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
+const Stages = React.forwardRef<HTMLDivElement, StagesProps>(
   (props, ref: React.Ref<HTMLDivElement>) => {
     const {
       className,
@@ -24,17 +24,17 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
       responsive,
       checkIcon,
       errorIcon,
-      onClickStep,
+      onClickStage,
       mobileBreakpoint,
-      expandVerticalSteps = false,
-      initialStep = 0,
+      expandVerticalStages = false,
+      initialStage = 0,
       size,
-      steps,
+      stages,
       variant,
       styles,
       variables,
       scrollTracking = false,
-      currentStep = 0,
+      currentStage = 0,
       ...rest
     } = props;
 
@@ -44,9 +44,9 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
 
     const footer = childArr.map((child, _index) => {
       if (!React.isValidElement(child)) {
-        throw new Error("Stepper children must be valid React elements.");
+        throw new Error("Stages children must be valid React elements.");
       }
-      if (child.type === Step) {
+      if (child.type === Stage) {
         items.push(child);
         return null;
       }
@@ -54,35 +54,35 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
       return child;
     });
 
-    const stepCount = items.length;
+    const stageCount = items.length;
 
     const isMobile = useMediaQuery(
       `(max-width: ${mobileBreakpoint || "768px"})`
     );
 
-    const clickable = !!onClickStep;
+    const clickable = !!onClickStage;
 
     const orientation = isMobile && responsive ? "vertical" : orientationProp;
 
     const isVertical = orientation === "vertical";
 
     return (
-      <StepperProvider
+      <StagesProvider
         value={{
-          initialStep,
+          initialStage,
           orientation,
           state,
           size,
           responsive,
           checkIcon,
           errorIcon,
-          onClickStep,
+          onClickStage,
           clickable,
-          stepCount,
+          stageCount,
           isVertical,
           variant: variant || "circle",
-          expandVerticalSteps,
-          steps,
+          expandVerticalStages,
+          stages,
           scrollTracking,
           styles,
         }}
@@ -90,9 +90,9 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
         <div
           ref={ref}
           className={cn(
-            "stepper__main-container",
+            "stages__main-container",
             "flex w-full flex-wrap",
-            stepCount === 1 ? "justify-end" : "justify-between",
+            stageCount === 1 ? "justify-end" : "justify-between",
             orientation === "vertical" ? "flex-col" : "flex-row",
             variant === "line" && orientation === "horizontal" && "gap-4",
             className,
@@ -100,10 +100,10 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
           )}
           style={
             {
-              "--step-icon-size":
-                variables?.["--step-icon-size"] ||
+              "--stage-icon-size":
+                variables?.["--stage-icon-size"] ||
                 `${VARIABLE_SIZES[size || "lg"]}`,
-              "--step-gap": variables?.["--step-gap"] || "8px",
+              "--stage-gap": variables?.["--stage-gap"] || "8px",
             } as React.CSSProperties
           }
           {...rest}
@@ -114,42 +114,42 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
           <HorizontalContent>{items}</HorizontalContent>
         )}
         {footer}
-      </StepperProvider>
+      </StagesProvider>
     );
   }
 );
 
-Stepper.defaultProps = {
+Stages.defaultProps = {
   size: "md",
   orientation: "horizontal",
   responsive: true,
 };
 
 const VerticalContent = ({ children }: { children: React.ReactNode }) => {
-  const { activeStep } = useStepper();
+  const { activeStage } = useStages();
 
   const childArr = React.Children.toArray(children);
-  const stepCount = childArr.length;
+  const stageCount = childArr.length;
 
   return (
     <>
       {React.Children.map(children, (child, i) => {
-        const isCompletedStep =
+        const isCompletedStage =
           (React.isValidElement(child) &&
-            (child.props as any).isCompletedStep) ??
-          i < activeStep;
-        const isLastStep = i === stepCount - 1;
-        const isCurrentStep = i === activeStep;
+            (child.props as any).isCompletedStage) ??
+          i < activeStage;
+        const isLastStage = i === stageCount - 1;
+        const isCurrentStage = i === activeStage;
 
-        const stepProps = {
+        const stageProps = {
           index: i,
-          isCompletedStep,
-          isCurrentStep,
-          isLastStep,
+          isCompletedStage,
+          isCurrentStage,
+          isLastStage,
         };
 
         if (React.isValidElement(child)) {
-          return React.cloneElement(child, stepProps);
+          return React.cloneElement(child, stageProps);
         }
         return null;
       })}
@@ -158,16 +158,16 @@ const VerticalContent = ({ children }: { children: React.ReactNode }) => {
 };
 
 const HorizontalContent = ({ children }: { children: React.ReactNode }) => {
-  const { activeStep } = useStepper();
+  const { activeStage } = useStages();
   const childArr = React.Children.toArray(children);
 
-  if (activeStep > childArr.length) {
+  if (activeStage > childArr.length) {
     return null;
   }
 
   return (
     <>
-      {React.Children.map(childArr[activeStep], (node) => {
+      {React.Children.map(childArr[activeStage], (node) => {
         if (!React.isValidElement(node)) {
           return null;
         }
@@ -180,5 +180,5 @@ const HorizontalContent = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export { Stepper, Step, useStepper };
-export type { StepProps, StepperProps, StepItem };
+export { Stages, Stage, useStages };
+export type { StageProps, StagesProps, StageItem };

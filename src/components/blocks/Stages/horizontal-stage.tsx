@@ -1,30 +1,30 @@
 import { cn } from "@/utils";
 import * as React from "react";
-import { StepButtonContainer } from "./step-button-container";
-import { StepIcon } from "./step-icon";
-import { StepLabel } from "./step-label";
-import type { StepSharedProps } from "./types";
-import { useStepper } from "./use-stepper";
+import { StageButtonContainer } from "./stage-button-container";
+import { StageIcon } from "./stage-icon";
+import { StageLabel } from "./stage-label";
+import type { StageSharedProps } from "./types";
+import { useStages } from "./use-stages";
 
-const HorizontalStep = React.forwardRef<HTMLDivElement, StepSharedProps>(
+const HorizontalStage = React.forwardRef<HTMLDivElement, StageSharedProps>(
   (props, ref) => {
     const {
       isError,
       isLoading,
-      onClickStep,
+      onClickStage,
       variant,
       clickable,
       checkIcon: checkIconContext,
       errorIcon: errorIconContext,
       styles,
-      steps,
-      setStep,
-    } = useStepper();
+      stages,
+      setStage,
+    } = useStages();
 
     const {
       index,
-      isCompletedStep,
-      isCurrentStep,
+      isCompletedStage,
+      isCurrentStage,
       hasVisited,
       icon,
       label,
@@ -41,7 +41,9 @@ const HorizontalStep = React.forwardRef<HTMLDivElement, StepSharedProps>(
     const opacity = hasVisited ? 1 : 0.8;
 
     const active =
-      variant === "line" ? isCompletedStep || isCurrentStep : isCompletedStep;
+      variant === "line"
+        ? isCompletedStage || isCurrentStage
+        : isCompletedStage;
 
     const checkIcon = checkIconProp || checkIconContext;
     const errorIcon = errorIconProp || errorIconContext;
@@ -50,7 +52,7 @@ const HorizontalStep = React.forwardRef<HTMLDivElement, StepSharedProps>(
       <div
         aria-disabled={!hasVisited}
         className={cn(
-          "stepper__horizontal-step",
+          "stages__horizontal-stage",
           "flex items-center relative transition-all duration-200",
           "[&:not(:last-child)]:flex-1",
           "[&:not(:last-child)]:after:transition-all [&:not(:last-child)]:after:duration-200",
@@ -58,38 +60,38 @@ const HorizontalStep = React.forwardRef<HTMLDivElement, StepSharedProps>(
           "data-[completed=true]:[&:not(:last-child)]:after:bg-primary",
           "data-[invalid=true]:[&:not(:last-child)]:after:bg-destructive",
           variant === "circle-alt" &&
-            "justify-start flex-col flex-1 [&:not(:last-child)]:after:relative [&:not(:last-child)]:after:order-[-1] [&:not(:last-child)]:after:start-[50%] [&:not(:last-child)]:after:end-[50%] [&:not(:last-child)]:after:top-[calc(var(--step-icon-size)/2)] [&:not(:last-child)]:after:w-[calc((100%-var(--step-icon-size))-(var(--step-gap)))]",
+            "justify-start flex-col flex-1 [&:not(:last-child)]:after:relative [&:not(:last-child)]:after:order-[-1] [&:not(:last-child)]:after:start-[50%] [&:not(:last-child)]:after:end-[50%] [&:not(:last-child)]:after:top-[calc(var(--stage-icon-size)/2)] [&:not(:last-child)]:after:w-[calc((100%-var(--stage-icon-size))-(var(--stage-gap)))]",
           variant === "circle" &&
-            "[&:not(:last-child)]:after:flex-1 [&:not(:last-child)]:after:ms-[var(--step-gap)] [&:not(:last-child)]:after:me-[var(--step-gap)]",
+            "[&:not(:last-child)]:after:flex-1 [&:not(:last-child)]:after:ms-[var(--stage-gap)] [&:not(:last-child)]:after:me-[var(--stage-gap)]",
           variant === "line" &&
             "flex-col flex-1 border-t-[3px] data-[active=true]:border-primary",
-          styles?.["horizontal-step"]
+          styles?.["horizontal-stage"]
         )}
-        data-optional={steps[index || 0]?.optional}
-        data-completed={isCompletedStep}
+        data-optional={stages[index || 0]?.optional}
+        data-completed={isCompletedStage}
         data-active={active}
         data-invalid={localIsError}
         data-clickable={clickable}
-        onClick={() => onClickStep?.(index || 0, setStep)}
+        onClick={() => onClickStage?.(index || 0, setStage)}
         ref={ref}
       >
         <div
           className={cn(
-            "stepper__horizontal-step-container",
+            "stages__horizontal-stage-container",
             "flex items-center",
             variant === "circle-alt" && "flex-col justify-center gap-1",
             variant === "line" && "w-full",
-            styles?.["horizontal-step-container"]
+            styles?.["horizontal-stage-container"]
           )}
         >
-          <StepButtonContainer
+          <StageButtonContainer
             {...{ ...props, isError: localIsError, isLoading: localIsLoading }}
           >
-            <StepIcon
+            <StageIcon
               {...{
                 index,
-                isCompletedStep,
-                isCurrentStep,
+                isCompletedStage,
+                isCurrentStage,
                 isError: localIsError,
                 isKeepError,
                 isLoading: localIsLoading,
@@ -98,11 +100,11 @@ const HorizontalStep = React.forwardRef<HTMLDivElement, StepSharedProps>(
               checkIcon={checkIcon}
               errorIcon={errorIcon}
             />
-          </StepButtonContainer>
-          <StepLabel
+          </StageButtonContainer>
+          <StageLabel
             label={label}
             description={description}
-            {...{ isCurrentStep, opacity }}
+            {...{ isCurrentStage, opacity }}
           />
         </div>
       </div>
@@ -110,4 +112,4 @@ const HorizontalStep = React.forwardRef<HTMLDivElement, StepSharedProps>(
   }
 );
 
-export { HorizontalStep };
+export { HorizontalStage };

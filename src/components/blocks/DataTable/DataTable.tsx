@@ -142,6 +142,7 @@ export function DataTable<TData, TValue>({
     columns,
     manualPagination: true,
     manualFiltering: true,
+
     state: {
       sorting,
       columnFilters,
@@ -202,22 +203,34 @@ export function DataTable<TData, TValue>({
           {!isLoading && (
             <TableBody>
               {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                    className="group"
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))
+                table.getRowModel().rows.map((row) => {
+                  console.log(
+                    row,
+                    row.getAllCells().map((cell) => cell.getValue())
+                  );
+                  const everyCellIsEmpty = row
+                    .getAllCells()
+                    .map((cell) => cell.getValue())
+                    .every((value) => !Boolean(value));
+
+                  if (everyCellIsEmpty) return null;
+                  return (
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && "selected"}
+                      className="group"
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  );
+                })
               ) : (
                 <TableRow>
                   <TableCell

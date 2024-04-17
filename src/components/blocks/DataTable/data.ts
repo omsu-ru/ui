@@ -331,5 +331,5 @@ export async function fetchData(
   );
 
   // Apply pagination after filtering and sorting.
-  return sortedFilteredData.slice(page * count, (page + 1) * count);
+  return sortedFilteredData;
 }

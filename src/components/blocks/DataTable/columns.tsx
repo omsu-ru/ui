@@ -110,9 +110,9 @@ export const columns: ColumnDef<Professor>[] = [
     header: () => <div>Кафедра</div>,
     cell: ({ row }) => {
       const department = departments.find(
-        (department) => department.label === row.getValue("department")
+        (department) => department?.label === row.getValue("department")
       );
-      return <div className=" font-medium">{department.label}</div>;
+      return <div className=" font-medium">{department?.label}</div>;
     },
   },
   {

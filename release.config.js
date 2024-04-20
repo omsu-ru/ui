@@ -18,7 +18,6 @@ module.exports = {
       "@semantic-release/npm",
       {
         npmPublish: true,
-        tarballDir: "lib",
       },
     ],
     "@semantic-release/github",

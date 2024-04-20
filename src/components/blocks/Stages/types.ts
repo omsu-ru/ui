@@ -1,10 +1,11 @@
 import type { LucideIcon } from "lucide-react";
+import { ReactNode } from "react";
 
 type IconType = LucideIcon | React.ComponentType<any> | undefined;
 
 type StageItem = {
   id?: string;
-  label?: string;
+  label?: string | ReactNode;
   description?: string;
   icon?: IconType;
   optional?: boolean;

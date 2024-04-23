@@ -57,6 +57,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   isLoading?: boolean;
   initialFilters?: CustomColumnFilter<TData>[];
+  extraFetchOptions?: Object;
   onColumnFiltersChange?: (columnFilters: CustomColumnFilter<TData>[]) => void;
   fetchFn: (
     pageIndex: number,
@@ -91,6 +92,7 @@ export function DataTable<TData, TValue>({
   noResults = "Ничего не найдено",
   isLoading,
   fetchFn,
+  extraFetchOptions,
   ...props
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -109,6 +111,7 @@ export function DataTable<TData, TValue>({
     count: pageSize,
     columnFilters,
     sorting,
+    extraFetchOptions,
   };
 
   const searchQuery =
@@ -175,8 +178,6 @@ export function DataTable<TData, TValue>({
     // getPaginationRowModel: getPaginationRowModel(),
   });
 
-  console.log(table.getState());
-
   return (
     <>
       <DataTableToolbar filters={filters} table={table} />
@@ -204,10 +205,6 @@ export function DataTable<TData, TValue>({
             <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => {
-                  console.log(
-                    row,
-                    row.getAllCells().map((cell) => cell.getValue())
-                  );
                   const everyCellIsEmpty = row
                     .getAllCells()
                     .map((cell) => cell.getValue())
